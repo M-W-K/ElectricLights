@@ -1,0 +1,8 @@
+{
+    "item.electriclights.redstone_silicate": "Redstone-Silicate Blend",
+    "item.electriclights.redstone_bulb": "Redstone-Silicate Bulb",
+    "item.electriclights.electric_light": "Electric Light",
+    "block.electriclights.electric_light": "Electric Light",
+    "item.electriclights.electric_relay": "Electric Relay",
+    "block.electriclights.electric_relay": "Electric Relay"
+}

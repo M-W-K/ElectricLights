@@ -1,0 +1,114 @@
+{
+  "variants": {
+    "facing=north,lightstate=-1": {
+      "model": "",
+      "y": 270
+    },
+    "facing=south,lightstate=-1": {
+      "model": "",
+      "y": 90
+    },
+    "facing=west,lightstate=-1": {
+      "model": "",
+      "y": 180
+    },
+    "facing=east,lightstate=-1": {
+      "model": "",
+      "y": 0
+    },
+    "facing=up,lightstate=-1": {
+      "model": ""
+    },
+    "facing=down,lightstate=-1": {
+      "model": ""
+    },
+    "facing=north,lightstate=0": {
+      "model": "",
+      "y": 270
+    },
+    "facing=south,lightstate=0": {
+      "model": "",
+      "y": 90
+    },
+    "facing=west,lightstate=0": {
+      "model": "",
+      "y": 180
+    },
+    "facing=east,lightstate=0": {
+      "model": "",
+      "y": 0
+    },
+    "facing=up,lightstate=0": {
+      "model": ""
+    },
+    "facing=down,lightstate=0": {
+      "model": ""
+    },
+    "facing=north,lightstate=1": {
+      "model": "",
+      "y": 270
+    },
+    "facing=south,lightstate=1": {
+      "model": "",
+      "y": 90
+    },
+    "facing=west,lightstate=1": {
+      "model": "",
+      "y": 180
+    },
+    "facing=east,lightstate=1": {
+      "model": "",
+      "y": 0
+    },
+    "facing=up,lightstate=1": {
+      "model": ""
+    },
+    "facing=down,lightstate=1": {
+      "model": ""
+    },
+    "facing=north,lightstate=2": {
+      "model": "",
+      "y": 270
+    },
+    "facing=south,lightstate=2": {
+      "model": "",
+      "y": 90
+    },
+    "facing=west,lightstate=2": {
+      "model": "",
+      "y": 180
+    },
+    "facing=east,lightstate=2": {
+      "model": "",
+      "y": 0
+    },
+    "facing=up,lightstate=2": {
+      "model": ""
+    },
+    "facing=down,lightstate=2": {
+      "model": ""
+    },
+    "facing=north,lightstate=3": {
+      "model": "",
+      "y": 270
+    },
+    "facing=south,lightstate=3": {
+      "model": "",
+      "y": 90
+    },
+    "facing=west,lightstate=3": {
+      "model": "",
+      "y": 180
+    },
+    "facing=east,lightstate=3": {
+      "model": "",
+      "y": 0
+    },
+    "facing=up,lightstate=3": {
+      "model": ""
+    },
+    "facing=down,lightstate=3": {
+      "model": ""
+    }
+  }
+}

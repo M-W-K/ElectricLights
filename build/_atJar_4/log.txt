@@ -1,0 +1,7 @@
+Java Launcher: /Users/michael/Library/Application Support/minecraft/runtime/java-runtime-beta/mac-os/java-runtime-beta/jre.bundle/Contents/Home/bin/java
+Arguments: '--inJar, /Users/michael/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.19.3-44.1.0/forge-1.19.3-44.1.0-injected.jar, --outJar, /Users/michael/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.19.3-44.1.0_mapped_official_1.19.3/forge-1.19.3-44.1.0_mapped_official_1.19.3.jar, --logFile, accesstransform.log, --atFile, /Users/michael/Documents/IntelliJ Projects/build/_atJar_4/parent_at.cfg'
+Classpath:
+ - /Users/michael/.gradle/caches/forge_gradle/maven_downloader/net/minecraftforge/accesstransformers/8.0.7/accesstransformers-8.0.7-fatjar.jar
+Working directory: /Users/michael/Documents/IntelliJ Projects/build/_atJar_4
+Main class: net.minecraftforge.accesstransformer.TransformerProcessor
+====================================

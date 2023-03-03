@@ -1,0 +1,194 @@
+---- Minecraft Crash Report ----
+// Who set us up the TNT?
+
+Time: 2023-02-28 16:43:55
+Description: Unexpected error
+
+java.lang.IllegalArgumentException: graph must contain the start vertex
+	at org.jgrapht.traverse.CrossComponentIterator.<init>(CrossComponentIterator.java:135) ~[jgrapht-core-1.5.1.jar:?] {re:classloading}
+	at org.jgrapht.traverse.CrossComponentIterator.<init>(CrossComponentIterator.java:98) ~[jgrapht-core-1.5.1.jar:?] {re:classloading}
+	at org.jgrapht.traverse.BreadthFirstIterator.<init>(BreadthFirstIterator.java:64) ~[jgrapht-core-1.5.1.jar:?] {re:classloading}
+	at org.jgrapht.alg.connectivity.ConnectivityInspector.connectedSetOf(ConnectivityInspector.java:106) ~[jgrapht-core-1.5.1.jar:?] {re:classloading}
+	at ElectricLightsGraph.getConnectedNodes(ElectricLightsGraph.java:48) ~[main/:?] {re:classloading}
+	at ElectricLightsMod.getConnectedNodes(ElectricLightsMod.java:126) ~[main/:?] {re:classloading,pl:eventbus:A}
+	at MasterSwitchboardBlockEntity.refreshConnectedList(MasterSwitchboardBlockEntity.java:50) ~[main/:?] {re:classloading}
+	at MasterSwitchboardBlockEntity.onLoad(MasterSwitchboardBlockEntity.java:42) ~[main/:?] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk.addAndRegisterBlockEntity(LevelChunk.java:327) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk.setBlockState(LevelChunk.java:257) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading}
+	at net.minecraft.world.level.Level.setBlock(Level.java:214) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.client.multiplayer.ClientLevel.setBlock(ClientLevel.java:160) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.world.level.Level.setBlock(Level.java:191) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.world.item.BlockItem.placeBlock(BlockItem.java:163) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading}
+	at net.minecraft.world.item.BlockItem.place(BlockItem.java:68) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading}
+	at net.minecraft.world.item.BlockItem.useOn(BlockItem.java:46) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading}
+	at net.minecraft.world.item.ItemStack.lambda$useOn$5(ItemStack.java:245) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,xf:fml:forge:itemstack}
+	at net.minecraft.world.item.ItemStack.onItemUse(ItemStack.java:260) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,xf:fml:forge:itemstack}
+	at net.minecraft.world.item.ItemStack.useOn(ItemStack.java:245) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,xf:fml:forge:itemstack}
+	at net.minecraft.client.multiplayer.MultiPlayerGameMode.performUseItemOn(MultiPlayerGameMode.java:341) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.client.multiplayer.MultiPlayerGameMode.lambda$useItemOn$4(MultiPlayerGameMode.java:296) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.client.multiplayer.MultiPlayerGameMode.startPrediction(MultiPlayerGameMode.java:250) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.client.multiplayer.MultiPlayerGameMode.useItemOn(MultiPlayerGameMode.java:295) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.startUseItem(Minecraft.java:1696) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:accesstransformer:B,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.handleKeybinds(Minecraft.java:1976) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:accesstransformer:B,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.tick(Minecraft.java:1793) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:accesstransformer:B,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1097) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:accesstransformer:B,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.run(Minecraft.java:713) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:accesstransformer:B,pl:runtimedistcleaner:A}
+	at net.minecraft.client.main.Main.run(Main.java:212) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.client.main.Main.main(Main.java:51) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:runtimedistcleaner:A}
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?] {}
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?] {}
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?] {}
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?] {}
+	at net.minecraftforge.fml.loading.targets.ForgeClientUserdevLaunchHandler.lambda$launchService$0(ForgeClientUserdevLaunchHandler.java:25) ~[fmlloader-1.19.3-44.1.0.jar:?] {}
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.8.jar:?] {}
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.8.jar:?] {}
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.8.jar:?] {}
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:106) ~[modlauncher-10.0.8.jar:?] {}
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:77) ~[modlauncher-10.0.8.jar:?] {}
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.8.jar:?] {}
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.8.jar:?] {}
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Render thread
+Stacktrace:
+	at org.jgrapht.traverse.CrossComponentIterator.<init>(CrossComponentIterator.java:135) ~[jgrapht-core-1.5.1.jar%23196!/:?] {re:classloading}
+	at org.jgrapht.traverse.CrossComponentIterator.<init>(CrossComponentIterator.java:98) ~[jgrapht-core-1.5.1.jar%23196!/:?] {re:classloading}
+	at org.jgrapht.traverse.BreadthFirstIterator.<init>(BreadthFirstIterator.java:64) ~[jgrapht-core-1.5.1.jar%23196!/:?] {re:classloading}
+	at org.jgrapht.alg.connectivity.ConnectivityInspector.connectedSetOf(ConnectivityInspector.java:106) ~[jgrapht-core-1.5.1.jar%23196!/:?] {re:classloading}
+	at ElectricLightsGraph.getConnectedNodes(ElectricLightsGraph.java:48) ~[%23189!/:?] {re:classloading}
+	at ElectricLightsMod.getConnectedNodes(ElectricLightsMod.java:126) ~[%23189!/:?] {re:classloading,pl:eventbus:A}
+	at MasterSwitchboardBlockEntity.refreshConnectedList(MasterSwitchboardBlockEntity.java:50) ~[%23189!/:?] {re:classloading}
+	at MasterSwitchboardBlockEntity.onLoad(MasterSwitchboardBlockEntity.java:42) ~[%23189!/:?] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk.addAndRegisterBlockEntity(LevelChunk.java:327) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk.setBlockState(LevelChunk.java:257) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading}
+	at net.minecraft.world.level.Level.setBlock(Level.java:214) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.client.multiplayer.ClientLevel.setBlock(ClientLevel.java:160) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.world.level.Level.setBlock(Level.java:191) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.world.item.BlockItem.placeBlock(BlockItem.java:163) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading}
+	at net.minecraft.world.item.BlockItem.place(BlockItem.java:68) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading}
+	at net.minecraft.world.item.BlockItem.useOn(BlockItem.java:46) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading}
+	at net.minecraft.world.item.ItemStack.lambda$useOn$5(ItemStack.java:245) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,xf:fml:forge:itemstack}
+	at net.minecraft.world.item.ItemStack.onItemUse(ItemStack.java:260) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,xf:fml:forge:itemstack}
+	at net.minecraft.world.item.ItemStack.useOn(ItemStack.java:245) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,xf:fml:forge:itemstack}
+	at net.minecraft.client.multiplayer.MultiPlayerGameMode.performUseItemOn(MultiPlayerGameMode.java:341) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.client.multiplayer.MultiPlayerGameMode.lambda$useItemOn$4(MultiPlayerGameMode.java:296) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.client.multiplayer.MultiPlayerGameMode.startPrediction(MultiPlayerGameMode.java:250) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.client.multiplayer.MultiPlayerGameMode.useItemOn(MultiPlayerGameMode.java:295) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.startUseItem(Minecraft.java:1696) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.handleKeybinds(Minecraft.java:1976) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B,pl:runtimedistcleaner:A}
+-- Affected level --
+Details:
+	All players: 1 total; [LocalPlayer['Dev'/211, l='ClientLevel', x=8.39, y=86.15, z=20.49]]
+	Chunk stats: 961, 609
+	Level dimension: minecraft:overworld
+	Level spawn location: World: (0,84,0), Section: (at 0,4,0 in 0,5,0; chunk contains blocks 0,-64,0 to 15,319,15), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,-64,0 to 511,319,511)
+	Level time: 13436 game time, 13436 day time
+	Server brand: forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.ClientLevel.fillReportDetails(ClientLevel.java:452) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.fillReport(Minecraft.java:2319) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:accesstransformer:B,pl:runtimedistcleaner:A}
+	at net.minecraft.client.Minecraft.run(Minecraft.java:735) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:accesstransformer:B,pl:runtimedistcleaner:A}
+	at net.minecraft.client.main.Main.run(Main.java:212) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.client.main.Main.main(Main.java:51) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar:?] {re:classloading,pl:runtimedistcleaner:A}
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?] {}
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?] {}
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?] {}
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?] {}
+	at net.minecraftforge.fml.loading.targets.ForgeClientUserdevLaunchHandler.lambda$launchService$0(ForgeClientUserdevLaunchHandler.java:25) ~[fmlloader-1.19.3-44.1.0.jar:?] {}
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.8.jar:?] {}
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.8.jar:?] {}
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.8.jar:?] {}
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:106) ~[modlauncher-10.0.8.jar:?] {}
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:77) ~[modlauncher-10.0.8.jar:?] {}
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.8.jar:?] {}
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.8.jar:?] {}
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?] {}
+
+
+-- Last reload --
+Details:
+	Reload number: 1
+	Reload reason: initial
+	Finished: Yes
+	Packs: vanilla, mod_resources
+
+-- System Details --
+Details:
+	Minecraft Version: 1.19.3
+	Minecraft Version ID: 1.19.3
+	Operating System: Mac OS X (x86_64) version 13.2.1
+	Java Version: 17.0.1, Microsoft
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Microsoft
+	Memory: 1109431808 bytes (1058 MiB) / 2319450112 bytes (2212 MiB) up to 4294967296 bytes (4096 MiB)
+	CPUs: 8
+	Processor Vendor: Apple Inc.
+	Processor Name: Apple M1
+	Identifier: Apple Inc. Family 0x1b588bb3 Model 0 Stepping 0
+	Microarchitecture: ARM64 SoC: Firestorm + Icestorm
+	Frequency (GHz): 3.20
+	Number of physical packages: 1
+	Number of physical CPUs: 8
+	Number of logical CPUs: 8
+	Graphics card #0 name: Apple M1
+	Graphics card #0 vendor: Apple (0x106b)
+	Graphics card #0 VRAM (MB): 0.00
+	Graphics card #0 deviceId: unknown
+	Graphics card #0 versionInfo: unknown
+	Memory slot #0 capacity (MB): 0.00
+	Memory slot #0 clockSpeed (GHz): 0.00
+	Memory slot #0 type: unknown
+	Virtual memory max (MB): 17408.00
+	Virtual memory used (MB): 13005.11
+	Swap memory total (MB): 1024.00
+	Swap memory used (MB): 531.00
+	JVM Flags: 1 total; -Xss1M
+	Launched Version: MOD_DEV
+	Backend library: LWJGL version 3.3.1 build 7
+	Backend API: Apple M1 GL version 4.1 Metal - 83, Apple
+	Window size: 1708x960
+	GL Caps: Using framebuffer using OpenGL 3.2
+	GL debug messages: <disabled>
+	Using VBOs: Yes
+	Is Modded: Definitely; Client brand changed to 'forge'; Server brand changed to 'forge'
+	Type: Integrated Server (map_client.txt)
+	GPU Warnings: version: Metal
+	Graphics mode: fancy
+	Resource Packs: 
+	Current Language: English (US)
+	CPU: 8x Apple M1
+	Server Running: true
+	Player Count: 1 / 8; [ServerPlayer['Dev'/211, l='ServerLevel[Testing]', x=8.39, y=86.15, z=20.49]]
+	Data Packs: vanilla, mod:forge, mod:electriclights
+	Enabled Feature Flags: minecraft:vanilla
+	World Generation: Experimental
+	ModLauncher: 10.0.8+10.0.8+main.0ef7e830
+	ModLauncher launch target: forgeclientuserdev
+	ModLauncher naming: mcp
+	ModLauncher services: 
+		mixin-0.8.5.jar mixin PLUGINSERVICE 
+		eventbus-6.0.3.jar eventbus PLUGINSERVICE 
+		fmlloader-1.19.3-44.1.0.jar slf4jfixer PLUGINSERVICE 
+		fmlloader-1.19.3-44.1.0.jar object_holder_definalize PLUGINSERVICE 
+		fmlloader-1.19.3-44.1.0.jar runtime_enum_extender PLUGINSERVICE 
+		fmlloader-1.19.3-44.1.0.jar capability_token_subclass PLUGINSERVICE 
+		accesstransformers-8.0.4.jar accesstransformer PLUGINSERVICE 
+		fmlloader-1.19.3-44.1.0.jar runtimedistcleaner PLUGINSERVICE 
+		modlauncher-10.0.8.jar mixin TRANSFORMATIONSERVICE 
+		modlauncher-10.0.8.jar fml TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		minecraft@1.0
+		lowcodefml@null
+		javafml@null
+	Mod List: 
+		forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.|Minecraft                     |minecraft                     |1.19.3              |DONE      |Manifest: a1:d4:5e:04:4f:d3:d6:e0:7b:37:97:cf:77:b0:de:ad:4a:47:ce:8c:96:49:5f:0a:cf:8c:ae:b2:6d:4b:8a:3f
+		                                                  |Forge                         |forge                         |44.1.0              |DONE      |Manifest: NOSIGNATURE
+		main                                              |Electric Lights               |electriclights                |0.0NONE             |DONE      |Manifest: NOSIGNATURE
+	Crash Report UUID: 6007de2c-ff40-4fe3-a40d-70f32d382209
+	FML: 44.1
+	Forge: net.minecraftforge:44.1.0

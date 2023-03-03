@@ -1,0 +1,136 @@
+---- Minecraft Crash Report ----
+// Surprise! Haha. Well, this is awkward.
+
+Time: 2023-02-28 21:59:42
+Description: Ticking block entity
+
+java.lang.ArithmeticException: / by zero
+	at MasterSwitchboardBlockEntity.tick(MasterSwitchboardBlockEntity.java:71) ~[%23189!/:?] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk$BoundTickingBlockEntity.tick(LevelChunk.java:686) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk$RebindableTickingBlockEntityWrapper.tick(LevelChunk.java:779) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading}
+	at net.minecraft.world.level.Level.tickBlockEntities(Level.java:468) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.level.ServerLevel.tick(ServerLevel.java:335) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:876) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:816) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:85) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:664) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:251) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at java.lang.Thread.run(Thread.java:833) ~[?:?] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Server thread
+Stacktrace:
+	at MasterSwitchboardBlockEntity.tick(MasterSwitchboardBlockEntity.java:71) ~[%23189!/:?] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk$BoundTickingBlockEntity.tick(LevelChunk.java:686) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk$RebindableTickingBlockEntityWrapper.tick(LevelChunk.java:779) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading}
+	at net.minecraft.world.level.Level.tickBlockEntities(Level.java:468) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.level.ServerLevel.tick(ServerLevel.java:335) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+-- Block entity being ticked --
+Details:
+	Name: electriclights:master_switchboard // MasterSwitchboardBlockEntity
+	Block: Block{electriclights:master_switchboard}
+	Block location: World: (13,87,25), Section: (at 13,7,9 in 0,5,1; chunk contains blocks 0,-64,16 to 15,319,31), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,-64,0 to 511,319,511)
+	Block: Block{electriclights:master_switchboard}
+	Block location: World: (13,87,25), Section: (at 13,7,9 in 0,5,1; chunk contains blocks 0,-64,16 to 15,319,31), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,-64,0 to 511,319,511)
+Stacktrace:
+	at net.minecraft.world.level.chunk.LevelChunk$BoundTickingBlockEntity.tick(LevelChunk.java:686) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk$RebindableTickingBlockEntityWrapper.tick(LevelChunk.java:779) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading}
+	at net.minecraft.world.level.Level.tickBlockEntities(Level.java:468) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.level.ServerLevel.tick(ServerLevel.java:335) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:876) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:816) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:85) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:664) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:251) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at java.lang.Thread.run(Thread.java:833) ~[?:?] {}
+
+
+-- Affected level --
+Details:
+	All players: 1 total; [ServerPlayer['Dev'/212, l='ServerLevel[Testing]', x=15.34, y=87.28, z=24.51]]
+	Chunk stats: 2809
+	Level dimension: minecraft:overworld
+	Level spawn location: World: (0,84,0), Section: (at 0,4,0 in 0,5,0; chunk contains blocks 0,-64,0 to 15,319,15), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,-64,0 to 511,319,511)
+	Level time: 18201 game time, 18201 day time
+	Level name: Testing
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: true
+	Level weather: Rain time: 123995 (now: false), thunder time: 89466 (now: false)
+	Known server brands: forge
+	Level was modded: true
+	Level storage version: 0x04ABD - Anvil
+Stacktrace:
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:876) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:816) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:85) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:664) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:251) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at java.lang.Thread.run(Thread.java:833) ~[?:?] {}
+
+
+-- System Details --
+Details:
+	Minecraft Version: 1.19.3
+	Minecraft Version ID: 1.19.3
+	Operating System: Mac OS X (x86_64) version 13.2.1
+	Java Version: 17.0.1, Microsoft
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Microsoft
+	Memory: 1626706752 bytes (1551 MiB) / 2283798528 bytes (2178 MiB) up to 4294967296 bytes (4096 MiB)
+	CPUs: 8
+	Processor Vendor: Apple Inc.
+	Processor Name: Apple M1
+	Identifier: Apple Inc. Family 0x1b588bb3 Model 0 Stepping 0
+	Microarchitecture: ARM64 SoC: Firestorm + Icestorm
+	Frequency (GHz): 3.20
+	Number of physical packages: 1
+	Number of physical CPUs: 8
+	Number of logical CPUs: 8
+	Graphics card #0 name: Apple M1
+	Graphics card #0 vendor: Apple (0x106b)
+	Graphics card #0 VRAM (MB): 0.00
+	Graphics card #0 deviceId: unknown
+	Graphics card #0 versionInfo: unknown
+	Memory slot #0 capacity (MB): 0.00
+	Memory slot #0 clockSpeed (GHz): 0.00
+	Memory slot #0 type: unknown
+	Virtual memory max (MB): 17408.00
+	Virtual memory used (MB): 13005.28
+	Swap memory total (MB): 1024.00
+	Swap memory used (MB): 523.00
+	JVM Flags: 1 total; -Xss1M
+	Server Running: true
+	Player Count: 1 / 8; [ServerPlayer['Dev'/212, l='ServerLevel[Testing]', x=15.34, y=87.28, z=24.51]]
+	Data Packs: vanilla, mod:forge, mod:electriclights
+	Enabled Feature Flags: minecraft:vanilla
+	World Generation: Experimental
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'forge'; Server brand changed to 'forge'
+	Launched Version: MOD_DEV
+	ModLauncher: 10.0.8+10.0.8+main.0ef7e830
+	ModLauncher launch target: forgeclientuserdev
+	ModLauncher naming: mcp
+	ModLauncher services: 
+		mixin-0.8.5.jar mixin PLUGINSERVICE 
+		eventbus-6.0.3.jar eventbus PLUGINSERVICE 
+		fmlloader-1.19.3-44.1.0.jar slf4jfixer PLUGINSERVICE 
+		fmlloader-1.19.3-44.1.0.jar object_holder_definalize PLUGINSERVICE 
+		fmlloader-1.19.3-44.1.0.jar runtime_enum_extender PLUGINSERVICE 
+		fmlloader-1.19.3-44.1.0.jar capability_token_subclass PLUGINSERVICE 
+		accesstransformers-8.0.4.jar accesstransformer PLUGINSERVICE 
+		fmlloader-1.19.3-44.1.0.jar runtimedistcleaner PLUGINSERVICE 
+		modlauncher-10.0.8.jar mixin TRANSFORMATIONSERVICE 
+		modlauncher-10.0.8.jar fml TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		minecraft@1.0
+		lowcodefml@null
+		javafml@null
+	Mod List: 
+		forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.|Minecraft                     |minecraft                     |1.19.3              |DONE      |Manifest: a1:d4:5e:04:4f:d3:d6:e0:7b:37:97:cf:77:b0:de:ad:4a:47:ce:8c:96:49:5f:0a:cf:8c:ae:b2:6d:4b:8a:3f
+		                                                  |Forge                         |forge                         |44.1.0              |DONE      |Manifest: NOSIGNATURE
+		main                                              |Electric Lights               |electriclights                |0.0NONE             |DONE      |Manifest: NOSIGNATURE
+	Crash Report UUID: 668b830d-41ca-4456-bdbe-ac50bbef0941
+	FML: 44.1
+	Forge: net.minecraftforge:44.1.0

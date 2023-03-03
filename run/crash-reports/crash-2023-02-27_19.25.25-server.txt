@@ -1,0 +1,92 @@
+---- Minecraft Crash Report ----
+// Would you like a cupcake?
+
+Time: 2023-02-27 19:25:25
+Description: Exception in server tick loop
+
+java.lang.NoClassDefFoundError: org/jgrapht/Graph
+	at ElectricLightsMod.getLevelStorage(ElectricLightsMod.java:96) ~[%23189!/:?] {re:classloading,pl:eventbus:A}
+	at com.example.electriclights.__ElectricLightsMod_getLevelStorage_ServerStartedEvent.invoke(.dynamic) ~[%23189!/:?] {re:classloading,pl:eventbus:B}
+	at net.minecraftforge.eventbus.ASMEventHandler.invoke(ASMEventHandler.java:73) ~[eventbus-6.0.3.jar%23107!/:?] {}
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:315) ~[eventbus-6.0.3.jar%23107!/:?] {}
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:296) ~[eventbus-6.0.3.jar%23107!/:?] {}
+	at net.minecraftforge.server.ServerLifecycleHooks.handleServerStarted(ServerLifecycleHooks.java:111) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23183%23190!/:?] {re:classloading}
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:640) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:251) ~[forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.jar%23184!/:?] {re:classloading,pl:accesstransformer:B}
+	at java.lang.Thread.run(Thread.java:833) ~[?:?] {}
+Caused by: java.lang.ClassNotFoundException: org.jgrapht.Graph
+	at jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[?:?] {}
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:520) ~[?:?] {}
+	at cpw.mods.cl.ModuleClassLoader.loadClass(ModuleClassLoader.java:137) ~[securejarhandler-2.1.4.jar:?] {}
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:520) ~[?:?] {}
+	at cpw.mods.cl.ModuleClassLoader.loadClass(ModuleClassLoader.java:137) ~[securejarhandler-2.1.4.jar:?] {}
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:520) ~[?:?] {}
+	... 9 more
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 1.19.3
+	Minecraft Version ID: 1.19.3
+	Operating System: Mac OS X (x86_64) version 13.2.1
+	Java Version: 17.0.1, Microsoft
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), Microsoft
+	Memory: 891985440 bytes (850 MiB) / 1881145344 bytes (1794 MiB) up to 4294967296 bytes (4096 MiB)
+	CPUs: 8
+	Processor Vendor: Apple Inc.
+	Processor Name: Apple M1
+	Identifier: Apple Inc. Family 0x1b588bb3 Model 0 Stepping 0
+	Microarchitecture: ARM64 SoC: Firestorm + Icestorm
+	Frequency (GHz): 3.20
+	Number of physical packages: 1
+	Number of physical CPUs: 8
+	Number of logical CPUs: 8
+	Graphics card #0 name: Apple M1
+	Graphics card #0 vendor: Apple (0x106b)
+	Graphics card #0 VRAM (MB): 0.00
+	Graphics card #0 deviceId: unknown
+	Graphics card #0 versionInfo: unknown
+	Memory slot #0 capacity (MB): 0.00
+	Memory slot #0 clockSpeed (GHz): 0.00
+	Memory slot #0 type: unknown
+	Virtual memory max (MB): 17408.00
+	Virtual memory used (MB): 12240.75
+	Swap memory total (MB): 1024.00
+	Swap memory used (MB): 547.00
+	JVM Flags: 1 total; -Xss1M
+	Server Running: true
+	Player Count: 0 / 8; []
+	Data Packs: vanilla, mod:forge, mod:electriclights
+	Enabled Feature Flags: minecraft:vanilla
+	World Generation: Experimental
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'forge'; Server brand changed to 'forge'
+	Launched Version: MOD_DEV
+	ModLauncher: 10.0.8+10.0.8+main.0ef7e830
+	ModLauncher launch target: forgeclientuserdev
+	ModLauncher naming: mcp
+	ModLauncher services: 
+		mixin-0.8.5.jar mixin PLUGINSERVICE 
+		eventbus-6.0.3.jar eventbus PLUGINSERVICE 
+		fmlloader-1.19.3-44.1.0.jar slf4jfixer PLUGINSERVICE 
+		fmlloader-1.19.3-44.1.0.jar object_holder_definalize PLUGINSERVICE 
+		fmlloader-1.19.3-44.1.0.jar runtime_enum_extender PLUGINSERVICE 
+		fmlloader-1.19.3-44.1.0.jar capability_token_subclass PLUGINSERVICE 
+		accesstransformers-8.0.4.jar accesstransformer PLUGINSERVICE 
+		fmlloader-1.19.3-44.1.0.jar runtimedistcleaner PLUGINSERVICE 
+		modlauncher-10.0.8.jar mixin TRANSFORMATIONSERVICE 
+		modlauncher-10.0.8.jar fml TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		minecraft@1.0
+		lowcodefml@null
+		javafml@null
+	Mod List: 
+		forge-1.19.3-44.1.0_mapped_official_1.19.3-recomp.|Minecraft                     |minecraft                     |1.19.3              |DONE      |Manifest: a1:d4:5e:04:4f:d3:d6:e0:7b:37:97:cf:77:b0:de:ad:4a:47:ce:8c:96:49:5f:0a:cf:8c:ae:b2:6d:4b:8a:3f
+		                                                  |Forge                         |forge                         |44.1.0              |DONE      |Manifest: NOSIGNATURE
+		main                                              |Electric Lights               |electriclights                |0.0NONE             |DONE      |Manifest: NOSIGNATURE
+	Crash Report UUID: 81d20e64-a0a8-4856-b5d3-d3248ffe3a74
+	FML: 44.1
+	Forge: net.minecraftforge:44.1.0

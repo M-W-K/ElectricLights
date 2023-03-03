@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "   ",
+    "hsh",
+    "cwc"
+  ],
+  "key":
+  {
+    "w":
+    {
+      "tag": "minecraft:wooden_slabs"
+    },
+    "h":
+    {
+      "item": "minecraft:honeycomb"
+    },
+    "s":
+    {
+      "item": "electriclights:redstone_silicate"
+    },
+    "c":
+    {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  "result":
+  {
+    "item": "electriclights:electric_relay",
+    "count": 2
+  }
+}
