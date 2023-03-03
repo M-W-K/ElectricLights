@@ -66,7 +66,7 @@ public class ElectricLightsMod
     static DimensionDataStorage overworldDataStorage;
     static ElectricLightsGraph electricLightsGraph = ElectricLightsGraph.create();
 
-    public static final int NODE_CONNECT_DIST = 16;
+    public static final int NODE_CONNECT_DIST_SQR = 16 * 16;
     public static final int MINIMUM_SWITCHBOARD_UPDATE_INTERVAL = 10;
 
     public ElectricLightsMod()
@@ -109,24 +109,18 @@ public class ElectricLightsMod
             if (!node.toString().equals(graphNode.toString())) {
                 BlockPos pos1 = node.getPos();
                 BlockPos pos2 = graphNode.getPos();
-                if (Math.abs(pos2.getX() - pos1.getX()) <= NODE_CONNECT_DIST &&
-                        Math.abs(pos2.getY() - pos1.getY()) <= NODE_CONNECT_DIST &&
-                        Math.abs(pos2.getZ() - pos1.getZ()) <= NODE_CONNECT_DIST) {
+                if (pos1.distSqr(pos2) <= NODE_CONNECT_DIST_SQR) {
                     electricLightsGraph.addConnection(node, graphNode);
                 }
             }
         }
         electricLightsGraph.refreshSwitchboards(level);
         ElectricLightsMod.markGraphForSaving();
-        // logToConsole(electricLightsGraph.parsed()[0]);
-        // logToConsole(electricLightsGraph.parsed()[1]);
     }
     public static void removeGraphNode(GraphNode node, Level level) {
         electricLightsGraph.removeNode(node);
         electricLightsGraph.refreshSwitchboards(level);
         ElectricLightsMod.markGraphForSaving();
-        // logToConsole(electricLightsGraph.parsed()[0]);
-        // logToConsole(electricLightsGraph.parsed()[1]);
     }
     public static List<GraphNode> getSwitchboards() {
         return electricLightsGraph.getSwitchboards();
