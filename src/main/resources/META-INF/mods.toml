@@ -15,8 +15,8 @@ displayName="Electric Lights"
 # A URL for the "homepage" for this mod, displayed in the mod UI
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
 logoFile="logo.png"
-credits="Thanks to JoltLiz for basically all the textures, as well as @9 Octopus Brains#2036 on discord for inspiration."
-authors="M_W_K"
+credits="M_W_K for the programming work, JoltLiz for their significant texture help, @9 Octopus Brains#2036 on Discord for inspiration, and the developers of JGraphT for their library."
+authors="M_W_K, JoltLiz"
 # Display Test controls the display for your mod in the server connection screen
 # MATCH_VERSION means that your mod will cause a red X if the versions on client and server differ. This is the default behaviour and should be what you choose if you have server and client elements to your mod.
 # IGNORE_SERVER_VERSION means that your mod will not cause a red X if it's present on the server but not on the client. This is what you should use if you're a server only mod.
