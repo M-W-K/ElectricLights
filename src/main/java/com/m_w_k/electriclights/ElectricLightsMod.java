@@ -128,6 +128,7 @@ public class ElectricLightsMod
             event.accept(VOLTAGE_COIL_L_BLOCK_ITEM);
             event.accept(VOLTAGE_COIL_M_BLOCK_ITEM);
             event.accept(VOLTAGE_COIL_H_BLOCK_ITEM);
+            event.accept(ALTERNATOR_BLOCK_ITEM);
         }
     }
 
@@ -159,6 +160,9 @@ public class ElectricLightsMod
     }
     public static List<GraphNode> getSwitchboards() {
         return electricLightsGraph.getSwitchboards();
+    }
+    public static List<GraphNode> getGenerators() {
+        return electricLightsGraph.getGenerators();
     }
     public static Set<GraphNode> getConnectedNodes(GraphNode node) {
         return electricLightsGraph.getConnectedNodes(node);

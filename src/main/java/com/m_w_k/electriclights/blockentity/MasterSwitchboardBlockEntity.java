@@ -2,6 +2,7 @@ package com.m_w_k.electriclights.blockentity;
 
 import com.m_w_k.electriclights.ElectricLightsMod;
 import com.m_w_k.electriclights.GraphNode;
+import com.m_w_k.electriclights.block.AlternatorBlock;
 import com.m_w_k.electriclights.block.ElectricRelayBlock;
 import com.m_w_k.electriclights.block.VoltageBlock;
 import net.minecraft.core.BlockPos;
@@ -12,11 +13,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergyStorage {
     private Set<GraphNode> connectedNodes;
+    private final List<GraphNode> generators;
     private int energy = 0;
     private int voltage = -1;
     private final int maxEnergy = 120000;
@@ -34,6 +37,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
 
     public MasterSwitchboardBlockEntity(BlockPos pos, BlockState state) {
         super(ElectricLightsMod.MASTER_SWITCHBOARD.get(), pos, state);
+        generators = new ArrayList<>();
     }
 
     @Override
@@ -64,17 +68,21 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
         if (selfNode != null) {
             // ElectricLightsMod.logToConsole("Refreshing connected list");
             connectedNodes = ElectricLightsMod.getConnectedNodes(selfNode);
-            connectedNodes.remove(selfNode);
             List<GraphNode> switchboards = ElectricLightsMod.getSwitchboards();
+            List<GraphNode> generators = ElectricLightsMod.getGenerators();
+            connectedNodes.remove(selfNode);
+            generators.clear();
             servicedLightCount = 0;
             badConnect = false;
             for (GraphNode node : connectedNodes) {
-                if (switchboards.contains(node)) {
+                if (generators.contains(node)) {
+                    this.generators.add(node);
+                } else if (switchboards.contains(node)) {
                     badConnect = true;
                     updateServicedLights(1);
                     break;
-                }
-                if (node.isLight()) servicedLightCount++;
+                // logically, neither of the above should be lights.
+                } else if (node.isLight()) servicedLightCount++;
             }
         } else selfNode = findSelfNode();
     }
@@ -105,6 +113,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                 if (self.voltage != -1) {
                     if (self.ticksToNextUpdate <= self.ticksSinceLastUpdate || self.forceUpdate) {
                         self.energy -= self.voltage * self.servicedLightCount * self.ticksSinceLastUpdate;
+                        if (!self.generators.isEmpty()) self.energy += self.retrieveEnergy(self.maxEnergy - self.energy);
                         // ElectricLightsMod.logToConsole(String.valueOf(self.energy));
                         self.ticksToNextUpdate = Math.max(self.energy / (self.voltage * self.servicedLightCount), ElectricLightsMod.MINIMUM_SWITCHBOARD_UPDATE_INTERVAL);
                         if (self.energy <= 0) {
@@ -137,7 +146,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
     }
 
     private void updateServicedLights(int state) {
-        if (level == null) ElectricLightsMod.logToConsole("Warning! A Master Switchboard doesn't know its level and can't update because of it!");
+        if (level == null) ElectricLightsMod.logToConsole("Warning! A Master Switchboard doesn't know its level and can't update lights because of it!");
         else {
             if (level.getServer() != null && !level.getServer().isCurrentlySaving() && connectedNodes != null) {
                 for (GraphNode node : connectedNodes) {
@@ -154,6 +163,25 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                 }
             }
         }
+    }
+
+    private int retrieveEnergy(int maximum) {
+        if (level == null) ElectricLightsMod.logToConsole("Warning! A Master Switchboard doesn't know its level and can't retrieve energy because of it!");
+        else {
+            if (level.getServer() != null && !level.getServer().isCurrentlySaving()) {
+                int fulfilled = maximum;
+                for (GraphNode node : generators) {
+                    BlockEntity entity = level.getBlockEntity(node.getPos());
+                    try {
+                        Generator generator = (Generator) entity;
+                        assert generator != null;
+                        fulfilled -= generator.fetchEnergy(fulfilled);
+                    } catch (Exception ignored) {}
+                }
+                return maximum - fulfilled;
+            }
+        }
+        return 0;
     }
 
     @Override
