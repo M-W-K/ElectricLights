@@ -71,7 +71,6 @@ public class ElectricRelayBlock extends Block implements SimpleWaterloggedBlock 
         state = state.setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
 
         for (Direction candidate : context.getNearestLookingDirections()) {
-            ElectricLightsMod.logToConsole("Checking direction " + candidate.getName());
             state = state.setValue(FACING, candidate);
             if (state.canSurvive(context.getLevel(), blockpos)) {
                 return state;
