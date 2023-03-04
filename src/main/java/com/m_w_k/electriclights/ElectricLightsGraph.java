@@ -22,6 +22,7 @@ public class ElectricLightsGraph extends SavedData {
     private ConnectivityInspector<GraphNode, DefaultEdge> connectivityInspector;
     private boolean connectivityInspectorInvalid = false;
     private final List<GraphNode> switchboards = new ArrayList<>();
+    private final List<GraphNode> generators = new ArrayList<>();
     ElectricLightsGraph() {
         g = new SimpleGraph<>(DefaultEdge.class);
         connectivityInspector = new ConnectivityInspector<>(g);
@@ -43,10 +44,15 @@ public class ElectricLightsGraph extends SavedData {
     List<GraphNode> getSwitchboards() {
         return switchboards;
     }
+    List<GraphNode> getGenerators() {
+        return generators;
+    }
 
     void addNode(GraphNode node) {
         g.addVertex(node);
-        if (node.isSwitchboard())  switchboards.add(node);
+        if (node.getSpecialType() == null) {}
+        else if (node.getSpecialType().equals(ElectricLightsMod.SWITCHBOARD_STRING)) switchboards.add(node);
+        else if (node.getSpecialType().equals(ElectricLightsMod.GENERATOR_STRING)) generators.add(node);
         setInspectorInvalid();
     }
     void addConnection(GraphNode node1, GraphNode node2) {
@@ -55,7 +61,9 @@ public class ElectricLightsGraph extends SavedData {
     }
     void removeNode(GraphNode node) {
         g.removeVertex(node);
-        if (node.isSwitchboard()) switchboards.remove(node);
+        if (node.getSpecialType() == null) {}
+        else if (node.getSpecialType().equals(ElectricLightsMod.SWITCHBOARD_STRING)) switchboards.remove(node);
+        else if (node.getSpecialType().equals(ElectricLightsMod.GENERATOR_STRING)) generators.add(node);
         setInspectorInvalid();
     }
     // when removing a node, all connections to that node are automatically removed as well. Thus, this method should only very rarely be used.
@@ -117,11 +125,17 @@ public class ElectricLightsGraph extends SavedData {
 
     @Contract("_ -> new")
     private static @NotNull GraphNode generateNode(String[] data) {
-        if (Objects.equals(data[3], "SWITCHBOARD")) {
-            GraphNode node = new GraphNode(new BlockPos(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])), false, true);
+        if (data[3] == null) {}
+        else if (data[3].equals(ElectricLightsMod.SWITCHBOARD_STRING)) {
+            GraphNode node = new GraphNode(new BlockPos(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])), false, ElectricLightsMod.SWITCHBOARD_STRING);
             ElectricLightsMod.electricLightsGraph.switchboards.add(node);
             return node;
-        } else return new GraphNode(new BlockPos(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])), Boolean.parseBoolean(data[3]), false);
+        } else if (data[3].equals(ElectricLightsMod.GENERATOR_STRING)) {
+            GraphNode node = new GraphNode(new BlockPos(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])), false, ElectricLightsMod.GENERATOR_STRING);
+            ElectricLightsMod.electricLightsGraph.generators.add(node);
+            return node;
+        }
+        return new GraphNode(new BlockPos(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])), Boolean.parseBoolean(data[3]), null);
     }
     @Contract("_ -> new")
     private static @NotNull GraphNode generateNode(String unsplitData) {

@@ -103,7 +103,7 @@ public class ElectricRelayBlock extends Block implements SimpleWaterloggedBlock 
     @Override
     public void setPlacedBy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
         if (!level.isClientSide()) {
-            ElectricLightsMod.addGraphNodeAndAutoConnect(new GraphNode(pos, isLight, false), level);
+            ElectricLightsMod.addGraphNodeAndAutoConnect(new GraphNode(pos, isLight, null), level);
         }
     }
     /**
@@ -114,7 +114,7 @@ public class ElectricRelayBlock extends Block implements SimpleWaterloggedBlock 
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
             if (!level.isClientSide()) {
-                ElectricLightsMod.removeGraphNode(new GraphNode(pos, isLight, false), level);
+                ElectricLightsMod.removeGraphNode(new GraphNode(pos, isLight, null), level);
             }
             super.onRemove(state, level, pos, newState, isMoving);
         }

@@ -39,7 +39,7 @@ public class MasterSwitchboardBlock extends BaseEntityBlock {
     @Override
     public void setPlacedBy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
         if (!level.isClientSide()) {
-            ElectricLightsMod.addGraphNodeAndAutoConnect(new GraphNode(pos, false, true), level);
+            ElectricLightsMod.addGraphNodeAndAutoConnect(new GraphNode(pos, false, ElectricLightsMod.SWITCHBOARD_STRING), level);
             ElectricLightsMod.manageLoadedChunks((ServerLevel) level, pos, true);
         }
         super.setPlacedBy(level, pos, state, placer, stack);
@@ -52,7 +52,7 @@ public class MasterSwitchboardBlock extends BaseEntityBlock {
     public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
             if (!level.isClientSide()) {
-                ElectricLightsMod.removeGraphNode(new GraphNode(pos, false, true), level);
+                ElectricLightsMod.removeGraphNode(new GraphNode(pos, false, ElectricLightsMod.SWITCHBOARD_STRING), level);
                 ElectricLightsMod.manageLoadedChunks((ServerLevel) level, pos, false);
             }
             super.onRemove(state, level, pos, newState, isMoving);

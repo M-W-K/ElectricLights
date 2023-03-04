@@ -1,14 +1,17 @@
 package com.m_w_k.electriclights;
 
+import com.m_w_k.electriclights.block.AlternatorBlock;
 import com.m_w_k.electriclights.block.ElectricRelayBlock;
 import com.m_w_k.electriclights.block.MasterSwitchboardBlock;
 import com.m_w_k.electriclights.block.VoltageBlock;
+import com.m_w_k.electriclights.blockentity.AlternatorBlockEntity;
 import com.m_w_k.electriclights.blockentity.MasterSwitchboardBlockEntity;
 import com.m_w_k.electriclights.item.RedstoneBulbItem;
 import com.m_w_k.electriclights.item.RedstoneSilicateItem;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -46,11 +49,13 @@ public class ElectricLightsMod
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);
+    public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, MODID);
 
 
     public static final RegistryObject<Block> ELECTRIC_LIGHT = BLOCKS.register("electric_light", () -> new ElectricRelayBlock(BlockBehaviour.Properties.of(Material.DECORATION), true));
     public static final RegistryObject<Block> ELECTRIC_RELAY = BLOCKS.register("electric_relay", () -> new ElectricRelayBlock(BlockBehaviour.Properties.of(Material.DECORATION)));
     public static final RegistryObject<Block> SWITCHBOARD_BLOCK = BLOCKS.register("master_switchboard", () -> new MasterSwitchboardBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL)));
+    public static final RegistryObject<Block> ALTERNATOR_BLOCK = BLOCKS.register("alternator_generator", () -> new AlternatorBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL)));
     public static final RegistryObject<Block> VOLTAGE_COIL_L_BLOCK = BLOCKS.register("voltage_coil_l", () -> new VoltageBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL), 2));
     public static final RegistryObject<Block> VOLTAGE_COIL_M_BLOCK = BLOCKS.register("voltage_coil_m", () -> new VoltageBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL), 3));
     public static final RegistryObject<Block> VOLTAGE_COIL_H_BLOCK = BLOCKS.register("voltage_coil_h", () -> new VoltageBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL), 4));
@@ -58,6 +63,7 @@ public class ElectricLightsMod
     public static final RegistryObject<Item> ELECTRIC_LIGHT_BLOCK_ITEM = ITEMS.register("electric_light", () -> new BlockItem(ELECTRIC_LIGHT.get(), new Item.Properties()));
     public static final RegistryObject<Item> ELECTRIC_RELAY_BLOCK_ITEM = ITEMS.register("electric_relay", () -> new BlockItem(ELECTRIC_RELAY.get(), new Item.Properties()));
     public static final RegistryObject<Item> SWITCHBOARD_BLOCK_ITEM = ITEMS.register("master_switchboard", () -> new BlockItem(SWITCHBOARD_BLOCK.get(), new Item.Properties()));
+    public static final RegistryObject<Item> ALTERNATOR_BLOCK_ITEM = ITEMS.register("alternator_generator", () -> new BlockItem(ALTERNATOR_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<Item> VOLTAGE_COIL_L_BLOCK_ITEM = ITEMS.register("voltage_coil_l", () -> new BlockItem(VOLTAGE_COIL_L_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<Item> VOLTAGE_COIL_M_BLOCK_ITEM = ITEMS.register("voltage_coil_m", () -> new BlockItem(VOLTAGE_COIL_M_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<Item> VOLTAGE_COIL_H_BLOCK_ITEM = ITEMS.register("voltage_coil_h", () -> new BlockItem(VOLTAGE_COIL_H_BLOCK.get(), new Item.Properties()));
@@ -66,12 +72,21 @@ public class ElectricLightsMod
     public static final RegistryObject<Item> REDSTONE_BULB = ITEMS.register("redstone_bulb", RedstoneBulbItem::new);
     
     public static final RegistryObject<BlockEntityType<MasterSwitchboardBlockEntity>> MASTER_SWITCHBOARD = BLOCK_ENTITIES.register("master_switchboard", () -> BlockEntityType.Builder.of(MasterSwitchboardBlockEntity::new, SWITCHBOARD_BLOCK.get()).build(null));
+    public static final RegistryObject<BlockEntityType<AlternatorBlockEntity>> ALTERNATOR_GENERATOR = BLOCK_ENTITIES.register("alternator_generator", () -> BlockEntityType.Builder.of(AlternatorBlockEntity::new, ALTERNATOR_BLOCK.get()).build(null));
+
+    public static final RegistryObject<MenuType<AlternatorMenu>> ALTERNATOR_MENU = MENU_TYPES.register("alternator_generator", () -> new MenuType<>(AlternatorMenu::new));
 
     static DimensionDataStorage overworldDataStorage;
     static ElectricLightsGraph electricLightsGraph = ElectricLightsGraph.create();
 
+    public static final String SWITCHBOARD_STRING = "SWITCHBOARD";
+    public static final String GENERATOR_STRING = "GENERATOR";
+
     public static final int NODE_CONNECT_DIST_SQR = 16 * 16;
     public static final int MINIMUM_SWITCHBOARD_UPDATE_INTERVAL = 10;
+    public static final int ALTERNATOR_ENERGY_FACTOR = 156;
+    public static final int SOLAR_ENERGY_FACTOR = 72;
+    public static final int GEOTHERMAL_ENERGY_FACTOR = 48;
 
     static final ForgeChunkManager FORGE_CHUNK_MANAGER = null; // I think just having this somewhere is necessary for chunk loading, IDK if that's true, and I can't be bothered to find out
     static final List<ChunkPos> loadedChunks = new ArrayList<>();
@@ -83,6 +98,7 @@ public class ElectricLightsMod
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         BLOCK_ENTITIES.register(modEventBus);
+        MENU_TYPES.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
 
