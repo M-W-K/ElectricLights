@@ -4,6 +4,7 @@ import com.m_w_k.electriclights.ElectricLightsMod;
 import com.m_w_k.electriclights.GraphNode;
 import com.m_w_k.electriclights.blockentity.MasterSwitchboardBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,7 +32,7 @@ public class MasterSwitchboardBlock extends BaseEntityBlock {
     }
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
         return createTickerHelper(type, ElectricLightsMod.MASTER_SWITCHBOARD.get(), MasterSwitchboardBlockEntity::tick);
     }
 
@@ -39,6 +40,7 @@ public class MasterSwitchboardBlock extends BaseEntityBlock {
     public void setPlacedBy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
         if (!level.isClientSide()) {
             ElectricLightsMod.addGraphNodeAndAutoConnect(new GraphNode(pos, false, true), level);
+            ElectricLightsMod.manageLoadedChunks((ServerLevel) level, pos, true);
         }
         super.setPlacedBy(level, pos, state, placer, stack);
     }
@@ -47,10 +49,11 @@ public class MasterSwitchboardBlock extends BaseEntityBlock {
      */
     @SuppressWarnings("deprecation")
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+    public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
             if (!level.isClientSide()) {
                 ElectricLightsMod.removeGraphNode(new GraphNode(pos, false, true), level);
+                ElectricLightsMod.manageLoadedChunks((ServerLevel) level, pos, false);
             }
             super.onRemove(state, level, pos, newState, isMoving);
         }
@@ -58,7 +61,7 @@ public class MasterSwitchboardBlock extends BaseEntityBlock {
     // TODO delete this once power generation is working
     @SuppressWarnings("deprecation")
     @Override
-    public InteractionResult use(BlockState blockState, Level level, BlockPos pos, Player p_60506_, InteractionHand p_60507_, BlockHitResult p_60508_) {
+    public @NotNull InteractionResult use(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult hitResult) {
         if (!level.isClientSide()) {
             BlockEntity entity = level.getBlockEntity(pos);
             if (entity != null && entity.getClass() == MasterSwitchboardBlockEntity.class) {

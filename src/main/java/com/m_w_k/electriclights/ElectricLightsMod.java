@@ -8,28 +8,32 @@ import com.m_w_k.electriclights.item.RedstoneBulbItem;
 import com.m_w_k.electriclights.item.RedstoneSilicateItem;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.storage.DimensionDataStorage;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.world.ForgeChunkManager;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -70,6 +74,9 @@ public class ElectricLightsMod
     public static final int NODE_CONNECT_DIST_SQR = 16 * 16;
     public static final int MINIMUM_SWITCHBOARD_UPDATE_INTERVAL = 10;
 
+    static final ForgeChunkManager FORGE_CHUNK_MANAGER = null;
+    static final List<ChunkPos> loadedChunks = new ArrayList<>();
+
     public ElectricLightsMod()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -81,6 +88,18 @@ public class ElectricLightsMod
         MinecraftForge.EVENT_BUS.register(this);
 
         modEventBus.addListener(this::addCreative);
+    }
+
+    public static void manageLoadedChunks(ServerLevel level, BlockPos blockPos, boolean add) {
+        if (!level.isClientSide) {
+            ChunkPos chunkPos = level.getChunk(blockPos).getPos();
+            if (add && !loadedChunks.contains(chunkPos)) {
+                if (ForgeChunkManager.forceChunk(level, MODID, blockPos, chunkPos.x, chunkPos.z, true, false))
+                    loadedChunks.add(chunkPos);
+            } else if (!add && loadedChunks.contains(chunkPos))
+                    if (ForgeChunkManager.forceChunk(level, MODID, blockPos, chunkPos.x, chunkPos.z, false, false))
+                        loadedChunks.remove(chunkPos);
+        }
     }
 
     private void addCreative(CreativeModeTabEvent.BuildContents event)
