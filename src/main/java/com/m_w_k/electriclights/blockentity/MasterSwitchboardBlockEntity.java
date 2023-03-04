@@ -10,6 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.energy.IEnergyStorage;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Set;
@@ -26,6 +27,8 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
     private boolean forceUpdate = false;
     private GraphNode selfNode = null;
 
+    private boolean firstLoad = true;
+
     private boolean badConnect = false;
     private int ticksWithoutGoodConnect = 0;
 
@@ -33,19 +36,22 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
         super(ElectricLightsMod.MASTER_SWITCHBOARD.get(), pos, state);
     }
 
-    /**
-     * Only call this variant if you're providing the same level that the switchboard is on, as it sets the switchboard's own level to the one provided.
-     */
-    public void refresh(Level levelSwitchboardIsIn) {
-        setLevel(levelSwitchboardIsIn);
-        voltage = refreshVoltage();
-        refreshConnectedList();
-        forceUpdate = true;
-        this.setChanged();
+    @Override
+    public void onLoad() {
+        selfNode = findSelfNode();
+        refresh();
     }
 
     /**
-     * Safe variant that refreshes based on the switchboard's own level
+     * Only call this overload if you're providing the same level that the switchboard is on, as it sets the switchboard's own level to the one provided.
+     */
+    public void refresh(Level levelSwitchboardIsIn) {
+        setLevel(levelSwitchboardIsIn);
+        refresh();
+    }
+
+    /**
+     * Safe overload that refreshes based on the switchboard's own level
      */
     public void refresh() {
         voltage = refreshVoltage();
@@ -56,7 +62,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
 
     public void refreshConnectedList() {
         if (selfNode != null) {
-            ElectricLightsMod.logToConsole("Refreshing connected list");
+            // ElectricLightsMod.logToConsole("Refreshing connected list");
             connectedNodes = ElectricLightsMod.getConnectedNodes(selfNode);
             connectedNodes.remove(selfNode);
             List<GraphNode> switchboards = ElectricLightsMod.getSwitchboards();
@@ -70,13 +76,19 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                 }
                 if (node.isLight()) servicedLightCount++;
             }
-        } else {
-            for (GraphNode node : ElectricLightsMod.getSwitchboards()) {
-                if (node.getPos().equals(this.getBlockPos())) selfNode = node;
-            }
-
-        }
+        } else selfNode = findSelfNode();
     }
+    @Nullable
+    private GraphNode findSelfNode() {
+        // ElectricLightsMod.logToConsole("Finding self node");
+        for (GraphNode node : ElectricLightsMod.getSwitchboards()) {
+            if (node.getPos().equals(this.getBlockPos())) {
+                return node;
+            }
+        }
+        return null;
+    }
+
     private int refreshVoltage() {
         if (getLevel()!=null) {
             BlockState blockBelow = getLevel().getBlockState(worldPosition.below());
@@ -93,7 +105,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                 if (self.voltage != -1) {
                     if (self.ticksToNextUpdate <= self.ticksSinceLastUpdate || self.forceUpdate) {
                         self.energy -= self.voltage * self.servicedLightCount * self.ticksSinceLastUpdate;
-                        ElectricLightsMod.logToConsole(String.valueOf(self.energy));
+                        // ElectricLightsMod.logToConsole(String.valueOf(self.energy));
                         self.ticksToNextUpdate = Math.max(self.energy / (self.voltage * self.servicedLightCount), ElectricLightsMod.MINIMUM_SWITCHBOARD_UPDATE_INTERVAL);
                         if (self.energy <= 0) {
                             self.energy = 0;
@@ -103,7 +115,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                         } else self.updateServicedLights(self.voltage);
                         if (!self.hasCapacitor) self.hasCapacitor = true;
                         if (self.forceUpdate) self.forceUpdate = false;
-                        ElectricLightsMod.logToConsole(String.valueOf(self.ticksToNextUpdate));
+                        // ElectricLightsMod.logToConsole(String.valueOf(self.ticksToNextUpdate));
                         self.ticksSinceLastUpdate = 1; // 1 tick to compensate for this calculation tick
 
                     } else self.ticksSinceLastUpdate++;
@@ -111,13 +123,10 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                     self.updateServicedLights(1);
                     self.hasCapacitor = false;
                 }
-            } else if (self.ticksWithoutGoodConnect >= ElectricLightsMod.MINIMUM_SWITCHBOARD_UPDATE_INTERVAL * 10
-                    // likely due to graph setup, calling refresh() too soon after world load just doesn't work. So this bit is basically a delayed trigger.
-                    || (self.servicedLightCount == 0 && self.ticksWithoutGoodConnect >= 5)) {
+            } else if (self.ticksWithoutGoodConnect >= ElectricLightsMod.MINIMUM_SWITCHBOARD_UPDATE_INTERVAL * 10) {
                 self.refresh(level);
                 self.ticksWithoutGoodConnect = 1; // 1 tick to compensate for this calculation tick
-            }
-            else self.ticksWithoutGoodConnect++;
+            } else self.ticksWithoutGoodConnect++;
         }
     }
 
@@ -130,7 +139,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
     private void updateServicedLights(int state) {
         if (level == null) ElectricLightsMod.logToConsole("Warning! A Master Switchboard doesn't know its level and can't update because of it!");
         else {
-            if (level.getServer() != null && !level.getServer().isCurrentlySaving()) {
+            if (level.getServer() != null && !level.getServer().isCurrentlySaving() && connectedNodes != null) {
                 for (GraphNode node : connectedNodes) {
                     BlockState nodeState = level.getBlockState(node.getPos());
                     BlockState updatedState = nodeState;
