@@ -129,17 +129,20 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
 
     private void updateServicedLights(int state) {
         if (level == null) ElectricLightsMod.logToConsole("Warning! A Master Switchboard doesn't know its level and can't update because of it!");
-        else
-        for (GraphNode node : connectedNodes) {
-            BlockState nodeState = level.getBlockState(node.getPos());
-            BlockState updatedState = nodeState;
-            if (nodeState.getBlock().getClass() == ElectricRelayBlock.class) {
-                // don't allow flooded lights to glow, though things like relays are fine.
-                if (nodeState.getValue(ElectricRelayBlock.WATERLOGGED) && node.isLight()) {
-                    nodeState = nodeState.setValue(ElectricRelayBlock.LIGHTSTATE, 0);
-                } else nodeState = nodeState.setValue(ElectricRelayBlock.LIGHTSTATE, state);
-                // only update the light if the state has changed
-                if (updatedState != nodeState) level.setBlockAndUpdate(node.getPos(), nodeState);
+        else {
+            if (level.getServer() != null && !level.getServer().isCurrentlySaving()) {
+                for (GraphNode node : connectedNodes) {
+                    BlockState nodeState = level.getBlockState(node.getPos());
+                    BlockState updatedState = nodeState;
+                    if (nodeState.getBlock().getClass() == ElectricRelayBlock.class) {
+                        // don't allow flooded lights to glow, though things like relays are fine.
+                        if (nodeState.getValue(ElectricRelayBlock.WATERLOGGED) && node.isLight()) {
+                            nodeState = nodeState.setValue(ElectricRelayBlock.LIGHTSTATE, 0);
+                        } else nodeState = nodeState.setValue(ElectricRelayBlock.LIGHTSTATE, state);
+                        // only update the light if the state has changed
+                        if (updatedState != nodeState) level.setBlockAndUpdate(node.getPos(), nodeState);
+                    }
+                }
             }
         }
     }
