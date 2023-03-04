@@ -26,7 +26,6 @@ import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -74,7 +73,7 @@ public class ElectricLightsMod
     public static final int NODE_CONNECT_DIST_SQR = 16 * 16;
     public static final int MINIMUM_SWITCHBOARD_UPDATE_INTERVAL = 10;
 
-    static final ForgeChunkManager FORGE_CHUNK_MANAGER = null;
+    static final ForgeChunkManager FORGE_CHUNK_MANAGER = null; // I think just having this somewhere is necessary for chunk loading, IDK if that's true, and I can't be bothered to find out
     static final List<ChunkPos> loadedChunks = new ArrayList<>();
 
     public ElectricLightsMod()
