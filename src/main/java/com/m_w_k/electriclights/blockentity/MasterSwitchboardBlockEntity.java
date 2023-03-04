@@ -100,8 +100,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
     private int refreshVoltage() {
         if (getLevel()!=null) {
             BlockState blockBelow = getLevel().getBlockState(worldPosition.below());
-            if (blockBelow.getBlock().getClass() == VoltageBlock.class) {
-                VoltageBlock capacitor = (VoltageBlock) blockBelow.getBlock();
+            if (blockBelow.getBlock() instanceof VoltageBlock capacitor) {
                 return capacitor.getVoltage();
             } else return -1;
         } else return -1;
@@ -152,7 +151,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                 for (GraphNode node : connectedNodes) {
                     BlockState nodeState = level.getBlockState(node.getPos());
                     BlockState updatedState = nodeState;
-                    if (nodeState.getBlock().getClass() == ElectricRelayBlock.class) {
+                    if (nodeState.getBlock() instanceof ElectricRelayBlock) {
                         // don't allow flooded lights to glow, though things like relays are fine.
                         if (nodeState.getValue(ElectricRelayBlock.WATERLOGGED) && node.isLight()) {
                             nodeState = nodeState.setValue(ElectricRelayBlock.LIGHTSTATE, 0);
@@ -172,11 +171,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                 int fulfilled = maximum;
                 for (GraphNode node : generators) {
                     BlockEntity entity = level.getBlockEntity(node.getPos());
-                    try {
-                        Generator generator = (Generator) entity;
-                        assert generator != null;
-                        fulfilled -= generator.fetchEnergy(fulfilled);
-                    } catch (Exception ignored) {}
+                    if (entity instanceof Generator generator) fulfilled -= generator.fetchEnergy(fulfilled);
                 }
                 return maximum - fulfilled;
             }

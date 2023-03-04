@@ -64,8 +64,7 @@ public class MasterSwitchboardBlock extends BaseEntityBlock {
     public @NotNull InteractionResult use(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult hitResult) {
         if (!level.isClientSide()) {
             BlockEntity entity = level.getBlockEntity(pos);
-            if (entity != null && entity.getClass() == MasterSwitchboardBlockEntity.class) {
-                MasterSwitchboardBlockEntity switchboard = (MasterSwitchboardBlockEntity) entity;
+            if (entity instanceof MasterSwitchboardBlockEntity switchboard) {
                 switchboard.receiveEnergy(800, false);
             }
             return InteractionResult.CONSUME;

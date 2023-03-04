@@ -22,8 +22,7 @@ public class VoltageBlock extends Block {
     }
     private void refreshAboveSwitchboard(Level level, BlockPos pos) {
         BlockEntity blockEntity = level.getBlockEntity(pos.above());
-        if (blockEntity != null && blockEntity.getClass() == MasterSwitchboardBlockEntity.class) {
-            MasterSwitchboardBlockEntity switchboard = (MasterSwitchboardBlockEntity) blockEntity;
+        if (blockEntity instanceof MasterSwitchboardBlockEntity switchboard) {
             switchboard.refresh(level);
         }
     }

@@ -31,8 +31,7 @@ public class ElectricLightsGraph extends SavedData {
     void refreshSwitchboards(Level level) {
         for (GraphNode node : switchboards) {
             BlockEntity blockEntity = level.getBlockEntity(node.getPos());
-            if (blockEntity != null && blockEntity.getClass() == MasterSwitchboardBlockEntity.class) {
-                MasterSwitchboardBlockEntity switchboard = (MasterSwitchboardBlockEntity) blockEntity;
+            if (blockEntity instanceof MasterSwitchboardBlockEntity switchboard) {
                 switchboard.refresh(level);
             }
         }
