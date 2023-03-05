@@ -1,5 +1,7 @@
 package com.m_w_k.electriclights;
 
+import com.m_w_k.electriclights.Alternator.AlternatorMenu;
+import com.m_w_k.electriclights.Alternator.AlternatorScreen;
 import com.m_w_k.electriclights.block.AlternatorBlock;
 import com.m_w_k.electriclights.block.ElectricRelayBlock;
 import com.m_w_k.electriclights.block.MasterSwitchboardBlock;

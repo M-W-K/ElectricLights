@@ -1,5 +1,7 @@
-package com.m_w_k.electriclights;
+package com.m_w_k.electriclights.Alternator;
 
+import com.m_w_k.electriclights.Alternator.AlternatorFuelSlot;
+import com.m_w_k.electriclights.ElectricLightsMod;
 import com.m_w_k.electriclights.blockentity.AlternatorBlockEntity;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;

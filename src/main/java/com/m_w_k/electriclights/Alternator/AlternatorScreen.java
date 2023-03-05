@@ -1,5 +1,7 @@
-package com.m_w_k.electriclights;
+package com.m_w_k.electriclights.Alternator;
 
+import com.m_w_k.electriclights.Alternator.AlternatorMenu;
+import com.m_w_k.electriclights.ElectricLightsMod;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

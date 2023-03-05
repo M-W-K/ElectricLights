@@ -1,4 +1,4 @@
-package com.m_w_k.electriclights;
+package com.m_w_k.electriclights.Alternator;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;

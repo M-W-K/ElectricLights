@@ -1,6 +1,6 @@
 package com.m_w_k.electriclights.blockentity;
 
-import com.m_w_k.electriclights.AlternatorMenu;
+import com.m_w_k.electriclights.Alternator.AlternatorMenu;
 import com.m_w_k.electriclights.ElectricLightsMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
