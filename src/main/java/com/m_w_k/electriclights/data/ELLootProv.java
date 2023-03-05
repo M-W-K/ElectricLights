@@ -1,17 +1,15 @@
 package com.m_w_k.electriclights.data;
 
-import com.m_w_k.electriclights.ElectricLightsMod;
+import com.m_w_k.electriclights.registry.ELBlocksRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
@@ -43,7 +41,7 @@ public class ELLootProv extends LootTableProvider {
 
         private Stream<Block> blocks()
         {
-            return ElectricLightsMod.BLOCKS.getEntries().stream().map(RegistryObject::get);
+            return ELBlocksRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get);
         }
 
     }

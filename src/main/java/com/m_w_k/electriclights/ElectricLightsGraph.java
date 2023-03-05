@@ -49,7 +49,7 @@ public class ElectricLightsGraph extends SavedData {
 
     void addNode(GraphNode node) {
         g.addVertex(node);
-        if (node.getSpecialType() == null) {}
+        if (node.getSpecialType() == null) {} // continuing down the else/if tree would cause NullPointerExceptions
         else if (node.getSpecialType().equals(ElectricLightsMod.SWITCHBOARD_STRING)) switchboards.add(node);
         else if (node.getSpecialType().equals(ElectricLightsMod.GENERATOR_STRING)) generators.add(node);
         setInspectorInvalid();
@@ -60,12 +60,15 @@ public class ElectricLightsGraph extends SavedData {
     }
     void removeNode(GraphNode node) {
         g.removeVertex(node);
-        if (node.getSpecialType() == null) {}
+        if (node.getSpecialType() == null) {} // continuing down the else/if tree would cause NullPointerExceptions
         else if (node.getSpecialType().equals(ElectricLightsMod.SWITCHBOARD_STRING)) switchboards.remove(node);
         else if (node.getSpecialType().equals(ElectricLightsMod.GENERATOR_STRING)) generators.add(node);
         setInspectorInvalid();
     }
-    // when removing a node, all connections to that node are automatically removed as well. Thus, this method should only very rarely be used.
+
+    /**
+     * When removing a node, all connections to that node are automatically removed as well. Because of that, this method should almost never be used.
+     */
     void removeConnection(GraphNode node1, GraphNode node2) {
         g.removeEdge(node1, node2);
         setInspectorInvalid();

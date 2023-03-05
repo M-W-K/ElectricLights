@@ -1,13 +1,15 @@
-package com.m_w_k.electriclights.Alternator;
+package com.m_w_k.electriclights.gui;
 
-import com.m_w_k.electriclights.Alternator.AlternatorFuelSlot;
-import com.m_w_k.electriclights.ElectricLightsMod;
 import com.m_w_k.electriclights.blockentity.AlternatorBlockEntity;
+import com.m_w_k.electriclights.registry.ELGUIRegistry;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -21,7 +23,7 @@ public class AlternatorMenu extends AbstractContainerMenu {
     }
 
     public AlternatorMenu(int containerId, Inventory playerInventory, Container container, ContainerData data) {
-        super(ElectricLightsMod.ALTERNATOR_MENU.get(), containerId);
+        super(ELGUIRegistry.ALTERNATOR_MENU.get(), containerId);
         checkContainerSize(container, 1);
         checkContainerDataCount(data, 2);
         this.container = container;

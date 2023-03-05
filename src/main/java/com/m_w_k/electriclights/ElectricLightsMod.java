@@ -1,50 +1,29 @@
 package com.m_w_k.electriclights;
 
-import com.m_w_k.electriclights.Alternator.AlternatorMenu;
-import com.m_w_k.electriclights.Alternator.AlternatorScreen;
-import com.m_w_k.electriclights.block.AlternatorBlock;
-import com.m_w_k.electriclights.block.ElectricRelayBlock;
-import com.m_w_k.electriclights.block.MasterSwitchboardBlock;
-import com.m_w_k.electriclights.block.VoltageBlock;
-import com.m_w_k.electriclights.blockentity.AlternatorBlockEntity;
-import com.m_w_k.electriclights.blockentity.MasterSwitchboardBlockEntity;
-import com.m_w_k.electriclights.data.ELLootProv;
-import com.m_w_k.electriclights.item.RedstoneBulbItem;
-import com.m_w_k.electriclights.item.RedstoneSilicateItem;
+import com.m_w_k.electriclights.gui.AlternatorScreen;
+import com.m_w_k.electriclights.registry.ELRegistry;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.BlockPos;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.storage.DimensionDataStorage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.ForgeChunkManager;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import static com.m_w_k.electriclights.registry.ELGUIRegistry.ALTERNATOR_MENU;
 
 
 @Mod(ElectricLightsMod.MODID)
@@ -52,35 +31,6 @@ public class ElectricLightsMod
 {
     public static final String MODID = "electriclights";
     private static final Logger LOGGER = LogUtils.getLogger();
-
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);
-    public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, MODID);
-
-    public static final RegistryObject<Block> ELECTRIC_LIGHT = BLOCKS.register("electric_light", () -> new ElectricRelayBlock(BlockBehaviour.Properties.of(Material.DECORATION), true));
-    public static final RegistryObject<Block> ELECTRIC_RELAY = BLOCKS.register("electric_relay", () -> new ElectricRelayBlock(BlockBehaviour.Properties.of(Material.DECORATION)));
-    public static final RegistryObject<Block> SWITCHBOARD_BLOCK = BLOCKS.register("master_switchboard", () -> new MasterSwitchboardBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL)));
-    public static final RegistryObject<Block> ALTERNATOR_BLOCK = BLOCKS.register("alternator_generator", () -> new AlternatorBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL)));
-    public static final RegistryObject<Block> VOLTAGE_COIL_L_BLOCK = BLOCKS.register("voltage_coil_l", () -> new VoltageBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL), 2));
-    public static final RegistryObject<Block> VOLTAGE_COIL_M_BLOCK = BLOCKS.register("voltage_coil_m", () -> new VoltageBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL), 3));
-    public static final RegistryObject<Block> VOLTAGE_COIL_H_BLOCK = BLOCKS.register("voltage_coil_h", () -> new VoltageBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL), 4));
-
-    public static final RegistryObject<Item> ELECTRIC_LIGHT_BLOCK_ITEM = ITEMS.register("electric_light", () -> new BlockItem(ELECTRIC_LIGHT.get(), new Item.Properties()));
-    public static final RegistryObject<Item> ELECTRIC_RELAY_BLOCK_ITEM = ITEMS.register("electric_relay", () -> new BlockItem(ELECTRIC_RELAY.get(), new Item.Properties()));
-    public static final RegistryObject<Item> SWITCHBOARD_BLOCK_ITEM = ITEMS.register("master_switchboard", () -> new BlockItem(SWITCHBOARD_BLOCK.get(), new Item.Properties()));
-    public static final RegistryObject<Item> ALTERNATOR_BLOCK_ITEM = ITEMS.register("alternator_generator", () -> new BlockItem(ALTERNATOR_BLOCK.get(), new Item.Properties()));
-    public static final RegistryObject<Item> VOLTAGE_COIL_L_BLOCK_ITEM = ITEMS.register("voltage_coil_l", () -> new BlockItem(VOLTAGE_COIL_L_BLOCK.get(), new Item.Properties()));
-    public static final RegistryObject<Item> VOLTAGE_COIL_M_BLOCK_ITEM = ITEMS.register("voltage_coil_m", () -> new BlockItem(VOLTAGE_COIL_M_BLOCK.get(), new Item.Properties()));
-    public static final RegistryObject<Item> VOLTAGE_COIL_H_BLOCK_ITEM = ITEMS.register("voltage_coil_h", () -> new BlockItem(VOLTAGE_COIL_H_BLOCK.get(), new Item.Properties()));
-
-    public static final RegistryObject<Item> REDSTONE_SILICATE = ITEMS.register("redstone_silicate", RedstoneSilicateItem::new);
-    public static final RegistryObject<Item> REDSTONE_BULB = ITEMS.register("redstone_bulb", RedstoneBulbItem::new);
-    
-    public static final RegistryObject<BlockEntityType<MasterSwitchboardBlockEntity>> MASTER_SWITCHBOARD = BLOCK_ENTITIES.register("master_switchboard", () -> BlockEntityType.Builder.of(MasterSwitchboardBlockEntity::new, SWITCHBOARD_BLOCK.get()).build(null));
-    public static final RegistryObject<BlockEntityType<AlternatorBlockEntity>> ALTERNATOR_GENERATOR = BLOCK_ENTITIES.register("alternator_generator", () -> BlockEntityType.Builder.of(AlternatorBlockEntity::new, ALTERNATOR_BLOCK.get()).build(null));
-
-    public static final RegistryObject<MenuType<AlternatorMenu>> ALTERNATOR_MENU = MENU_TYPES.register("alternator_generator", () -> new MenuType<>(AlternatorMenu::new));
 
     static DimensionDataStorage overworldDataStorage;
     static ElectricLightsGraph electricLightsGraph = ElectricLightsGraph.create();
@@ -100,13 +50,8 @@ public class ElectricLightsMod
     public ElectricLightsMod()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        BLOCKS.register(modEventBus);
-        ITEMS.register(modEventBus);
-        BLOCK_ENTITIES.register(modEventBus);
-        MENU_TYPES.register(modEventBus);
+        ELRegistry.registerThings(modEventBus);
         modEventBus.addListener(this::clientSetup);
-        modEventBus.addListener(this::addCreative);
 
         MinecraftForge.EVENT_BUS.register(this);
 
@@ -124,20 +69,7 @@ public class ElectricLightsMod
         }
     }
 
-    private void addCreative(CreativeModeTabEvent.BuildContents event)
-    {
-        if (event.getTab() == CreativeModeTabs.REDSTONE_BLOCKS) {
-            event.accept(ELECTRIC_LIGHT_BLOCK_ITEM);
-            event.accept(ELECTRIC_RELAY_BLOCK_ITEM);
-            event.accept(REDSTONE_SILICATE);
-            event.accept(REDSTONE_BULB);
-            event.accept(SWITCHBOARD_BLOCK_ITEM);
-            event.accept(VOLTAGE_COIL_L_BLOCK_ITEM);
-            event.accept(VOLTAGE_COIL_M_BLOCK_ITEM);
-            event.accept(VOLTAGE_COIL_H_BLOCK_ITEM);
-            event.accept(ALTERNATOR_BLOCK_ITEM);
-        }
-    }
+
 
     @SubscribeEvent
     void getLevelStorage(ServerStartedEvent event) {

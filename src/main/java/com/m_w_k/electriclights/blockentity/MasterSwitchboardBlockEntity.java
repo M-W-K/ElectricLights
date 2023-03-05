@@ -2,9 +2,10 @@ package com.m_w_k.electriclights.blockentity;
 
 import com.m_w_k.electriclights.ElectricLightsMod;
 import com.m_w_k.electriclights.GraphNode;
-import com.m_w_k.electriclights.block.AlternatorBlock;
 import com.m_w_k.electriclights.block.ElectricRelayBlock;
 import com.m_w_k.electriclights.block.VoltageBlock;
+import com.m_w_k.electriclights.registry.ELBlockEntityRegistry;
+import com.m_w_k.electriclights.util.Generator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
@@ -37,7 +38,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
     private int ticksWithoutGoodConnect = 0;
 
     public MasterSwitchboardBlockEntity(BlockPos pos, BlockState state) {
-        super(ElectricLightsMod.MASTER_SWITCHBOARD.get(), pos, state);
+        super(ELBlockEntityRegistry.MASTER_SWITCHBOARD.get(), pos, state);
         generators = new ArrayList<>();
     }
 

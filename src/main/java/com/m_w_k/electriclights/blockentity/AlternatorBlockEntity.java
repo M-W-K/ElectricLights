@@ -1,7 +1,9 @@
 package com.m_w_k.electriclights.blockentity;
 
-import com.m_w_k.electriclights.Alternator.AlternatorMenu;
+import com.m_w_k.electriclights.gui.AlternatorMenu;
 import com.m_w_k.electriclights.ElectricLightsMod;
+import com.m_w_k.electriclights.registry.ELBlockEntityRegistry;
+import com.m_w_k.electriclights.util.Generator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -62,7 +64,7 @@ public class AlternatorBlockEntity extends BaseContainerBlockEntity implements W
     private LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
 
     public AlternatorBlockEntity(BlockPos pos, BlockState state) {
-        super(ElectricLightsMod.ALTERNATOR_GENERATOR.get(), pos, state);
+        super(ELBlockEntityRegistry.ALTERNATOR_GENERATOR.get(), pos, state);
     }
 
     @Override
