@@ -68,21 +68,22 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
         if (selfNode != null) {
             // ElectricLightsMod.logToConsole("Refreshing connected list");
             connectedNodes = ElectricLightsMod.getConnectedNodes(selfNode);
-            List<GraphNode> switchboards = ElectricLightsMod.getSwitchboards();
-            List<GraphNode> generators = ElectricLightsMod.getGenerators();
             connectedNodes.remove(selfNode);
             generators.clear();
             servicedLightCount = 0;
             badConnect = false;
             for (GraphNode node : connectedNodes) {
-                if (generators.contains(node)) {
-                    this.generators.add(node);
-                } else if (switchboards.contains(node)) {
+                String type = node.getSpecialType();
+                if (type == null) {
+                    // not using && because it would throw a NullPointerException if we proceeded down the else if branches.
+                    if (node.isLight()) servicedLightCount++;
+                } else if (node.getSpecialType().equals(ElectricLightsMod.GENERATOR_STRING)) {
+                    generators.add(node);
+                } else if (node.getSpecialType().equals(ElectricLightsMod.SWITCHBOARD_STRING)) {
                     badConnect = true;
                     updateServicedLights(1);
                     break;
-                // logically, neither of the above should be lights.
-                } else if (node.isLight()) servicedLightCount++;
+                }
             }
         } else selfNode = findSelfNode();
     }
