@@ -14,6 +14,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -67,6 +68,8 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
     public void refreshConnectedList() {
         if (selfNode != null) {
             // ElectricLightsMod.logToConsole("Refreshing connected list");
+            Set<GraphNode> oldConnected = null;
+            if (connectedNodes != null) oldConnected = new HashSet<>(connectedNodes);
             connectedNodes = ElectricLightsMod.getConnectedNodes(selfNode);
             connectedNodes.remove(selfNode);
             generators.clear();
@@ -84,6 +87,11 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                     updateServicedLights(1);
                     break;
                 }
+            }
+            // make sure to turn off any recently disconnected lights
+            if (oldConnected != null) {
+                oldConnected.removeAll(connectedNodes);
+                updateLights(0, oldConnected);
             }
         } else selfNode = findSelfNode();
     }
@@ -146,10 +154,14 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
     }
 
     private void updateServicedLights(int state) {
+        updateLights(state, connectedNodes);
+    }
+
+    private void updateLights(int state, Set<GraphNode> nodes) {
         if (level == null) ElectricLightsMod.logToConsole("Warning! A Master Switchboard doesn't know its level and can't update lights because of it!");
         else {
-            if (level.getServer() != null && !level.getServer().isCurrentlySaving() && connectedNodes != null) {
-                for (GraphNode node : connectedNodes) {
+            if (level.getServer() != null && !level.getServer().isCurrentlySaving() && nodes != null) {
+                for (GraphNode node : nodes) {
                     BlockState nodeState = level.getBlockState(node.getPos());
                     BlockState updatedState = nodeState;
                     if (nodeState.getBlock() instanceof ElectricRelayBlock) {
