@@ -8,11 +8,13 @@ import com.m_w_k.electriclights.block.MasterSwitchboardBlock;
 import com.m_w_k.electriclights.block.VoltageBlock;
 import com.m_w_k.electriclights.blockentity.AlternatorBlockEntity;
 import com.m_w_k.electriclights.blockentity.MasterSwitchboardBlockEntity;
+import com.m_w_k.electriclights.data.ELLootProv;
 import com.m_w_k.electriclights.item.RedstoneBulbItem;
 import com.m_w_k.electriclights.item.RedstoneSilicateItem;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.BlockPos;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
@@ -27,6 +29,7 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.storage.DimensionDataStorage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.ForgeChunkManager;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -103,10 +106,10 @@ public class ElectricLightsMod
         BLOCK_ENTITIES.register(modEventBus);
         MENU_TYPES.register(modEventBus);
         modEventBus.addListener(this::clientSetup);
+        modEventBus.addListener(this::addCreative);
 
         MinecraftForge.EVENT_BUS.register(this);
 
-        modEventBus.addListener(this::addCreative);
     }
 
     public static void manageLoadedChunks(ServerLevel level, BlockPos blockPos, boolean add) {
