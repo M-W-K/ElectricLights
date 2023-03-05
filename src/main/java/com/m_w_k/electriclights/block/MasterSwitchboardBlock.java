@@ -58,16 +58,4 @@ public class MasterSwitchboardBlock extends BaseEntityBlock {
             super.onRemove(state, level, pos, newState, isMoving);
         }
     }
-    // TODO delete this once power generation is working
-    @SuppressWarnings("deprecation")
-    @Override
-    public @NotNull InteractionResult use(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult hitResult) {
-        if (!level.isClientSide()) {
-            BlockEntity entity = level.getBlockEntity(pos);
-            if (entity instanceof MasterSwitchboardBlockEntity switchboard) {
-                switchboard.receiveEnergy(800, false);
-            }
-            return InteractionResult.CONSUME;
-        } else return InteractionResult.SUCCESS;
-    }
 }
