@@ -1,6 +1,6 @@
 package com.m_w_k.electriclights.data;
 
-import com.m_w_k.electriclights.registry.ELBlocksRegistry;
+import com.m_w_k.electriclights.registry.ELBlockRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.loot.packs.VanillaBlockLoot;
@@ -41,7 +41,7 @@ public class ELLootProv extends LootTableProvider {
 
         private Stream<Block> blocks()
         {
-            return ELBlocksRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get);
+            return ELBlockRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get);
         }
 
     }

@@ -8,7 +8,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import static com.m_w_k.electriclights.registry.ELBlocksRegistry.*;
+import static com.m_w_k.electriclights.registry.ELBlockRegistry.*;
 
 public class ELBlockEntityRegistry {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, ElectricLightsMod.MODID);

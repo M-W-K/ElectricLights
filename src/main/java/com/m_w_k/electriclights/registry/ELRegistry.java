@@ -4,7 +4,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 
 public class ELRegistry {
     public static void registerThings(IEventBus modEventBus) {
-        ELBlocksRegistry.BLOCKS.register(modEventBus);
+        ELBlockRegistry.BLOCKS.register(modEventBus);
         ELItemsRegistry.ITEMS.register(modEventBus);
         ELItemsRegistry.BLOCK_ITEMS.register(modEventBus);
         ELBlockEntityRegistry.BLOCK_ENTITIES.register(modEventBus);
