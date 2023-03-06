@@ -1,5 +1,5 @@
-# ElectricLights
-A small mod for Minecraft that introduces simple electric lights.
+# Electric Lights
+A small mod for Minecraft that introduces easy-to-use electric lights.
 
 And before anyone asks, yes, Forge loader only. Fabric support is not planned.
 
