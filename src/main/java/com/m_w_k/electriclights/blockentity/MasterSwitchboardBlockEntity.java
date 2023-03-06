@@ -1,7 +1,8 @@
 package com.m_w_k.electriclights.blockentity;
 
+import com.m_w_k.electriclights.util.ELGraphHandler;
 import com.m_w_k.electriclights.ElectricLightsMod;
-import com.m_w_k.electriclights.GraphNode;
+import com.m_w_k.electriclights.util.GraphNode;
 import com.m_w_k.electriclights.block.ElectricRelayBlock;
 import com.m_w_k.electriclights.block.VoltageBlock;
 import com.m_w_k.electriclights.registry.ELBlockEntityRegistry;
@@ -71,23 +72,24 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
             // ElectricLightsMod.logToConsole("Refreshing connected list");
             Set<GraphNode> oldConnected = null;
             if (connectedNodes != null) oldConnected = new HashSet<>(connectedNodes);
-            connectedNodes = ElectricLightsMod.getConnectedNodes(selfNode);
+            connectedNodes = ELGraphHandler.getConnectedNodes(selfNode, level);
             connectedNodes.remove(selfNode);
             generators.clear();
             servicedLightCount = 0;
             badConnect = false;
             for (GraphNode node : connectedNodes) {
-                String type = node.getSpecialType();
-                if (type == null) {
-                    // not using && because it would throw a NullPointerException if we proceeded down the else if branches.
-                    if (node.isLight()) servicedLightCount++;
-                } else if (node.getSpecialType().equals(ElectricLightsMod.GENERATOR_STRING)) {
-                    generators.add(node);
-                } else if (node.getSpecialType().equals(ElectricLightsMod.SWITCHBOARD_STRING)) {
-                    badConnect = true;
-                    updateServicedLights(1);
-                    break;
+                if (node.getType().isLight()) {
+                    servicedLightCount++;
+                } else if (node.getType().isSpecial()) { // don't continue down the else/if chain if we're a relay
+                    if (node.getType().isGenerator()) {
+                        generators.add(node);
+                    } else if (node.getType().isSwitchboard()) {
+                        badConnect = true;
+                        updateServicedLights(1);
+                        break;
+                    }
                 }
+
             }
             // make sure to turn off any recently disconnected lights
             if (oldConnected != null) {
@@ -99,7 +101,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
     @Nullable
     private GraphNode findSelfNode() {
         // ElectricLightsMod.logToConsole("Finding self node");
-        for (GraphNode node : ElectricLightsMod.getSwitchboards()) {
+        for (GraphNode node : ELGraphHandler.getSwitchboards(level)) {
             if (node.getPos().equals(this.getBlockPos())) {
                 return node;
             }
@@ -129,7 +131,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                             self.energy = 0;
                             self.updateServicedLights(1);
                             // if we run out of power, don't bother updating for an extended interval
-                            self.ticksToNextUpdate = ElectricLightsMod.MINIMUM_SWITCHBOARD_UPDATE_INTERVAL * 5;
+                            self.ticksToNextUpdate = ElectricLightsMod.MINIMUM_SWITCHBOARD_UPDATE_INTERVAL * 2;
                         } else self.updateServicedLights(self.voltage);
                         if (!self.hasCapacitor) self.hasCapacitor = true;
                         if (self.forceUpdate) self.forceUpdate = false;
@@ -160,19 +162,17 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
 
     private void updateLights(int state, Set<GraphNode> nodes) {
         if (level == null) ElectricLightsMod.logToConsole("Warning! A Master Switchboard doesn't know its level and can't update lights because of it!");
-        else {
-            if (level.getServer() != null && !level.getServer().isCurrentlySaving() && nodes != null) {
-                for (GraphNode node : nodes) {
-                    BlockState nodeState = level.getBlockState(node.getPos());
-                    BlockState updatedState = nodeState;
-                    if (nodeState.getBlock() instanceof ElectricRelayBlock) {
-                        // don't allow flooded lights to glow, though things like relays are fine.
-                        if (nodeState.getValue(ElectricRelayBlock.WATERLOGGED) && node.isLight()) {
-                            nodeState = nodeState.setValue(ElectricRelayBlock.LIGHTSTATE, 0);
-                        } else nodeState = nodeState.setValue(ElectricRelayBlock.LIGHTSTATE, state);
-                        // only update the light if the state has changed
-                        if (updatedState != nodeState) level.setBlockAndUpdate(node.getPos(), nodeState);
-                    }
+        else if (level.getServer() != null && !level.getServer().isCurrentlySaving() && nodes != null) {
+            for (GraphNode node : nodes) {
+                BlockState nodeState = level.getBlockState(node.getPos());
+                BlockState updatedState = nodeState;
+                if (nodeState.getBlock() instanceof ElectricRelayBlock) {
+                    // don't allow flooded lights to glow, though things like relays are fine.
+                    if (nodeState.getValue(ElectricRelayBlock.WATERLOGGED) && node.isLight()) {
+                        nodeState = nodeState.setValue(ElectricRelayBlock.LIGHTSTATE, 0);
+                    } else nodeState = nodeState.setValue(ElectricRelayBlock.LIGHTSTATE, state);
+                    // only update the light if the state has changed
+                    if (updatedState != nodeState) level.setBlockAndUpdate(node.getPos(), nodeState);
                 }
             }
         }

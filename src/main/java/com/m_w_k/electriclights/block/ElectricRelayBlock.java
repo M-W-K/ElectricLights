@@ -1,7 +1,7 @@
 package com.m_w_k.electriclights.block;
 
-import com.m_w_k.electriclights.ElectricLightsMod;
-import com.m_w_k.electriclights.GraphNode;
+import com.m_w_k.electriclights.util.ELGraphHandler;
+import com.m_w_k.electriclights.util.GraphNode;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
@@ -102,7 +102,7 @@ public class ElectricRelayBlock extends Block implements SimpleWaterloggedBlock 
     @Override
     public void setPlacedBy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
         if (!level.isClientSide()) {
-            ElectricLightsMod.addGraphNodeAndAutoConnect(new GraphNode(pos, isLight, null), level);
+            ELGraphHandler.addGraphNodeAndAutoConnect(new GraphNode(pos, isLight ? GraphNode.NodeType.LIGHT : GraphNode.NodeType.RELAY), level);
         }
     }
     /**
@@ -113,7 +113,7 @@ public class ElectricRelayBlock extends Block implements SimpleWaterloggedBlock 
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
             if (!level.isClientSide()) {
-                ElectricLightsMod.removeGraphNode(new GraphNode(pos, isLight, null), level);
+                ELGraphHandler.removeGraphNode(new GraphNode(pos, isLight ? GraphNode.NodeType.LIGHT : GraphNode.NodeType.RELAY), level);
             }
             super.onRemove(state, level, pos, newState, isMoving);
         }

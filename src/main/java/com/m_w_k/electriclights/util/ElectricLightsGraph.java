@@ -1,5 +1,6 @@
-package com.m_w_k.electriclights;
+package com.m_w_k.electriclights.util;
 
+import com.m_w_k.electriclights.ElectricLightsMod;
 import com.m_w_k.electriclights.blockentity.MasterSwitchboardBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -14,16 +15,20 @@ import org.jgrapht.alg.connectivity.ConnectivityInspector;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 // TODO implement dimension-aware graph; unique graph for every level?
 public class ElectricLightsGraph extends SavedData {
     private final Graph<GraphNode, DefaultEdge> g;
+    private Level selfLevel;
+
     private ConnectivityInspector<GraphNode, DefaultEdge> connectivityInspector;
     private boolean connectivityInspectorInvalid = false;
     private final List<GraphNode> switchboards = new ArrayList<>();
     private final List<GraphNode> generators = new ArrayList<>();
-    ElectricLightsGraph() {
+    private ElectricLightsGraph() {
         g = new SimpleGraph<>(DefaultEdge.class);
         connectivityInspector = new ConnectivityInspector<>(g);
     }
@@ -49,9 +54,8 @@ public class ElectricLightsGraph extends SavedData {
 
     void addNode(GraphNode node) {
         g.addVertex(node);
-        if (node.getSpecialType() == null) {} // continuing down the else/if tree would cause NullPointerExceptions
-        else if (node.getSpecialType().equals(ElectricLightsMod.SWITCHBOARD_STRING)) switchboards.add(node);
-        else if (node.getSpecialType().equals(ElectricLightsMod.GENERATOR_STRING)) generators.add(node);
+        if (node.getType().isSwitchboard()) switchboards.add(node);
+        else if (node.getType().isGenerator()) generators.add(node);
         setInspectorInvalid();
     }
     void addConnection(GraphNode node1, GraphNode node2) {
@@ -60,9 +64,8 @@ public class ElectricLightsGraph extends SavedData {
     }
     void removeNode(GraphNode node) {
         g.removeVertex(node);
-        if (node.getSpecialType() == null) {} // continuing down the else/if tree would cause NullPointerExceptions
-        else if (node.getSpecialType().equals(ElectricLightsMod.SWITCHBOARD_STRING)) switchboards.remove(node);
-        else if (node.getSpecialType().equals(ElectricLightsMod.GENERATOR_STRING)) generators.add(node);
+        if (node.getType().isSwitchboard()) switchboards.remove(node);
+        else if (node.getType().isGenerator()) generators.remove(node);
         setInspectorInvalid();
     }
 
@@ -84,33 +87,40 @@ public class ElectricLightsGraph extends SavedData {
 
     @Override
     public @NotNull CompoundTag save(@NotNull CompoundTag tag) {
-        ElectricLightsMod.logToConsole("Saving Graph!");
+        ElectricLightsMod.logToConsole("Saving Graph for level " + selfLevel.getLevelData());
         String[] data = this.parsed();
         // ElectricLightsMod.logToConsole("Saving the following node data: " + data[0]);
         // ElectricLightsMod.logToConsole("Saving the following edge data: " + data[1]);
-        tag.putString("ELGraphNodes", data[0]);
-        tag.putString("ELGraphEdges", data[1]);
+        tag.putString("GraphNodes", data[0]);
+        tag.putString("GraphEdges", data[1]);
         // ElectricLightsMod.logToConsole("Saved Graph Successfully.");
         return tag;
     }
 
-    protected @NotNull ElectricLightsGraph createWithLog() {
-        ElectricLightsMod.logToConsole("No saved Graph was found, generating new one.");
-        return create();
+    protected @NotNull ElectricLightsGraph createWithLog(Level level) {
+        ElectricLightsMod.logToConsole("No saved Graph was found for " + level.getLevelData() + ", generating new one.");
+        return create(level);
+    }
+    protected static @NotNull ElectricLightsGraph create(Level level) {
+        ElectricLightsGraph graph = new ElectricLightsGraph();
+        graph.selfLevel = level;
+        return graph;
     }
 
-    @Contract(" -> new")
+    /**
+     * Dangerous, only use if you plan to quickly generate a new graph using non-static methods
+     */
     protected static @NotNull ElectricLightsGraph create() {
         return new ElectricLightsGraph();
     }
 
-    protected @NotNull ElectricLightsGraph load(@NotNull CompoundTag tag) {
-        ElectricLightsMod.logToConsole("Found saved Graph, now loading.");
+    protected @NotNull ElectricLightsGraph load(@NotNull CompoundTag tag, Level level) {
+        ElectricLightsMod.logToConsole("Found saved Graph for " + level.getLevelData() + ", now loading.");
         // ElectricLightsMod.logToConsole("Graph contains the following node data: " + tag.getString("ELGraphNodes"));
         // ElectricLightsMod.logToConsole("Graph contains the following edge data: " + tag.getString("ELGraphEdges"));
         ElectricLightsGraph graph = create();
-        GraphNode[] nodes = deparseNodes(tag.getString("ELGraphNodes"));
-        GraphNode[][] edges = deparseEdges(tag.getString("ELGraphEdges"));
+        GraphNode[] nodes = deparseNodes(tag.getString("GraphNodes"));
+        GraphNode[][] edges = deparseEdges(tag.getString("GraphEdges"));
         for (GraphNode node : nodes) {
             graph.addNode(node);
         }
@@ -118,26 +128,17 @@ public class ElectricLightsGraph extends SavedData {
             graph.addConnection(edge[0], edge[1]);
         }
         // ElectricLightsMod.logToConsole("Loaded Graph Successfully.");
+        graph.selfLevel = level;
         return graph;
     }
 
-    ElectricLightsGraph recallFromStorage(@NotNull DimensionDataStorage storage) {
-        return storage.computeIfAbsent(this::load, this::createWithLog, "ElectricLightsGraph");
+    ElectricLightsGraph recallFromStorage(@NotNull DimensionDataStorage storage, Level level) {
+        return storage.computeIfAbsent( (tag) -> load(tag, level), () -> createWithLog(level), "ElectricLightsGraph");
     }
 
     @Contract("_ -> new")
     private static @NotNull GraphNode generateNode(String[] data) {
-        if (data[3] == null) {}
-        else if (data[3].equals(ElectricLightsMod.SWITCHBOARD_STRING)) {
-            GraphNode node = new GraphNode(new BlockPos(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])), false, ElectricLightsMod.SWITCHBOARD_STRING);
-            ElectricLightsMod.electricLightsGraph.switchboards.add(node);
-            return node;
-        } else if (data[3].equals(ElectricLightsMod.GENERATOR_STRING)) {
-            GraphNode node = new GraphNode(new BlockPos(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])), false, ElectricLightsMod.GENERATOR_STRING);
-            ElectricLightsMod.electricLightsGraph.generators.add(node);
-            return node;
-        }
-        return new GraphNode(new BlockPos(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])), Boolean.parseBoolean(data[3]), null);
+        return new GraphNode(new BlockPos(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])), GraphNode.NodeType.valueOf(data[3]));
     }
     @Contract("_ -> new")
     private static @NotNull GraphNode generateNode(String unsplitData) {

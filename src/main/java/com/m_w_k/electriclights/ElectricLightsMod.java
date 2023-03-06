@@ -2,12 +2,12 @@ package com.m_w_k.electriclights;
 
 import com.m_w_k.electriclights.gui.AlternatorScreen;
 import com.m_w_k.electriclights.registry.ELRegistry;
+import com.m_w_k.electriclights.util.ELGraphHandler;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.DimensionDataStorage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.ForgeChunkManager;
@@ -21,7 +21,6 @@ import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static com.m_w_k.electriclights.registry.ELGUIRegistry.ALTERNATOR_MENU;
 
@@ -33,10 +32,6 @@ public class ElectricLightsMod
     private static final Logger LOGGER = LogUtils.getLogger();
 
     static DimensionDataStorage overworldDataStorage;
-    static ElectricLightsGraph electricLightsGraph = ElectricLightsGraph.create();
-
-    public static final String SWITCHBOARD_STRING = "SWITCHBOARD";
-    public static final String GENERATOR_STRING = "GENERATOR";
 
     public static final int NODE_CONNECT_DIST_SQR = 16 * 16;
     public static final int MINIMUM_SWITCHBOARD_UPDATE_INTERVAL = 10;
@@ -72,49 +67,12 @@ public class ElectricLightsMod
 
 
     @SubscribeEvent
-    void getLevelStorage(ServerStartedEvent event) {
-        overworldDataStorage = event.getServer().overworld().getDataStorage();
-        electricLightsGraph = electricLightsGraph.recallFromStorage(overworldDataStorage);
+    void loadGraphs(ServerStartedEvent event) {
+        ELGraphHandler.loadGraphs(event.getServer());
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> MenuScreens.register(ALTERNATOR_MENU.get(), AlternatorScreen::new));
-    }
-
-    public static void addGraphNodeAndAutoConnect(GraphNode node, Level level) {
-        GraphNode[] graphNodes = electricLightsGraph.getNodes();
-        electricLightsGraph.addNode(node);
-        for (GraphNode graphNode : graphNodes) {
-            if (!node.toString().equals(graphNode.toString())) {
-                BlockPos pos1 = node.getPos();
-                BlockPos pos2 = graphNode.getPos();
-                if (pos1.distSqr(pos2) <= NODE_CONNECT_DIST_SQR) {
-                    electricLightsGraph.addConnection(node, graphNode);
-                }
-            }
-        }
-        electricLightsGraph.refreshSwitchboards(level);
-        ElectricLightsMod.markGraphForSaving();
-    }
-    public static void removeGraphNode(GraphNode node, Level level) {
-        electricLightsGraph.removeNode(node);
-        electricLightsGraph.refreshSwitchboards(level);
-        ElectricLightsMod.markGraphForSaving();
-    }
-    public static List<GraphNode> getSwitchboards() {
-        return electricLightsGraph.getSwitchboards();
-    }
-    public static List<GraphNode> getGenerators() {
-        return electricLightsGraph.getGenerators();
-    }
-    public static Set<GraphNode> getConnectedNodes(GraphNode node) {
-        return electricLightsGraph.getConnectedNodes(node);
-    }
-    public static boolean nodeExists(GraphNode node) {
-        return electricLightsGraph.nodeExists(node);
-    }
-    public static void markGraphForSaving() {
-        electricLightsGraph.setDirty();
     }
     public static void logToConsole(String string) {
         LOGGER.info(string);

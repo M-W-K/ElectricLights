@@ -1,7 +1,7 @@
 package com.m_w_k.electriclights.block;
 
-import com.m_w_k.electriclights.ElectricLightsMod;
-import com.m_w_k.electriclights.GraphNode;
+import com.m_w_k.electriclights.util.ELGraphHandler;
+import com.m_w_k.electriclights.util.GraphNode;
 import com.m_w_k.electriclights.blockentity.AlternatorBlockEntity;
 import com.m_w_k.electriclights.registry.ELBlockEntityRegistry;
 import net.minecraft.core.BlockPos;
@@ -59,7 +59,7 @@ public class AlternatorBlock extends BaseEntityBlock {
     @Override
     public void setPlacedBy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
         if (!level.isClientSide()) {
-            ElectricLightsMod.addGraphNodeAndAutoConnect(new GraphNode(pos, false, ElectricLightsMod.GENERATOR_STRING), level);
+            ELGraphHandler.addGraphNodeAndAutoConnect(new GraphNode(pos, GraphNode.NodeType.GENERATOR), level);
         }
         super.setPlacedBy(level, pos, state, placer, stack);
     }
@@ -83,7 +83,7 @@ public class AlternatorBlock extends BaseEntityBlock {
     public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
             if (!level.isClientSide()) {
-                ElectricLightsMod.removeGraphNode(new GraphNode(pos, false, ElectricLightsMod.GENERATOR_STRING), level);
+                ELGraphHandler.removeGraphNode(new GraphNode(pos, GraphNode.NodeType.GENERATOR), level);
             }
             super.onRemove(state, level, pos, newState, isMoving);
         }
