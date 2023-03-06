@@ -1,8 +1,6 @@
 package com.m_w_k.electriclights.registry;
 
 import com.m_w_k.electriclights.ElectricLightsMod;
-import com.m_w_k.electriclights.item.RedstoneBulbItem;
-import com.m_w_k.electriclights.item.RedstoneSilicateItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -17,8 +15,8 @@ public class ELItemsRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ElectricLightsMod.MODID);
     public static final DeferredRegister<Item> BLOCK_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ElectricLightsMod.MODID);
 
-    public static final RegistryObject<Item> REDSTONE_SILICATE = ITEMS.register("redstone_silicate", RedstoneSilicateItem::new);
-    public static final RegistryObject<Item> REDSTONE_BULB = ITEMS.register("redstone_bulb", RedstoneBulbItem::new);
+    public static final RegistryObject<Item> REDSTONE_SILICATE = ITEMS.register("redstone_silicate", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> REDSTONE_BULB = ITEMS.register("redstone_bulb", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> ELECTRIC_LIGHT_BLOCK_ITEM = BLOCK_ITEMS.register("electric_light", () -> new BlockItem(ELECTRIC_LIGHT.get(), new Item.Properties()));
     public static final RegistryObject<Item> ELECTRIC_RELAY_BLOCK_ITEM = BLOCK_ITEMS.register("electric_relay", () -> new BlockItem(ELECTRIC_RELAY.get(), new Item.Properties()));
