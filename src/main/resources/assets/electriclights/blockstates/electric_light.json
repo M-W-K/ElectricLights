@@ -1,113 +1,113 @@
 {
   "variants": {
-    "facing=north,lightstate=0": {
+    "facing=north,light_state=0": {
       "model": "",
       "y": 270
     },
-    "facing=south,lightstate=0": {
+    "facing=south,light_state=0": {
       "model": "",
       "y": 90
     },
-    "facing=west,lightstate=0": {
+    "facing=west,light_state=0": {
       "model": "",
       "y": 180
     },
-    "facing=east,lightstate=0": {
+    "facing=east,light_state=0": {
       "model": "",
       "y": 0
     },
-    "facing=up,lightstate=0": {
+    "facing=up,light_state=0": {
       "model": ""
     },
-    "facing=down,lightstate=0": {
+    "facing=down,light_state=0": {
       "model": ""
     },
-    "facing=north,lightstate=1": {
+    "facing=north,light_state=1": {
       "model": "",
       "y": 270
     },
-    "facing=south,lightstate=1": {
+    "facing=south,light_state=1": {
       "model": "",
       "y": 90
     },
-    "facing=west,lightstate=1": {
+    "facing=west,light_state=1": {
       "model": "",
       "y": 180
     },
-    "facing=east,lightstate=1": {
+    "facing=east,light_state=1": {
       "model": "",
       "y": 0
     },
-    "facing=up,lightstate=1": {
+    "facing=up,light_state=1": {
       "model": ""
     },
-    "facing=down,lightstate=1": {
+    "facing=down,light_state=1": {
       "model": ""
     },
-    "facing=north,lightstate=2": {
+    "facing=north,light_state=2": {
       "model": "",
       "y": 270
     },
-    "facing=south,lightstate=2": {
+    "facing=south,light_state=2": {
       "model": "",
       "y": 90
     },
-    "facing=west,lightstate=2": {
+    "facing=west,light_state=2": {
       "model": "",
       "y": 180
     },
-    "facing=east,lightstate=2": {
+    "facing=east,light_state=2": {
       "model": "",
       "y": 0
     },
-    "facing=up,lightstate=2": {
+    "facing=up,light_state=2": {
       "model": ""
     },
-    "facing=down,lightstate=2": {
+    "facing=down,light_state=2": {
       "model": ""
     },
     "facing=north,lightstate=3": {
       "model": "",
       "y": 270
     },
-    "facing=south,lightstate=3": {
+    "facing=south,light_state=3": {
       "model": "",
       "y": 90
     },
-    "facing=west,lightstate=3": {
+    "facing=west,light_state=3": {
       "model": "",
       "y": 180
     },
-    "facing=east,lightstate=3": {
+    "facing=east,light_state=3": {
       "model": "",
       "y": 0
     },
-    "facing=up,lightstate=3": {
+    "facing=up,light_state=3": {
       "model": ""
     },
-    "facing=down,lightstate=3": {
+    "facing=down,light_state=3": {
       "model": ""
     },
-    "facing=north,lightstate=4": {
+    "facing=north,light_state=4": {
       "model": "",
       "y": 270
     },
-    "facing=south,lightstate=4": {
+    "facing=south,light_state=4": {
       "model": "",
       "y": 90
     },
-    "facing=west,lightstate=4": {
+    "facing=west,light_state=4": {
       "model": "",
       "y": 180
     },
-    "facing=east,lightstate=4": {
+    "facing=east,light_state=4": {
       "model": "",
       "y": 0
     },
-    "facing=up,lightstate=4": {
+    "facing=up,light_state=4": {
       "model": ""
     },
-    "facing=down,lightstate=4": {
+    "facing=down,light_state=4": {
       "model": ""
     }
   }
