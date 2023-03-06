@@ -1,8 +1,25 @@
 {
     "item.electriclights.redstone_silicate": "Redstone-Silicate Blend",
     "item.electriclights.redstone_bulb": "Redstone-Silicate Bulb",
+
     "item.electriclights.electric_light": "Electric Light",
-    "block.electriclights.electric_light": "Electric Light",
     "item.electriclights.electric_relay": "Electric Relay",
-    "block.electriclights.electric_relay": "Electric Relay"
+    "item.electriclights.voltage_coil_l": "Copper Voltage Coil",
+    "item.electriclights.voltage_coil_m": "Gold Voltage Coil",
+    "item.electriclights.voltage_coil_h": "Glowstone Voltage Coil",
+
+
+    "block.electriclights.electric_relay": "Electric Relay",
+    "block.electriclights.electric_light": "Electric Light",
+    "block.electriclights.voltage_coil_l": "Copper Voltage Coil",
+    "block.electriclights.voltage_coil_m": "Gold Voltage Coil",
+    "block.electriclights.voltage_coil_h": "Glowstone Voltage Coil",
+
+
+    "item.electriclights.master_switchboard": "Master Switchboard",
+    "block.electriclights.master_switchboard": "Master Switchboard",
+
+    "item.electriclights.alternator_generator": "Alternator Generator",
+    "block.electriclights.alternator_generator": "Alternator Generator",
+    "menu.electriclights.alternator_generator": "Alternator Generator"
 }
