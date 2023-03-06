@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "wcw",
+    "cac",
+    "wcw"
+  ],
+  "key":
+  {
+    "c":
+    {
+      "item": "minecraft:glowstone_dust"
+    },
+    "a":
+    {
+      "item": "minecraft:smooth_quartz"
+    },
+    "w":
+    {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "result":
+  {
+    "item": "electriclights:voltage_coil_h"
+  }
+}

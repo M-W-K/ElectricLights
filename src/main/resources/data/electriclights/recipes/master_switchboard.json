@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "gbg",
+    "scs",
+    "www"
+  ],
+  "key":
+  {
+    "c":
+    {
+      "item": "minecraft:copper_block"
+    },
+    "s":
+    {
+      "item": "electriclights:redstone_chip"
+    },
+    "b":
+    {
+      "item": "electriclights:redstone_bulb"
+    },
+    "w":
+    {
+      "tag": "minecraft:planks"
+    },
+    "g":
+    {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "result":
+  {
+    "item": "electriclights:master_switchboard"
+  }
+}

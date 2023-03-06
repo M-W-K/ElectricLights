@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "iii",
+    "cfw",
+    "bhb"
+  ],
+  "key":
+  {
+    "c":
+    {
+      "item": "electriclights:redstone_chip"
+    },
+    "w":
+    {
+      "item": "minecraft:water_bucket"
+    },
+    "b":
+    {
+      "item": "minecraft:brick"
+    },
+    "i":
+    {
+      "tag": "forge:ingots/iron"
+    },
+    "f":
+    {
+      "item": "minecraft:blast_furnace"
+    }
+  },
+  "result":
+  {
+    "item": "electriclights:alternator_generator"
+  }
+}

@@ -3,14 +3,14 @@
   "pattern":
   [
     "   ",
-    "hsh",
-    "cwc"
+    "css",
+    "ihp"
   ],
   "key":
   {
-    "w":
+    "p":
     {
-      "tag": "minecraft:wooden_slabs"
+      "item": "minecraft:paper"
     },
     "h":
     {
@@ -23,11 +23,14 @@
     "c":
     {
       "tag": "forge:ingots/copper"
+    },
+    "i":
+    {
+      "tag": "forge:nuggets/iron"
     }
   },
   "result":
   {
-    "item": "electriclights:electric_relay",
-    "count": 2
+    "item": "electriclights:redstone_chip"
   }
 }

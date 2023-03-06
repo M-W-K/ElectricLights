@@ -17,6 +17,7 @@ public class ELItemsRegistry {
 
     public static final RegistryObject<Item> REDSTONE_SILICATE = ITEMS.register("redstone_silicate", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> REDSTONE_BULB = ITEMS.register("redstone_bulb", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> REDSTONE_CHIP = ITEMS.register("redstone_chip", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> ELECTRIC_LIGHT_BLOCK_ITEM = BLOCK_ITEMS.register("electric_light", () -> new BlockItem(ELECTRIC_LIGHT.get(), new Item.Properties()));
     public static final RegistryObject<Item> ELECTRIC_RELAY_BLOCK_ITEM = BLOCK_ITEMS.register("electric_relay", () -> new BlockItem(ELECTRIC_RELAY.get(), new Item.Properties()));

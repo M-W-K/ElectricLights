@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "wcw",
+    "cac",
+    "wcw"
+  ],
+  "key":
+  {
+    "c":
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    "a":
+    {
+      "item": "minecraft:amethyst_block"
+    },
+    "w":
+    {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "result":
+  {
+    "item": "electriclights:voltage_coil_m"
+  }
+}

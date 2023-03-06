@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    " x ",
+    " s ",
     " a ",
-    " s "
+    " g "
   ],
   "key":
   {
-    "x":
+    "g":
     {
-      "item": "minecraft:glass_pane"
+      "item": "minecraft:glass_bottle"
     },
     "a":
     {
@@ -23,7 +23,6 @@
   },
   "result":
   {
-    "item": "electriclights:redstone_bulb",
-    "count": 2
+    "item": "electriclights:redstone_bulb"
   }
 }

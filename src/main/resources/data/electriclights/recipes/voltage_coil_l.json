@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "wcw",
+    "cac",
+    "wcw"
+  ],
+  "key":
+  {
+    "c":
+    {
+      "tag": "forge:ingots/copper"
+    },
+    "a":
+    {
+      "item": "minecraft:redstone_block"
+    },
+    "w":
+    {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result":
+  {
+    "item": "electriclights:voltage_coil_l"
+  }
+}
