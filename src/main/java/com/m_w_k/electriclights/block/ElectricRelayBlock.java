@@ -22,6 +22,11 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,6 +34,7 @@ public class ElectricRelayBlock extends Block implements SimpleWaterloggedBlock 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final Property<Direction> FACING = BlockStateProperties.FACING;
     public static final Property<Integer> LIGHTSTATE = IntegerProperty.create("light_state", 0, 4);
+    protected static final VoxelShape AABB = Block.box(1.0D, 1.0D, 1.0D, 15.0D, 15.0D, 15.0D);
 
     private final boolean isLight;
 
@@ -88,6 +94,9 @@ public class ElectricRelayBlock extends Block implements SimpleWaterloggedBlock 
     @SuppressWarnings("deprecation")
     @Override
     public BlockState updateShape(BlockState state1, Direction direction, BlockState state2, LevelAccessor levelAccessor, BlockPos pos1, BlockPos pos2) {
+        if (state1.getValue(WATERLOGGED)) {
+            levelAccessor.scheduleTick(pos1, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
+        }
         return direction == state1.getValue(FACING) && !state1.canSurvive(levelAccessor, pos1) ? Blocks.AIR.defaultBlockState() : state1;
     }
     /**
@@ -117,5 +126,40 @@ public class ElectricRelayBlock extends Block implements SimpleWaterloggedBlock 
             }
             super.onRemove(state, level, pos, newState, isMoving);
         }
+    }
+
+    /**
+     * Warning for "deprecation" is suppressed because the method is fine to override.
+     */
+    @SuppressWarnings("deprecation")
+    @Override
+    public VoxelShape getShape(BlockState p_153474_, BlockGetter p_153475_, BlockPos p_153476_, CollisionContext p_153477_) {
+        return AABB;
+    }
+    /**
+     * Warning for "deprecation" is suppressed because the method is fine to override.
+     */
+    @SuppressWarnings("deprecation")
+    @Override
+    public PushReaction getPistonPushReaction(BlockState p_153494_) {
+        return PushReaction.DESTROY;
+    }
+
+    /**
+     * Warning for "deprecation" is suppressed because the method is fine to override.
+     */
+    @SuppressWarnings("deprecation")
+    @Override
+    public FluidState getFluidState(BlockState state) {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+    }
+
+    /**
+     * Warning for "deprecation" is suppressed because the method is fine to override.
+     */
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean isPathfindable(BlockState p_153469_, BlockGetter p_153470_, BlockPos p_153471_, PathComputationType p_153472_) {
+        return false;
     }
 }
