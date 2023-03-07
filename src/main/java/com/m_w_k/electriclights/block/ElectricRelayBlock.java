@@ -52,7 +52,7 @@ public class ElectricRelayBlock extends Block implements SimpleWaterloggedBlock 
         if (isLight) {
             int light = state.getValue(LIGHTSTATE);
             if (light == 1 || light == 0) return light;
-            else return light * 2 + 7;
+            else return light + 12;
         } else return super.getLightEmission(state, level, pos);
     }
 

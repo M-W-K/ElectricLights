@@ -37,7 +37,7 @@ public class AlternatorBlockEntity extends BaseContainerBlockEntity implements W
     private int litTime; // The current fuel burning progress time.
     private int litDuration; // Total time it takes a fuel item to burn.
     private int energyGenerated; // Energy we've built up
-    private final int softEnergyCap = 12000;
+    private final int softEnergyCap = 60000;
     protected final ContainerData dataAccess = new ContainerData() {
         @Override
         public int get(int index) {

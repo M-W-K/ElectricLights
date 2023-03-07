@@ -35,9 +35,9 @@ public class ElectricLightsMod
 
     public static final int NODE_CONNECT_DIST_SQR = 16 * 16;
     public static final int MINIMUM_SWITCHBOARD_UPDATE_INTERVAL = 10;
-    public static final int ALTERNATOR_ENERGY_FACTOR = 156;
-    public static final int SOLAR_ENERGY_FACTOR = 72;
-    public static final int GEOTHERMAL_ENERGY_FACTOR = 48;
+    public static final int ALTERNATOR_ENERGY_FACTOR = 276;
+    public static final int SOLAR_ENERGY_FACTOR = 168;
+    public static final int GEOTHERMAL_ENERGY_FACTOR = 96;
 
     static final ForgeChunkManager FORGE_CHUNK_MANAGER = null; // I think just having this somewhere is necessary for chunk loading, IDK if that's true, and I can't be bothered to find out
     static final List<ChunkPos> loadedChunks = new ArrayList<>();

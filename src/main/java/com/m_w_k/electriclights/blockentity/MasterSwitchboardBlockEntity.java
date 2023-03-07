@@ -33,8 +33,6 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
     private boolean forceUpdate = false;
     private GraphNode selfNode = null;
 
-    private boolean firstLoad = true;
-
     private boolean badConnect = false;
     private int ticksWithoutGoodConnect = 0;
 
@@ -123,10 +121,9 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
             if (self.servicedLightCount != 0 && !self.badConnect) {
                 if (self.voltage != -1) {
                     if (self.ticksToNextUpdate <= self.ticksSinceLastUpdate || self.forceUpdate) {
-                        self.energy -= self.voltage * self.servicedLightCount * self.ticksSinceLastUpdate;
+                        self.energy -= (self.voltage + 2) * self.servicedLightCount * self.ticksSinceLastUpdate;
                         if (!self.generators.isEmpty()) self.energy += self.retrieveEnergy(self.maxEnergy - self.energy);
-                        // ElectricLightsMod.logToConsole(String.valueOf(self.energy));
-                        self.ticksToNextUpdate = Math.max(self.energy / (self.voltage * self.servicedLightCount), ElectricLightsMod.MINIMUM_SWITCHBOARD_UPDATE_INTERVAL);
+                        self.ticksToNextUpdate = Math.max(self.energy / ((self.voltage + 2) * self.servicedLightCount), ElectricLightsMod.MINIMUM_SWITCHBOARD_UPDATE_INTERVAL);
                         if (self.energy <= 0) {
                             self.energy = 0;
                             self.updateServicedLights(1);
@@ -135,7 +132,6 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                         } else self.updateServicedLights(self.voltage);
                         if (!self.hasCapacitor) self.hasCapacitor = true;
                         if (self.forceUpdate) self.forceUpdate = false;
-                        // ElectricLightsMod.logToConsole(String.valueOf(self.ticksToNextUpdate));
                         self.ticksSinceLastUpdate = 1; // 1 tick to compensate for this calculation tick
 
                     } else self.ticksSinceLastUpdate++;
