@@ -23,7 +23,7 @@
   },
   "display": {
     "announce_to_chat": false,
-    "background": "",
+    "background": "minecraft:textures/block/glowstone.png",
     "description": {
       "translate": "advancement.electriclights.electriclights.desc"
     },
