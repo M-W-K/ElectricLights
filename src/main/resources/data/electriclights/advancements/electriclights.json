@@ -1,0 +1,46 @@
+{
+  "criteria": {
+    "has_redstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:dusts/redstone"
+          }
+        ]
+      }
+    },
+    "has_silicate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["electriclights:redstone_silicate"]
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "",
+    "description": {
+      "translate": "advancement.electriclights.electriclights.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "electriclights:redstone_bulb"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.electriclights.electriclights"
+    }
+  },
+  "requirements": [
+    [
+      "has_redstone",
+      "has_silicate"
+    ]
+  ]
+}

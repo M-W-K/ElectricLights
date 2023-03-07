@@ -22,5 +22,29 @@
 
     "item.electriclights.alternator_generator": "Alternator Generator",
     "block.electriclights.alternator_generator": "Alternator Generator",
-    "menu.electriclights.alternator_generator": "Alternator Generator"
+    "menu.electriclights.alternator_generator": "Alternator Generator",
+
+
+    "advancement.electriclights.electriclights": "Electric Lights",
+    "advancement.electriclights.electriclights.desc": "Welcome to Electric Lights!",
+    "advancement.electriclights.redstone_silicate": "Basic Materials",
+    "advancement.electriclights.redstone_silicate.desc": "Useful for lighting and circuitry.",
+    "advancement.electriclights.redstone_bulb": "Eureka!",
+    "advancement.electriclights.redstone_bulb.desc": "Shove a string coated with redstone silicate into a bottle. It glows.",
+    "advancement.electriclights.redstone_chip": "M[a]crocircuitry",
+    "advancement.electriclights.redstone_chip.desc": "Build a makeshift circuit board. Should be good for simple logic.",
+    "advancement.electriclights.electric_light": "Let there be light",
+    "advancement.electriclights.electric_light.desc": "Produce your first light. It's no good without a switchboard, though!",
+    "advancement.electriclights.electric_relay": "Electrician",
+    "advancement.electriclights.electric_relay.desc": "Make a relay. Good for connecting lights without consuming power.",
+    "advancement.electriclights.alternator_generator": "Why am I doing this again?",
+    "advancement.electriclights.alternator_generator.desc": "Because you have another mod that makes natural light sources decay, silly. At least, you should.",
+    "advancement.electriclights.master_switchboard": "Humming Heart",
+    "advancement.electriclights.master_switchboard.desc": "The switchboard is the most important component of any network. Only one per network! (Also acts as a chunkloader, so try and minimize how many you place)",
+    "advancement.electriclights.voltage_coil_l": "Bad Lighting",
+    "advancement.electriclights.voltage_coil_l.desc": "A switchboard needs one of these underneath it. Determines how bright your lights are.",
+    "advancement.electriclights.voltage_coil_m": "Subscription Torches",
+    "advancement.electriclights.voltage_coil_m.desc": "Your lights take a bit more power to maintain, but are now as bright as torches.",
+    "advancement.electriclights.voltage_coil_h": "Good Lighting",
+    "advancement.electriclights.voltage_coil_h.desc": "More power, more light."
 }

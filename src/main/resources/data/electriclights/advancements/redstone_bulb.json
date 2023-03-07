@@ -1,0 +1,40 @@
+{
+  "parent": "electriclights:redstone_silicate",
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["electriclights:redstone_bulb"]
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.electriclights.redstone_bulb.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "electriclights:redstone_bulb"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.electriclights.redstone_bulb"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "rewards": {
+    "loot": [
+      "electriclights:advancements/redstone_bulb"
+    ]
+  }
+}

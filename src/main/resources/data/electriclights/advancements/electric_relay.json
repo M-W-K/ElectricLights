@@ -1,0 +1,40 @@
+{
+  "parent": "electriclights:redstone_silicate",
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["electriclights:electric_relay"]
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.electriclights.electric_relay.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "electriclights:electric_relay"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.electriclights.electric_relay"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "rewards": {
+    "loot": [
+      "electriclights:advancements/electric_relay"
+    ]
+  }
+}
