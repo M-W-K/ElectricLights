@@ -86,7 +86,7 @@
       "model": ""
     },
     "facing=down,light_state=3": {
-      "model": ""
+      "model": "electriclights:block/light_floor_3"
     },
     "facing=north,light_state=4": {
       "model": "",
@@ -108,7 +108,7 @@
       "model": ""
     },
     "facing=down,light_state=4": {
-      "model": ""
+      "model": "electriclights:block/light_floor_4"
     }
   }
 }
