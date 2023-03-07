@@ -28,12 +28,6 @@ import org.jetbrains.annotations.Nullable;
 public class AlternatorBlock extends BaseEntityBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
-//    @Override
-//    public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos)
-//    {
-//        return state.getValue(LIT) ? 13 : 0;
-//    }
-
     public AlternatorBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(
