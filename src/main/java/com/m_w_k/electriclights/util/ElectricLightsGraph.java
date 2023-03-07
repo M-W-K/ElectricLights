@@ -97,7 +97,7 @@ public class ElectricLightsGraph extends SavedData {
     }
 
     protected @NotNull ElectricLightsGraph createWithLog(Level level) {
-        ElectricLightsMod.logToConsole("No saved Graph was found for '{}'/{}, generating new one.", selfLevel, selfLevel.dimension().location());
+        ElectricLightsMod.logToConsole("No saved Graph was found for '{}'/{}, generating new one.", level, level.dimension().location());
         return create(level);
     }
     protected static @NotNull ElectricLightsGraph create(Level level) {
@@ -114,7 +114,7 @@ public class ElectricLightsGraph extends SavedData {
     }
 
     protected @NotNull ElectricLightsGraph load(@NotNull CompoundTag tag, Level level) {
-        ElectricLightsMod.logToConsole("Found saved Graph for '{}'/{}, now loading.", selfLevel, selfLevel.dimension().location());
+        ElectricLightsMod.logToConsole("Found saved Graph for '{}'/{}, now loading.", level, level.dimension().location());
         // ElectricLightsMod.logToConsole("Graph contains the following node data: " + tag.getString("ELGraphNodes"));
         // ElectricLightsMod.logToConsole("Graph contains the following edge data: " + tag.getString("ELGraphEdges"));
         ElectricLightsGraph graph = create();
