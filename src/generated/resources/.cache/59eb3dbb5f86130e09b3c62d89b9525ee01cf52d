@@ -1,6 +1,6 @@
-// 1.19.3	2023-03-04T23:21:30.759993	Loot Tables
+// 1.19.3	2023-03-06T23:10:52.318051	Loot Tables
 64f68f0aa2ed2da373a8c0053d6374cc92c09009 data/electriclights/loot_tables/blocks/alternator_generator.json
-d307a4e33f78c4e599792dc822371703c7b19c78 data/electriclights/loot_tables/blocks/electric_light.json
+0ca72656837e3119ef7db68a6fef3d5ec71e3d7e data/electriclights/loot_tables/blocks/electric_light.json
 1adfc198ae305adec5ccb48449ea4ee1d2d6acd5 data/electriclights/loot_tables/blocks/electric_relay.json
 cd428d0fa9f5ec7998fd821b98d1fccf4b152d0a data/electriclights/loot_tables/blocks/master_switchboard.json
 b9c0f5f976661da22050ff4ba699a85c70f14021 data/electriclights/loot_tables/blocks/voltage_coil_h.json

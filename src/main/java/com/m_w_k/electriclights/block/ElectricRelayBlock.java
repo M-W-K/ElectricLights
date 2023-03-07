@@ -45,10 +45,7 @@ public class ElectricRelayBlock extends Block implements SimpleWaterloggedBlock 
      * Direct override in order to force the game to set this block's light emission to what is determined by our LIGHTSTATE.
      */
     @Override
-    public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos)
-    {
-        // TODO implement a blown-bulb mechanism based on state changes?
-        // use 10% chance and an age blockstate, have 100% chance if waterlogged - remove the cannot glow while waterlogged logic
+    public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
         if (isLight) {
             int light = state.getValue(LIGHTSTATE);
             if (light == 1 || light == 0) return light;

@@ -1,5 +1,6 @@
 package com.m_w_k.electriclights.blockentity;
 
+import com.m_w_k.electriclights.block.BurnOutAbleLightBlock;
 import com.m_w_k.electriclights.util.ELGraphHandler;
 import com.m_w_k.electriclights.ElectricLightsMod;
 import com.m_w_k.electriclights.util.GraphNode;
@@ -161,14 +162,28 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
         else if (level.getServer() != null && !level.getServer().isCurrentlySaving() && nodes != null) {
             for (GraphNode node : nodes) {
                 BlockState nodeState = level.getBlockState(node.getPos());
-                BlockState updatedState = nodeState;
+                int oldLight = nodeState.getValue(ElectricRelayBlock.LIGHTSTATE);
+                int newLight = state;
                 if (nodeState.getBlock() instanceof ElectricRelayBlock) {
-                    // don't allow flooded lights to glow, though things like relays are fine.
-                    if (nodeState.getValue(ElectricRelayBlock.WATERLOGGED) && node.isLight()) {
-                        nodeState = nodeState.setValue(ElectricRelayBlock.LIGHTSTATE, 0);
-                    } else nodeState = nodeState.setValue(ElectricRelayBlock.LIGHTSTATE, state);
-                    // only update the light if the state has changed
-                    if (updatedState != nodeState) level.setBlockAndUpdate(node.getPos(), nodeState);
+                    if (oldLight != newLight) {
+                        // do burn out math if the light can be burnt out
+                        if (nodeState.getBlock() instanceof BurnOutAbleLightBlock) {
+                            int currentAge = nodeState.getValue(BurnOutAbleLightBlock.AGE);
+                            if (currentAge == 7) {
+                                // keep the light dead if it's burnt out
+                                newLight = 0;
+                                if (oldLight == newLight) return;
+                            } else {
+                                // lasts on average 50 state changes, or only 20 if waterlogged.
+                                double rand = Math.random();
+                                if (rand < 0.14 || (rand < 0.35 && nodeState.getValue(ElectricRelayBlock.WATERLOGGED))) {
+                                    nodeState.setValue(BurnOutAbleLightBlock.AGE, currentAge + 1);
+                                }
+                            }
+                        }
+                        nodeState = nodeState.setValue(ElectricRelayBlock.LIGHTSTATE, newLight);
+                        level.setBlockAndUpdate(node.getPos(), nodeState);
+                    }
                 }
             }
         }

@@ -3,15 +3,110 @@
   "pools": [
     {
       "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "electriclights:electric_light"
+          "conditions": [
+            {
+              "block": "electriclights:electric_light",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "0"
+              }
+            }
+          ],
+          "name": "electriclights:electric_light_0"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "electriclights:electric_light",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "1"
+              }
+            }
+          ],
+          "name": "electriclights:electric_light_1"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "electriclights:electric_light",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "2"
+              }
+            }
+          ],
+          "name": "electriclights:electric_light_2"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "electriclights:electric_light",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "3"
+              }
+            }
+          ],
+          "name": "electriclights:electric_light_3"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "electriclights:electric_light",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "4"
+              }
+            }
+          ],
+          "name": "electriclights:electric_light_4"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "electriclights:electric_light",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "5"
+              }
+            }
+          ],
+          "name": "electriclights:electric_light_5"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "electriclights:electric_light",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "6"
+              }
+            }
+          ],
+          "name": "electriclights:electric_light_6"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "electriclights:electric_light",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "age": "7"
+              }
+            }
+          ],
+          "name": "electriclights:electric_light_7"
         }
       ],
       "rolls": 1.0
