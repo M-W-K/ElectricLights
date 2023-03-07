@@ -15,8 +15,9 @@ public class ELDataGen {
     {
         DataGenerator gen = event.getGenerator();
         boolean server = event.includeServer();
-        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+        ExistingFileHelper fileHelper = event.getExistingFileHelper();
 
         gen.addProvider(server, new ELLootProv(gen));
+        gen.addProvider(server, new ELBlockStateProv(gen.getPackOutput(), fileHelper));
     }
 }

@@ -1,0 +1,109 @@
+{
+  "variants": {
+    "facing=down,light_state=0": {
+      "model": "electriclights:block/electric_light_floor_0"
+    },
+    "facing=down,light_state=1": {
+      "model": "electriclights:block/electric_light_floor_1"
+    },
+    "facing=down,light_state=2": {
+      "model": "electriclights:block/electric_light_floor_2"
+    },
+    "facing=down,light_state=3": {
+      "model": "electriclights:block/electric_light_floor_3"
+    },
+    "facing=down,light_state=4": {
+      "model": "electriclights:block/electric_light_floor_4"
+    },
+    "facing=east,light_state=0": {
+      "model": "electriclights:block/electric_light_wall_0",
+      "y": 90
+    },
+    "facing=east,light_state=1": {
+      "model": "electriclights:block/electric_light_wall_1",
+      "y": 90
+    },
+    "facing=east,light_state=2": {
+      "model": "electriclights:block/electric_light_wall_2",
+      "y": 90
+    },
+    "facing=east,light_state=3": {
+      "model": "electriclights:block/electric_light_wall_3",
+      "y": 90
+    },
+    "facing=east,light_state=4": {
+      "model": "electriclights:block/electric_light_wall_4",
+      "y": 90
+    },
+    "facing=north,light_state=0": {
+      "model": "electriclights:block/electric_light_wall_0"
+    },
+    "facing=north,light_state=1": {
+      "model": "electriclights:block/electric_light_wall_1"
+    },
+    "facing=north,light_state=2": {
+      "model": "electriclights:block/electric_light_wall_2"
+    },
+    "facing=north,light_state=3": {
+      "model": "electriclights:block/electric_light_wall_3"
+    },
+    "facing=north,light_state=4": {
+      "model": "electriclights:block/electric_light_wall_4"
+    },
+    "facing=south,light_state=0": {
+      "model": "electriclights:block/electric_light_wall_0",
+      "y": 180
+    },
+    "facing=south,light_state=1": {
+      "model": "electriclights:block/electric_light_wall_1",
+      "y": 180
+    },
+    "facing=south,light_state=2": {
+      "model": "electriclights:block/electric_light_wall_2",
+      "y": 180
+    },
+    "facing=south,light_state=3": {
+      "model": "electriclights:block/electric_light_wall_3",
+      "y": 180
+    },
+    "facing=south,light_state=4": {
+      "model": "electriclights:block/electric_light_wall_4",
+      "y": 180
+    },
+    "facing=up,light_state=0": {
+      "model": "electriclights:block/electric_light_ceiling_0"
+    },
+    "facing=up,light_state=1": {
+      "model": "electriclights:block/electric_light_ceiling_1"
+    },
+    "facing=up,light_state=2": {
+      "model": "electriclights:block/electric_light_ceiling_2"
+    },
+    "facing=up,light_state=3": {
+      "model": "electriclights:block/electric_light_ceiling_3"
+    },
+    "facing=up,light_state=4": {
+      "model": "electriclights:block/electric_light_ceiling_4"
+    },
+    "facing=west,light_state=0": {
+      "model": "electriclights:block/electric_light_wall_0",
+      "y": 270
+    },
+    "facing=west,light_state=1": {
+      "model": "electriclights:block/electric_light_wall_1",
+      "y": 270
+    },
+    "facing=west,light_state=2": {
+      "model": "electriclights:block/electric_light_wall_2",
+      "y": 270
+    },
+    "facing=west,light_state=3": {
+      "model": "electriclights:block/electric_light_wall_3",
+      "y": 270
+    },
+    "facing=west,light_state=4": {
+      "model": "electriclights:block/electric_light_wall_4",
+      "y": 270
+    }
+  }
+}
