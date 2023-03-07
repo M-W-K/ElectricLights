@@ -35,6 +35,7 @@ public class ELItemsRegistry {
             event.accept(ELECTRIC_RELAY_BLOCK_ITEM);
             event.accept(REDSTONE_SILICATE);
             event.accept(REDSTONE_BULB);
+            event.accept(REDSTONE_CHIP);
             event.accept(SWITCHBOARD_BLOCK_ITEM);
             event.accept(VOLTAGE_COIL_L_BLOCK_ITEM);
             event.accept(VOLTAGE_COIL_M_BLOCK_ITEM);
