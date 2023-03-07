@@ -1,0 +1,46 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "electriclights:dragon_bulb"
+    ]
+  },
+  "criteria": {
+    "has_redstone_bulb": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["electriclights:redstone_bulb"]
+          }
+        ]
+      }
+    },
+    "has_dragon_breath": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["minecraft:dragon_breath"]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "electriclights:dragon_bulb"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dragon_breath",
+      "has_the_recipe"
+    ],
+    [
+      "has_redstone_bulb",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -15,6 +15,7 @@ public class ELBlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ElectricLightsMod.MODID);
 
     public static final RegistryObject<Block> ELECTRIC_LIGHT = BLOCKS.register("electric_light", () -> new BurnOutAbleLightBlock(Block.Properties.copy(Blocks.LANTERN).lightLevel((a) -> 0)));
+    public static final RegistryObject<Block> DRAGON_LIGHT = BLOCKS.register("dragon_light", () -> new ElectricRelayBlock(Block.Properties.copy(Blocks.LANTERN).lightLevel((a) -> 0), true));
     public static final RegistryObject<Block> ELECTRIC_RELAY = BLOCKS.register("electric_relay", () -> new ElectricRelayBlock(Block.Properties.copy(Blocks.LANTERN).lightLevel((a) -> 0).sound(SoundType.BAMBOO)));
     public static final RegistryObject<Block> SWITCHBOARD_BLOCK = BLOCKS.register("master_switchboard", () -> new MasterSwitchboardBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL)));
     public static final RegistryObject<Block> ALTERNATOR_BLOCK = BLOCKS.register("alternator_generator", () -> new AlternatorBlock(Block.Properties.copy(Blocks.BLAST_FURNACE)));

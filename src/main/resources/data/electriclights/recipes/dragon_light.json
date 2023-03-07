@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "iii",
+    "ibi",
+    "cic"
+  ],
+  "key":
+  {
+    "i":
+    {
+      "item": "minecraft:iron_nugget"
+    },
+    "b":
+    {
+      "item": "electriclights:dragon_bulb"
+    },
+    "c":
+    {
+      "tag": "forge:ingots/copper"
+    }
+  },
+  "result":
+  {
+    "item": "electriclights:dragon_light",
+    "count": 2
+  }
+}

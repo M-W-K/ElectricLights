@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sss",
+    "aaa",
+    "gdg"
+  ],
+  "key":
+  {
+    "d":
+    {
+      "item": "minecraft:dragon_breath"
+    },
+    "g":
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    "a":
+    {
+      "item": "electriclights:redstone_silicate"
+    },
+    "s":
+    {
+      "item": "minecraft:string"
+    }
+  },
+  "result":
+  {
+    "item": "electriclights:dragon_bulb",
+    "count": 3
+  }
+}

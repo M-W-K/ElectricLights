@@ -1,10 +1,12 @@
 {
     "item.electriclights.redstone_silicate": "Redstone-Silicate Blend",
     "item.electriclights.redstone_bulb": "Redstone-Silicate Bulb",
+    "item.electriclights.dragon_bulb": "Dragon Bulb",
     "item.electriclights.redstone_chip": "Redstone-Silicate Chip",
 
-    "item.electriclights.electric_light": "Electric Light",
     "item.electriclights.electric_relay": "Electric Relay",
+    "item.electriclights.electric_light": "Electric Light",
+    "item.electriclights.dragon_light": "Dragon Light",
     "item.electriclights.voltage_coil_l": "Copper Voltage Coil",
     "item.electriclights.voltage_coil_m": "Gold Voltage Coil",
     "item.electriclights.voltage_coil_h": "Glowstone Voltage Coil",
@@ -12,6 +14,7 @@
 
     "block.electriclights.electric_relay": "Electric Relay",
     "block.electriclights.electric_light": "Electric Light",
+    "block.electriclights.dragon_light": "Dragon Light",
     "block.electriclights.voltage_coil_l": "Copper Voltage Coil",
     "block.electriclights.voltage_coil_m": "Gold Voltage Coil",
     "block.electriclights.voltage_coil_h": "Glowstone Voltage Coil",
