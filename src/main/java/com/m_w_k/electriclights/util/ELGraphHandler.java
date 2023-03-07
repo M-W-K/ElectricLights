@@ -15,9 +15,9 @@ public class ELGraphHandler {
     private static ElectricLightsGraph getGraphForLevel(Level level) {
         return electricLightsGraphs.get(level);
     }
-    public static void addGraphNodeAndAutoConnect(GraphNode node, Level level) {
+    public static boolean addGraphNodeAndAutoConnect(GraphNode node, Level level) {
         ElectricLightsGraph graph = getGraphForLevel(level);
-        if (graph == null) return;
+        if (graph == null) return false;
         GraphNode[] graphNodes = graph.getNodes();
         graph.addNode(node);
         for (GraphNode graphNode : graphNodes) {
@@ -31,12 +31,15 @@ public class ELGraphHandler {
         }
         graph.refreshSwitchboards(level);
         graph.setDirty();
+        return true;
     }
-    public static void removeGraphNode(GraphNode node, Level level) {
+    public static boolean removeGraphNode(GraphNode node, Level level) {
         ElectricLightsGraph graph = getGraphForLevel(level);
+        if (graph == null) return false;
         graph.removeNode(node);
         graph.refreshSwitchboards(level);
         graph.setDirty();
+        return true;
     }
     public static List<GraphNode> getSwitchboards(Level level) {
         ElectricLightsGraph graph = getGraphForLevel(level);
