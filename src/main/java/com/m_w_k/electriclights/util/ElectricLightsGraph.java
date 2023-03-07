@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-// TODO implement dimension-aware graph; unique graph for every level?
 public class ElectricLightsGraph extends SavedData {
     private final Graph<GraphNode, DefaultEdge> g;
     private Level selfLevel;
