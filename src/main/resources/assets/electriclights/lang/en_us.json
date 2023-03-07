@@ -4,13 +4,14 @@
     "item.electriclights.dragon_bulb": "Dragon Bulb",
     "item.electriclights.redstone_chip": "Redstone-Silicate Chip",
 
-    "item.electriclights.electric_relay": "Electric Relay",
-    "item.electriclights.electric_light": "Electric Light",
-    "item.electriclights.dragon_light": "Dragon Light",
-    "item.electriclights.voltage_coil_l": "Copper Voltage Coil",
-    "item.electriclights.voltage_coil_m": "Gold Voltage Coil",
-    "item.electriclights.voltage_coil_h": "Glowstone Voltage Coil",
-
+    "item.electriclights.electric_light_0": "Electric Light",
+    "item.electriclights.electric_light_1": "Barely Aged Electric Light",
+    "item.electriclights.electric_light_2": "Somewhat Aged Electric Light",
+    "item.electriclights.electric_light_3": "Rather Aged Electric Light",
+    "item.electriclights.electric_light_4": "Very Aged Electric Light",
+    "item.electriclights.electric_light_5": "Heavily Aged Electric Light",
+    "item.electriclights.electric_light_6": "Incredibly Aged Electric Light",
+    "item.electriclights.electric_light_7": "Burnt Out Electric Light",
 
     "block.electriclights.electric_relay": "Electric Relay",
     "block.electriclights.electric_light": "Electric Light",
@@ -19,14 +20,10 @@
     "block.electriclights.voltage_coil_m": "Gold Voltage Coil",
     "block.electriclights.voltage_coil_h": "Glowstone Voltage Coil",
 
-
-    "item.electriclights.master_switchboard": "Master Switchboard",
     "block.electriclights.master_switchboard": "Master Switchboard",
-
-    "item.electriclights.alternator_generator": "Alternator Generator",
     "block.electriclights.alternator_generator": "Alternator Generator",
-    "menu.electriclights.alternator_generator": "Alternator Generator",
 
+    "menu.electriclights.alternator_generator": "Alternator Generator",
 
     "advancement.electriclights.electriclights": "Electric Lights",
     "advancement.electriclights.electriclights.desc": "Welcome to Electric Lights!",

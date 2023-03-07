@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "items": ["electriclights:electric_light"]
+            "items": ["electriclights:electric_light_0"]
           }
         ]
       }

@@ -5,12 +5,18 @@
       "tag": "forge:dusts/redstone"
     },
     {
+      "tag": "forge:dusts/redstone"
+    },
+    {
+      "tag": "forge:dusts/redstone"
+    },
+    {
       "tag": "forge:sand"
     }
   ],
   "result":
   {
     "item": "electriclights:redstone_silicate",
-    "count": 2
+    "count": 4
   }
 }
