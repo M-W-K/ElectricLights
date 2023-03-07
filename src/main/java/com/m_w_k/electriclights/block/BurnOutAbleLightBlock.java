@@ -3,6 +3,7 @@ package com.m_w_k.electriclights.block;
 import com.m_w_k.electriclights.item.BurnOutAbleLightBlockItem;
 import com.m_w_k.electriclights.registry.ELItemsRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -15,6 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,10 +38,11 @@ public class BurnOutAbleLightBlock extends ElectricRelayBlock {
     @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        if (context.getItemInHand().getItem() instanceof BurnOutAbleLightBlockItem item) {
-            return this.defaultBlockState().setValue(AGE,item.getInitialState());
+        BlockState state = getStateLogic(context, this.defaultBlockState());
+        if (state != null && context.getItemInHand().getItem() instanceof BurnOutAbleLightBlockItem item) {
+            state = state.setValue(AGE,item.getInitialState());
         }
-        return null;
+        return state;
     }
     /**
      * Warning for "deprecation" is suppressed because the method is fine to override.

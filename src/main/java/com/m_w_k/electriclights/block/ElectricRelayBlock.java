@@ -70,7 +70,10 @@ public class ElectricRelayBlock extends Block implements SimpleWaterloggedBlock 
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context)
     {
-        BlockState state = this.defaultBlockState();
+        return getStateLogic(context, this.defaultBlockState());
+    }
+    @Nullable
+    protected BlockState getStateLogic(BlockPlaceContext context, BlockState state) {
         BlockPos blockpos = context.getClickedPos();
 
         FluidState fluidstate = context.getLevel().getFluidState(blockpos);

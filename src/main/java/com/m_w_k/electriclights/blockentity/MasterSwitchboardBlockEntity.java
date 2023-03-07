@@ -162,9 +162,9 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
         else if (level.getServer() != null && !level.getServer().isCurrentlySaving() && nodes != null) {
             for (GraphNode node : nodes) {
                 BlockState nodeState = level.getBlockState(node.getPos());
-                int oldLight = nodeState.getValue(ElectricRelayBlock.LIGHTSTATE);
-                int newLight = state;
                 if (nodeState.getBlock() instanceof ElectricRelayBlock) {
+                    int oldLight = nodeState.getValue(ElectricRelayBlock.LIGHTSTATE);
+                    int newLight = state;
                     if (oldLight != newLight) {
                         // do burn out math if the light can be burnt out
                         if (nodeState.getBlock() instanceof BurnOutAbleLightBlock) {
@@ -172,12 +172,12 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                             if (currentAge == 7) {
                                 // keep the light dead if it's burnt out
                                 newLight = 0;
-                                if (oldLight == newLight) return;
+                                if (oldLight == newLight) continue;
                             } else {
-                                // lasts on average 50 state changes, or only 20 if waterlogged.
+                                // lasts on average 28 state changes, or only 14 if waterlogged.
                                 double rand = Math.random();
-                                if (rand < 0.14 || (rand < 0.35 && nodeState.getValue(ElectricRelayBlock.WATERLOGGED))) {
-                                    nodeState.setValue(BurnOutAbleLightBlock.AGE, currentAge + 1);
+                                if (rand < 0.25 || (rand < 0.5 && nodeState.getValue(ElectricRelayBlock.WATERLOGGED))) {
+                                    nodeState = nodeState.setValue(BurnOutAbleLightBlock.AGE, currentAge + 1);
                                 }
                             }
                         }
