@@ -87,18 +87,17 @@ public class ElectricLightsGraph extends SavedData {
 
     @Override
     public @NotNull CompoundTag save(@NotNull CompoundTag tag) {
-        ElectricLightsMod.logToConsole("Saving Graph for level " + selfLevel.getLevelData());
+        ElectricLightsMod.logToConsole("Saving Graph for level '{}'/{}", selfLevel, selfLevel.dimension().location());
         String[] data = this.parsed();
         // ElectricLightsMod.logToConsole("Saving the following node data: " + data[0]);
         // ElectricLightsMod.logToConsole("Saving the following edge data: " + data[1]);
         tag.putString("GraphNodes", data[0]);
         tag.putString("GraphEdges", data[1]);
-        // ElectricLightsMod.logToConsole("Saved Graph Successfully.");
         return tag;
     }
 
     protected @NotNull ElectricLightsGraph createWithLog(Level level) {
-        ElectricLightsMod.logToConsole("No saved Graph was found for " + level.getLevelData() + ", generating new one.");
+        ElectricLightsMod.logToConsole("No saved Graph was found for '{}'/{}, generating new one.", selfLevel, selfLevel.dimension().location());
         return create(level);
     }
     protected static @NotNull ElectricLightsGraph create(Level level) {
@@ -115,7 +114,7 @@ public class ElectricLightsGraph extends SavedData {
     }
 
     protected @NotNull ElectricLightsGraph load(@NotNull CompoundTag tag, Level level) {
-        ElectricLightsMod.logToConsole("Found saved Graph for " + level.getLevelData() + ", now loading.");
+        ElectricLightsMod.logToConsole("Found saved Graph for '{}'/{}, now loading.", selfLevel, selfLevel.dimension().location());
         // ElectricLightsMod.logToConsole("Graph contains the following node data: " + tag.getString("ELGraphNodes"));
         // ElectricLightsMod.logToConsole("Graph contains the following edge data: " + tag.getString("ELGraphEdges"));
         ElectricLightsGraph graph = create();
@@ -127,7 +126,6 @@ public class ElectricLightsGraph extends SavedData {
         for (GraphNode[] edge : edges) {
             graph.addConnection(edge[0], edge[1]);
         }
-        // ElectricLightsMod.logToConsole("Loaded Graph Successfully.");
         graph.selfLevel = level;
         return graph;
     }

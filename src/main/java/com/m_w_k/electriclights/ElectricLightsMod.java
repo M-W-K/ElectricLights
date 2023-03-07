@@ -1,13 +1,10 @@
 package com.m_w_k.electriclights;
 
 import com.m_w_k.electriclights.gui.AlternatorScreen;
-import com.m_w_k.electriclights.registry.ELBlockRegistry;
 import com.m_w_k.electriclights.registry.ELRegistry;
 import com.m_w_k.electriclights.util.ELGraphHandler;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ChunkPos;
@@ -79,5 +76,8 @@ public class ElectricLightsMod
     }
     public static void logToConsole(String string) {
         LOGGER.info(string);
+    }
+    public static void logToConsole(String string, Object... arguments) {
+        LOGGER.info(string, arguments);
     }
 }
