@@ -2,10 +2,20 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "electriclights:electric_relay"
+      "electriclights:voltage_coil_l"
     ]
   },
   "criteria": {
+    "has_copper": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ingots/copper"
+          }
+        ]
+      }
+    },
     "has_redstone_silicate": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -19,11 +29,15 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "electriclights:electric_relay"
+        "recipe": "electriclights:voltage_coil_l"
       }
     }
   },
   "requirements": [
+    [
+      "has_copper",
+      "has_the_recipe"
+    ],
     [
       "has_redstone_silicate",
       "has_the_recipe"

@@ -11,17 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "minecraft:redstone"
-          }
-        ]
-      }
-    },
-    "has_sand": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "minecraft:sand"
+            "tag": "forge:dusts/redstone"
           }
         ]
       }
@@ -36,7 +26,6 @@
   "requirements": [
     [
       "has_redstone",
-      "has_sand",
       "has_the_recipe"
     ]
   ]

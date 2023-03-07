@@ -6,22 +6,12 @@
     ]
   },
   "criteria": {
-    "has_redstone": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "minecraft:redstone"
-          }
-        ]
-      }
-    },
     "has_redstone_silicate": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "electriclights:redstone_silicate"
+            "items": ["electriclights:redstone_silicate"]
           }
         ]
       }
@@ -35,7 +25,6 @@
   },
   "requirements": [
     [
-      "has_redstone",
       "has_redstone_silicate",
       "has_the_recipe"
     ]

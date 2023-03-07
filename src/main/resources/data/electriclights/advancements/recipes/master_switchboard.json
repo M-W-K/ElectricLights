@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "electriclights:electric_relay"
+      "electriclights:master_switchboard"
     ]
   },
   "criteria": {
-    "has_redstone_silicate": {
+    "has_chip": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": ["electriclights:redstone_silicate"]
+            "items": ["electriclights:redstone_chip"]
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "electriclights:electric_relay"
+        "recipe": "electriclights:master_switchboard"
       }
     }
   },
   "requirements": [
     [
-      "has_redstone_silicate",
+      "has_chip",
       "has_the_recipe"
     ]
   ]

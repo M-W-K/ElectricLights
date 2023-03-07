@@ -2,10 +2,20 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "electriclights:electric_relay"
+      "electriclights:voltage_coil_m"
     ]
   },
   "criteria": {
+    "has_gold": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ingots/gold"
+          }
+        ]
+      }
+    },
     "has_redstone_silicate": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -19,11 +29,15 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "electriclights:electric_relay"
+        "recipe": "electriclights:voltage_coil_m"
       }
     }
   },
   "requirements": [
+    [
+      "has_gold",
+      "has_the_recipe"
+    ],
     [
       "has_redstone_silicate",
       "has_the_recipe"

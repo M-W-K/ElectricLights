@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "electriclights:electric_relay"
+      "electriclights:redstone_chip"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "electriclights:electric_relay"
+        "recipe": "electriclights:redstone_chip"
       }
     }
   },
