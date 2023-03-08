@@ -24,26 +24,27 @@ public class ELBlockStateProv extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         this.relay(ELBlockRegistry.ELECTRIC_LIGHT, "light");
+        this.relay(ELBlockRegistry.DRAGON_LIGHT, "light");
         // commented out because textures / blueprint models are missing
         // this.relay(ELBlockRegistry.ELECTRIC_RELAY, "relay");
     }
     public void relay(RegistryObject<Block> registryObject, String variant) {
         Block block = registryObject.get();
         String path = registryObject.getId().getPath();
-        String pathUnfinished = "electriclights:block/" + variant + "_";
+        String texturePath = "electriclights:block/" + variant + "_";
         List<ModelFile> floor_models = new ArrayList<>();
         List<ModelFile> wall_models = new ArrayList<>();
         List<ModelFile> ceiling_models = new ArrayList<>();
         for (int i = 0; i <= 4; i++) {
-            floor_models.add(this.models().withExistingParent(path.concat("_floor_") + i,pathUnfinished + "floor_blueprint")
-                    .texture("2",pathUnfinished + i)
-                    .texture("particle",pathUnfinished + i));
-            wall_models.add(this.models().withExistingParent(path.concat("_wall_") + i,pathUnfinished + "wall_blueprint")
-                    .texture("2",pathUnfinished + i)
-                    .texture("particle",pathUnfinished + i));
-            ceiling_models.add(this.models().withExistingParent(path.concat("_ceiling_") + i,pathUnfinished + "ceiling_blueprint")
-                    .texture("2",pathUnfinished + i)
-                    .texture("particle",pathUnfinished + i));
+            floor_models.add(this.models().withExistingParent(path.concat("_floor_") + i,texturePath + "floor_blueprint")
+                    .texture("2",texturePath + i)
+                    .texture("particle",texturePath + i));
+            wall_models.add(this.models().withExistingParent(path.concat("_wall_") + i,texturePath + "wall_blueprint")
+                    .texture("2",texturePath + i)
+                    .texture("particle",texturePath + i));
+            ceiling_models.add(this.models().withExistingParent(path.concat("_ceiling_") + i,texturePath + "ceiling_blueprint")
+                    .texture("2",texturePath + i)
+                    .texture("particle",texturePath + i));
         }
         this.getVariantBuilder(block).forAllStatesExcept(state -> {
             int lightstate = state.getValue(ElectricRelayBlock.LIGHTSTATE);
