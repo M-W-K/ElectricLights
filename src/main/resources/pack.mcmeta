@@ -1,6 +1,6 @@
 {
     "pack": {
-        "description": "electriclights resources",
+        "description": "Electric Lights resources. Emissive Textures from https://github.com/ShockMicro/VanillaDynamicEmissives",
         "pack_format": 4
     }
 }
