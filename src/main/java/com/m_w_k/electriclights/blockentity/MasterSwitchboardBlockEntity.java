@@ -77,17 +77,15 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
             servicedLightCount = 0;
             badConnect = false;
             for (GraphNode node : connectedNodes) {
-                if (node.getType().isLight()) {
-                    servicedLightCount++;
-                } else if (node.getType().isSpecial()) { // don't continue down the else/if chain if we're a relay
-                    if (node.getType().isGenerator()) {
-                        generators.add(node);
-                    } else if (node.getType().isSwitchboard()) {
+                switch (node.getType()) {
+                    case LIGHT -> servicedLightCount++;
+                    case GENERATOR -> generators.add(node);
+                    case SWITCHBOARD -> {
                         badConnect = true;
                         updateServicedLights(1);
-                        break;
                     }
                 }
+                if (badConnect) break;
 
             }
             // make sure to turn off any recently disconnected lights
