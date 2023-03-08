@@ -47,12 +47,14 @@ public class ELBlockStateProv extends BlockStateProvider {
         }
         this.getVariantBuilder(block).forAllStatesExcept(state -> {
             int lightstate = state.getValue(ElectricRelayBlock.LIGHTSTATE);
+            boolean burntOut = false;
+            if (state.getBlock() instanceof BurnOutAbleLightBlock) burntOut = state.getValue(BurnOutAbleLightBlock.AGE) == 7;
             Direction facing = state.getValue(ElectricRelayBlock.FACING);
             return ConfiguredModel.builder()
                     .modelFile(switch (facing) {
-                        case DOWN -> floor_models.get(lightstate);
-                        case UP -> ceiling_models.get(lightstate);
-                        default -> wall_models.get(lightstate);
+                        case DOWN -> floor_models.get(burntOut ? 0 :lightstate);
+                        case UP -> ceiling_models.get(burntOut ? 0 :lightstate);
+                        default -> wall_models.get(burntOut ? 0 :lightstate);
                     }).rotationY(switch (facing) {
                         case EAST -> 90;
                         case SOUTH -> 180;
@@ -60,7 +62,7 @@ public class ELBlockStateProv extends BlockStateProvider {
                         default -> 0;
                     })
                     .build();
-        }, ElectricRelayBlock.WATERLOGGED, BurnOutAbleLightBlock.AGE);
+        }, ElectricRelayBlock.WATERLOGGED);
 
     }
 }

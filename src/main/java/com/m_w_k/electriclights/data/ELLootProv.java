@@ -59,6 +59,7 @@ public class ELLootProv extends LootTableProvider {
         private LootTable.Builder createDropsForBurnableLights() {
             // ugly as sin, but it somehow works
             // don't ask how much internet delving I did in order to come up with this
+            // I could've made it into a for loop, but this is more impressive.
             LootPool.Builder poolBuilder = LootPool.lootPool()
                     .add(LootItem.lootTableItem(ELItemsRegistry.ELECTRIC_LIGHT_0_BLOCK_ITEM.get())
                             .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ELBlockRegistry.ELECTRIC_LIGHT.get()).setProperties(

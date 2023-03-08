@@ -1,6 +1,7 @@
 package com.m_w_k.electriclights.block;
 
 import com.m_w_k.electriclights.item.BurnOutAbleLightBlockItem;
+import com.m_w_k.electriclights.registry.ELBlockRegistry;
 import com.m_w_k.electriclights.registry.ELItemsRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -50,11 +51,16 @@ public class BurnOutAbleLightBlock extends ElectricRelayBlock {
     @SuppressWarnings("deprecation")
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (player.isHolding(ELItemsRegistry.REDSTONE_BULB.get()) && state.getBlock() instanceof BurnOutAbleLightBlock && state.getValue(AGE) != 0) {
+        if (state.getBlock() instanceof BurnOutAbleLightBlock && ((player.isHolding(ELItemsRegistry.REDSTONE_BULB.get()) && state.getValue(AGE) != 0) || player.isHolding(ELItemsRegistry.DRAGON_BULB.get()))) {
             if (!level.isClientSide()) {
                 ItemStack bulbs = player.getItemInHand(hand);
+                if (player.isHolding(ELItemsRegistry.DRAGON_BULB.get())) {
+                    level.removeBlock(pos,false);
+                    level.setBlockAndUpdate(pos, ELBlockRegistry.DRAGON_LIGHT.get().defaultBlockState()
+                            .setValue(ElectricRelayBlock.LIGHTSTATE, state.getValue(ElectricRelayBlock.LIGHTSTATE)));
+                }
+                else level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
                 bulbs.setCount(bulbs.getCount() - 1);
-                state.setValue(AGE, 0);
                 return InteractionResult.CONSUME;
             } else return InteractionResult.SUCCESS;
         } else return InteractionResult.PASS;

@@ -167,11 +167,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                         // do burn out math if the light can be burnt out
                         if (nodeState.getBlock() instanceof BurnOutAbleLightBlock) {
                             int currentAge = nodeState.getValue(BurnOutAbleLightBlock.AGE);
-                            if (currentAge == 7) {
-                                // keep the light dead if it's burnt out
-                                newLight = 0;
-                                if (oldLight == newLight) continue;
-                            } else {
+                            if (currentAge != 7) {
                                 // lasts on average 28 state changes, or only 14 if waterlogged.
                                 double rand = Math.random();
                                 if (rand < 0.25 || (rand < 0.5 && nodeState.getValue(ElectricRelayBlock.WATERLOGGED))) {
