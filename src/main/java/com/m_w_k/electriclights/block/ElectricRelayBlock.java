@@ -38,6 +38,10 @@ public class ElectricRelayBlock extends Block implements SimpleWaterloggedBlock 
             Block.box(4.0D, 0.0D, 4.0D, 12.0D, 9.0D, 12.0D),
             Block.box(3.0D, 9.0D, 3.0D, 13.0D, 11.0D, 13.0D),
             Block.box(5.0D, 11.0D, 5.0D, 11.0D, 13.0D, 11.0D));
+    protected static final VoxelShape LIGHT_CEILING_AABB = Shapes.or(
+            Block.box(4.0D, 1.0D, 4.0D, 12.0D, 10.0D, 12.0D),
+            Block.box(3.0D, 10.0D, 3.0D, 13.0D, 12.0D, 13.0D),
+            Block.box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D));
 
     private final boolean isLight;
 
@@ -136,8 +140,8 @@ public class ElectricRelayBlock extends Block implements SimpleWaterloggedBlock 
      */
     @SuppressWarnings("deprecation")
     @Override
-    public VoxelShape getShape(BlockState p_153474_, BlockGetter p_153475_, BlockPos p_153476_, CollisionContext p_153477_) {
-        return LIGHT_FLOOR_AABB;
+    public VoxelShape getShape(BlockState state, BlockGetter p_153475_, BlockPos p_153476_, CollisionContext p_153477_) {
+        return state.getValue(FACING) == Direction.DOWN ? LIGHT_FLOOR_AABB : LIGHT_CEILING_AABB;
     }
     /**
      * Warning for "deprecation" is suppressed because the method is fine to override.
