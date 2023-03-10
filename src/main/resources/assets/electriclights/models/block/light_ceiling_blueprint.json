@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type": "translucent",
 	"texture_size": [64, 64],
 	"textures": {
-		"2": "mod-MC:light_3",
-		"particle": "mod-MC:light_3"
+		"2": "light_0"
 	},
 	"elements": [
 		{
