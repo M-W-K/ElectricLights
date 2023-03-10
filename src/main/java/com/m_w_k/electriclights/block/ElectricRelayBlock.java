@@ -131,13 +131,20 @@ public class ElectricRelayBlock extends Block implements SimpleWaterloggedBlock 
     public boolean canSurvive(BlockState state, LevelReader levelReader, BlockPos pos) {
         return canSupportCenter(levelReader, pos.relative(state.getValue(FACING)), state.getValue(FACING).getOpposite());
     }
-
+    /**
+     * Warning for "deprecation" is suppressed because the method is fine to override.
+     */
+    @SuppressWarnings("deprecation")
     @Override
-    public void setPlacedBy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
-        if (!level.isClientSide()) {
-            ELGraphHandler.addGraphNodeAndAutoConnect(new GraphNode(pos, isLight ? GraphNode.NodeType.LIGHT : GraphNode.NodeType.RELAY), level);
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!state.is(newState.getBlock())) {
+            if (!level.isClientSide()) {
+                ELGraphHandler.addGraphNodeAndAutoConnect(new GraphNode(pos, isLight ? GraphNode.NodeType.LIGHT : GraphNode.NodeType.RELAY), level);
+            }
+            super.onPlace(state, level, pos, newState, isMoving);
         }
     }
+
     /**
      * Warning for "deprecation" is suppressed because the method is fine to override.
      */
