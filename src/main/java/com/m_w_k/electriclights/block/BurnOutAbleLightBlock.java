@@ -57,7 +57,9 @@ public class BurnOutAbleLightBlock extends ElectricRelayBlock {
                 if (player.isHolding(ELItemsRegistry.DRAGON_BULB.get())) {
                     level.removeBlock(pos,false);
                     level.setBlockAndUpdate(pos, ELBlockRegistry.DRAGON_LIGHT.get().defaultBlockState()
-                            .setValue(ElectricRelayBlock.LIGHTSTATE, state.getValue(ElectricRelayBlock.LIGHTSTATE)));
+                            .setValue(ElectricRelayBlock.LIGHTSTATE, state.getValue(ElectricRelayBlock.LIGHTSTATE))
+                            .setValue(ElectricRelayBlock.WATERLOGGED, state.getValue(ElectricRelayBlock.WATERLOGGED))
+                            .setValue(ElectricRelayBlock.FACING, state.getValue(ElectricRelayBlock.FACING)));
                 }
                 else level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
                 bulbs.setCount(bulbs.getCount() - 1);
