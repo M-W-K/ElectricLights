@@ -1,4 +1,4 @@
-![Banner image](assets/banner.webp)
+![Banner image](assets/Banner.webp)
 # Electric Lights
 A small mod for Minecraft that introduces easy-to-use electric lights.
 
