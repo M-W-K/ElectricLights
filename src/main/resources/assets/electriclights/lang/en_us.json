@@ -1,4 +1,11 @@
 {
+    "electriclights.general.nodeConnectDist": "Network connection distance",
+    "electriclights.general.minimumSwitchboardUpdateInterval": "Minimum switchboard update interval",
+    "electriclights.general.alternatorEnergyFactor": "Alternator energy factor",
+    "electriclights.general.solarEnergyFactor": "Solar energy factor",
+    "electriclights.general.geothermalEnergyFactor": "Geothermal energy factor",
+    "electriclights.general": "Electric Lights Configuration Settings",
+
     "item.electriclights.redstone_silicate": "Redstone-Silicate Blend",
     "item.electriclights.redstone_bulb": "Redstone-Silicate Bulb",
     "item.electriclights.dragon_bulb": "Dragon Bulb",

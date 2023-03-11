@@ -1,5 +1,6 @@
 package com.m_w_k.electriclights.blockentity;
 
+import com.m_w_k.electriclights.ELConfig;
 import com.m_w_k.electriclights.block.BurnOutAbleLightBlock;
 import com.m_w_k.electriclights.util.ELGraphHandler;
 import com.m_w_k.electriclights.ElectricLightsMod;
@@ -122,12 +123,12 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                     if (self.ticksToNextUpdate <= self.ticksSinceLastUpdate || self.forceUpdate) {
                         self.energy -= (self.voltage + 2) * self.servicedLightCount * self.ticksSinceLastUpdate;
                         if (!self.generators.isEmpty()) self.energy += self.retrieveEnergy(self.maxEnergy - self.energy);
-                        self.ticksToNextUpdate = Math.max(self.energy / ((self.voltage + 2) * self.servicedLightCount), ElectricLightsMod.MINIMUM_SWITCHBOARD_UPDATE_INTERVAL);
+                        self.ticksToNextUpdate = Math.max(self.energy / ((self.voltage + 2) * self.servicedLightCount), ELConfig.SERVER.minimumSwitchboardUpdateInterval());
                         if (self.energy <= 0) {
                             self.energy = 0;
                             self.updateServicedLights(1);
                             // if we run out of power, don't bother updating for an extended interval
-                            self.ticksToNextUpdate = ElectricLightsMod.MINIMUM_SWITCHBOARD_UPDATE_INTERVAL * 2;
+                            self.ticksToNextUpdate = ELConfig.SERVER.minimumSwitchboardUpdateInterval() * 2;
                         } else self.updateServicedLights(self.voltage);
                         if (!self.hasCapacitor) self.hasCapacitor = true;
                         if (self.forceUpdate) self.forceUpdate = false;
@@ -138,7 +139,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                     self.updateServicedLights(1);
                     self.hasCapacitor = false;
                 }
-            } else if (self.ticksWithoutGoodConnect >= ElectricLightsMod.MINIMUM_SWITCHBOARD_UPDATE_INTERVAL * 10) {
+            } else if (self.ticksWithoutGoodConnect >= ELConfig.SERVER.minimumSwitchboardUpdateInterval() * 10) {
                 self.refresh(level);
                 self.ticksWithoutGoodConnect = 1; // 1 tick to compensate for this calculation tick
             } else self.ticksWithoutGoodConnect++;

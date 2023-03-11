@@ -1,5 +1,6 @@
 package com.m_w_k.electriclights.blockentity;
 
+import com.m_w_k.electriclights.ELConfig;
 import com.m_w_k.electriclights.gui.AlternatorMenu;
 import com.m_w_k.electriclights.ElectricLightsMod;
 import com.m_w_k.electriclights.registry.ELBlockEntityRegistry;
@@ -110,11 +111,11 @@ public class AlternatorBlockEntity extends BaseContainerBlockEntity implements W
                 if (self.litDuration > 0) {
                     if (self.softEnergyCap > self.energyGenerated) self.removeItem(0,1);
                     self.litTime = 1;
-                    self.energyGenerated += ElectricLightsMod.ALTERNATOR_ENERGY_FACTOR;
+                    self.energyGenerated += ELConfig.SERVER.alternatorEnergyFactor();
                 } else if (self.litTime != 0) self.litTime = 0;
             } else {
                 self.litTime++;
-                self.energyGenerated += ElectricLightsMod.ALTERNATOR_ENERGY_FACTOR;
+                self.energyGenerated += ELConfig.SERVER.alternatorEnergyFactor();
             }
             if (state.getValue(LIT) != self.isLit()) level.setBlockAndUpdate(pos, state.setValue(LIT, self.isLit()));
         }

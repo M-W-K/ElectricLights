@@ -1,5 +1,6 @@
 package com.m_w_k.electriclights.util;
 
+import com.m_w_k.electriclights.ELConfig;
 import com.m_w_k.electriclights.ElectricLightsMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
@@ -24,7 +25,7 @@ public class ELGraphHandler {
             if (!node.toString().equals(graphNode.toString())) {
                 BlockPos pos1 = node.getPos();
                 BlockPos pos2 = graphNode.getPos();
-                if (pos1.distSqr(pos2) <= ElectricLightsMod.NODE_CONNECT_DIST_SQR) {
+                if (pos1.distSqr(pos2) <= ELConfig.SERVER.nodeConnectDistSqr()) {
                     graph.addConnection(node, graphNode);
                 }
             }
