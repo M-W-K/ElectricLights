@@ -88,10 +88,20 @@ public class ElectricLightsGraph extends SavedData {
     public @NotNull CompoundTag save(@NotNull CompoundTag tag) {
         ElectricLightsMod.logToConsole("Saving Graph for level '{}'/{}", selfLevel, selfLevel.dimension().location());
         String[] data = this.parsed();
-        // ElectricLightsMod.logToConsole("Saving the following node data: " + data[0]);
-        // ElectricLightsMod.logToConsole("Saving the following edge data: " + data[1]);
-        tag.putString("GraphNodes", data[0]);
-        tag.putString("GraphEdges", data[1]);
+        CompoundTag nodes = new CompoundTag();
+        GraphNode[] graphNodes = deparseNodes(data[0]);
+        nodes.putInt("Count", graphNodes.length);
+        for (int i = 0; i < graphNodes.length; i++) {
+            nodes.putString(String.valueOf(i), graphNodes[i].toString());
+        }
+        CompoundTag edges = new CompoundTag();
+        GraphNode[][] graphEdges = deparseEdges(data[1]);
+        edges.putInt("Count", graphEdges.length);
+        for (int i = 0; i < graphEdges.length; i++) {
+            edges.putString(String.valueOf(i), graphEdges[i][0].toString() + ',' + graphEdges[i][1].toString());
+        }
+        tag.put("GraphNodes", nodes);
+        tag.put("GraphEdges", edges);
         return tag;
     }
 
@@ -117,8 +127,8 @@ public class ElectricLightsGraph extends SavedData {
         // ElectricLightsMod.logToConsole("Graph contains the following node data: " + tag.getString("ELGraphNodes"));
         // ElectricLightsMod.logToConsole("Graph contains the following edge data: " + tag.getString("ELGraphEdges"));
         ElectricLightsGraph graph = create();
-        GraphNode[] nodes = deparseNodes(tag.getString("GraphNodes"));
-        GraphNode[][] edges = deparseEdges(tag.getString("GraphEdges"));
+        GraphNode[] nodes = loadNodes(tag.getCompound("GraphNodes"));
+        GraphNode[][] edges = loadEdges(tag.getCompound("GraphEdges"));
         for (GraphNode node : nodes) {
             graph.addNode(node);
         }
@@ -191,9 +201,28 @@ public class ElectricLightsGraph extends SavedData {
             String[] splitEdges = parsedEdges.split(", "); // Split edges apart
             for (String edge : splitEdges) { // Add edges to array
                 String[] nodes = edge.split(",");
-                edges.add(new GraphNode[]{generateNode(nodes[0]), generateNode(nodes[1])});
+                edges.add(new GraphNode[] {generateNode(nodes[0]), generateNode(nodes[1])});
             }
             return edges.toArray(new GraphNode[0][0]);
         }
+    }
+
+    protected static GraphNode[] loadNodes(CompoundTag nodeTag) {
+        int size = nodeTag.getInt("Count");
+        List<GraphNode> nodes = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            nodes.add(generateNode(nodeTag.getString(String.valueOf(i))));
+        }
+        return nodes.toArray(new GraphNode[0]);
+    }
+
+    protected static GraphNode[][] loadEdges(CompoundTag nodeTag) {
+        int size = nodeTag.getInt("Count");
+        List<GraphNode[]> nodes = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            String[] edge = nodeTag.getString(String.valueOf(i)).split(",");
+            nodes.add(new GraphNode[] {generateNode(edge[0]),generateNode(edge[1])});
+        }
+        return nodes.toArray(new GraphNode[0][0]);
     }
 }
