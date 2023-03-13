@@ -19,17 +19,17 @@ public class AlternatorMenu extends AbstractContainerMenu {
     public final Level level;
 
     public AlternatorMenu(int containerId, Inventory playerInventory) {
-        this(containerId, playerInventory, new SimpleContainer(1), new SimpleContainerData(2));
+        this(containerId, playerInventory, new SimpleContainer(1), new SimpleContainerData(3));
     }
 
     public AlternatorMenu(int containerId, Inventory playerInventory, Container container, ContainerData data) {
         super(ELGUIRegistry.ALTERNATOR_MENU.get(), containerId);
         checkContainerSize(container, 1);
-        checkContainerDataCount(data, 2);
+        checkContainerDataCount(data, 3);
         this.container = container;
         this.data = data;
         this.level = playerInventory.player.getLevel();
-        this.addSlot(new AlternatorFuelSlot(this, container, 0, 73, 53));
+        this.addSlot(new AlternatorFuelSlot(this, container, 0, 67, 51));
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
                 this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
@@ -86,13 +86,15 @@ public class AlternatorMenu extends AbstractContainerMenu {
         return AlternatorBlockEntity.burnable(stack);
     }
     public boolean isLit() {
-        if (this.container instanceof AlternatorBlockEntity alternatorBlock) {
-            return alternatorBlock.isLit();
-        } else return false;
+        return this.data.get(0) > 0;
     }
     public int getLitTimeRemainingScaled() {
-        if (this.container instanceof AlternatorBlockEntity alternatorBlock) {
-            return (alternatorBlock.getLitDuration() - alternatorBlock.getLitTime()) / alternatorBlock.getLitDuration();
-        } else return 0;
+        return getLitTimeRemaining() * 9 / this.data.get(1);
+    }
+    public int getLitTimeRemaining() {
+        return this.data.get(1) - this.data.get(0);
+    }
+    public int getEnergyStored() {
+        return this.data.get(2);
     }
 }

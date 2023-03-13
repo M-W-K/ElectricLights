@@ -30,7 +30,7 @@
     "block.electriclights.master_switchboard": "Master Switchboard",
     "block.electriclights.alternator_generator": "Alternator Generator",
 
-    "menu.electriclights.alternator_generator": "Alternator Generator",
+    "menu.electriclights.alternator": "Alternator Generator",
 
     "advancement.electriclights.electriclights": "Electric Lights",
     "advancement.electriclights.electriclights.desc": "Welcome to Electric Lights!",

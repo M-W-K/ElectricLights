@@ -45,6 +45,7 @@ public class AlternatorBlockEntity extends BaseContainerBlockEntity implements W
             return switch (index) {
                 case 0 -> AlternatorBlockEntity.this.litTime;
                 case 1 -> AlternatorBlockEntity.this.litDuration;
+                case 2 -> AlternatorBlockEntity.this.energyGenerated;
                 default -> 0;
             };
         }
@@ -54,12 +55,13 @@ public class AlternatorBlockEntity extends BaseContainerBlockEntity implements W
             switch (index) {
                 case 0 -> AlternatorBlockEntity.this.litTime = value;
                 case 1 -> AlternatorBlockEntity.this.litDuration = value;
+                case 2 -> AlternatorBlockEntity.this.energyGenerated = value;
             }
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
     };
     private LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
@@ -219,12 +221,6 @@ public class AlternatorBlockEntity extends BaseContainerBlockEntity implements W
         amountRequested = Math.min(energyGenerated, amountRequested);
         energyGenerated -= amountRequested;
         return amountRequested;
-    }
-    public int getLitTime() {
-        return litTime;
-    }
-    public int getLitDuration() {
-        return litDuration;
     }
 
     @Override
