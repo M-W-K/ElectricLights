@@ -38,7 +38,7 @@ public class AlternatorScreen extends AbstractContainerScreen<AlternatorMenu> {
         this.blit(poseStack, guiLeft, guiTop, 0, 0, this.imageWidth, this.imageHeight);
         if (this.menu.isLit()) {
             int progressionScaled = this.menu.getLitTimeRemainingScaled();
-            this.blit(poseStack, guiLeft + 67, guiTop + 78 - progressionScaled, 177, 10 - progressionScaled, 15, 1 + progressionScaled);
+            this.blit(poseStack, guiLeft + 67, guiTop + 78 - progressionScaled, 177, 10 - progressionScaled, 15, 2 + progressionScaled);
         }
         this.blit(poseStack, guiLeft + 13, guiTop + 32, 176, 75, 48, 16);
 
