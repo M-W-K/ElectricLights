@@ -1,7 +1,7 @@
 package com.m_w_k.electriclights.blockentity;
 
 import com.m_w_k.electriclights.ELConfig;
-import com.m_w_k.electriclights.gui.AlternatorMenu;
+import com.m_w_k.electriclights.gui.menu.AlternatorMenu;
 import com.m_w_k.electriclights.ElectricLightsMod;
 import com.m_w_k.electriclights.registry.ELBlockEntityRegistry;
 import com.m_w_k.electriclights.util.Generator;

@@ -1,6 +1,7 @@
-package com.m_w_k.electriclights.gui;
+package com.m_w_k.electriclights.gui.screen;
 
 import com.m_w_k.electriclights.ElectricLightsMod;
+import com.m_w_k.electriclights.gui.menu.AlternatorMenu;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -9,7 +10,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.joml.Quaternionf;
-import org.joml.Vector2f;
 
 import javax.annotation.Nonnull;
 

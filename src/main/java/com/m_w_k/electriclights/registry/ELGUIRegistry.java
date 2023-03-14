@@ -1,7 +1,7 @@
 package com.m_w_k.electriclights.registry;
 
 import com.m_w_k.electriclights.ElectricLightsMod;
-import com.m_w_k.electriclights.gui.AlternatorMenu;
+import com.m_w_k.electriclights.gui.menu.AlternatorMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

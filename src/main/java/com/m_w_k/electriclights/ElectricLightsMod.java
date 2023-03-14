@@ -1,6 +1,6 @@
 package com.m_w_k.electriclights;
 
-import com.m_w_k.electriclights.gui.AlternatorScreen;
+import com.m_w_k.electriclights.gui.screen.AlternatorScreen;
 import com.m_w_k.electriclights.registry.ELRegistry;
 import com.m_w_k.electriclights.util.ELGraphHandler;
 import com.mojang.logging.LogUtils;

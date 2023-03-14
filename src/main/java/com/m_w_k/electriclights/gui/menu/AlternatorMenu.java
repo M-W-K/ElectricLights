@@ -1,4 +1,4 @@
-package com.m_w_k.electriclights.gui;
+package com.m_w_k.electriclights.gui.menu;
 
 import com.m_w_k.electriclights.blockentity.AlternatorBlockEntity;
 import com.m_w_k.electriclights.registry.ELGUIRegistry;
@@ -96,5 +96,19 @@ public class AlternatorMenu extends AbstractContainerMenu {
     }
     public int getEnergyStored() {
         return this.data.get(2);
+    }
+
+    private static class AlternatorFuelSlot extends Slot {
+        private final AlternatorMenu menu;
+
+        public AlternatorFuelSlot(AlternatorMenu menu, Container container, int slot, int x, int y) {
+            super(container, slot, x, y);
+            this.menu = menu;
+        }
+
+        @Override
+        public boolean mayPlace(ItemStack stack) {
+            return this.menu.isFuel(stack);
+        }
     }
 }
