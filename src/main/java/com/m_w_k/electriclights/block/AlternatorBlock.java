@@ -6,6 +6,8 @@ import com.m_w_k.electriclights.blockentity.AlternatorBlockEntity;
 import com.m_w_k.electriclights.registry.ELBlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -78,6 +80,11 @@ public class AlternatorBlock extends BaseEntityBlock {
         if (!state.is(newState.getBlock())) {
             if (!level.isClientSide()) {
                 ELGraphHandler.removeGraphNode(new GraphNode(pos, GraphNode.NodeType.GENERATOR), level);
+            }
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof Container) {
+                Containers.dropContents(level, pos, (Container)blockEntity);
+                level.updateNeighbourForOutputSignal(pos, this);
             }
             super.onRemove(state, level, pos, newState, isMoving);
         }
