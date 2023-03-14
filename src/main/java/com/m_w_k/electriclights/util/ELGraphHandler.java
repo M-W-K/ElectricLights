@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -22,13 +23,7 @@ public class ELGraphHandler {
         GraphNode[] graphNodes = graph.getNodes();
         graph.addNode(node);
         for (GraphNode graphNode : graphNodes) {
-            if (!node.toString().equals(graphNode.toString())) {
-                BlockPos pos1 = node.getPos();
-                BlockPos pos2 = graphNode.getPos();
-                if (pos1.distSqr(pos2) <= ELConfig.SERVER.nodeConnectDistSqr()) {
-                    graph.addConnection(node, graphNode);
-                }
-            }
+            if (areConnected(node, graphNode)) graph.addConnection(node, graphNode);
         }
         graph.refreshSwitchboards(level);
         graph.setDirty();
@@ -66,5 +61,14 @@ public class ELGraphHandler {
     public static void loadGraphs(MinecraftServer server) {
         Iterable<ServerLevel> levels = server.getAllLevels();
         levels.forEach(serverLevel -> electricLightsGraphs.put(serverLevel,ElectricLightsGraph.create().recallFromStorage(serverLevel.getDataStorage(),serverLevel)));
+    }
+
+    @Contract(pure = true)
+    public static boolean areConnected(GraphNode node1, GraphNode node2) {
+        return !node1.toString().equals(node2.toString()) && areConnected(node1.getPos(), node2.getPos());
+    }
+    @Contract(pure = true)
+    public static boolean areConnected(BlockPos pos1, BlockPos pos2) {
+        return !pos1.equals(pos2) && (pos1.distSqr(pos2) <= ELConfig.SERVER.nodeConnectDistSqr());
     }
 }

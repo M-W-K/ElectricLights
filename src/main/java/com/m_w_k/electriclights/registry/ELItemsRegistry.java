@@ -33,6 +33,8 @@ public class ELItemsRegistry {
     public static final RegistryObject<Item> ELECTRIC_RELAY_BLOCK_ITEM = BLOCK_ITEMS.register("electric_relay", () -> new BlockItem(ELECTRIC_RELAY.get(), new Item.Properties()));
     public static final RegistryObject<Item> SWITCHBOARD_BLOCK_ITEM = BLOCK_ITEMS.register("master_switchboard", () -> new BlockItem(SWITCHBOARD_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<Item> ALTERNATOR_BLOCK_ITEM = BLOCK_ITEMS.register("alternator_generator", () -> new BlockItem(ALTERNATOR_BLOCK.get(), new Item.Properties()));
+    public static final RegistryObject<Item> SOLAR_BLOCK_ITEM = BLOCK_ITEMS.register("solar_generator", () -> new BlockItem(SOLAR_BLOCK.get(), new Item.Properties()));
+    public static final RegistryObject<Item> SOLAR_EXTENSION_BLOCK_ITEM = BLOCK_ITEMS.register("solar_extension", () -> new BlockItem(SOLAR_EXTENSION_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<Item> VOLTAGE_COIL_L_BLOCK_ITEM = BLOCK_ITEMS.register("voltage_coil_l", () -> new BlockItem(VOLTAGE_COIL_L_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<Item> VOLTAGE_COIL_M_BLOCK_ITEM = BLOCK_ITEMS.register("voltage_coil_m", () -> new BlockItem(VOLTAGE_COIL_M_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<Item> VOLTAGE_COIL_H_BLOCK_ITEM = BLOCK_ITEMS.register("voltage_coil_h", () -> new BlockItem(VOLTAGE_COIL_H_BLOCK.get(), new Item.Properties()));
@@ -54,6 +56,8 @@ public class ELItemsRegistry {
             event.accept(VOLTAGE_COIL_M_BLOCK_ITEM);
             event.accept(VOLTAGE_COIL_H_BLOCK_ITEM);
             event.accept(ALTERNATOR_BLOCK_ITEM);
+            event.accept(SOLAR_BLOCK_ITEM);
+            event.accept(SOLAR_EXTENSION_BLOCK_ITEM);
         }
     }
 }
