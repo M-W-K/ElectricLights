@@ -1,6 +1,7 @@
 package com.m_w_k.electriclights.blockentity;
 
 import com.m_w_k.electriclights.util.Generator;
+import com.m_w_k.electriclights.util.GraphNode;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
@@ -19,7 +20,7 @@ public abstract class ExtendableGeneratorBlockEntity extends BaseContainerBlockE
     protected List<BlockPos> extensionPositions = new ArrayList<>();
     protected int misc; // Miscellaneous value
     protected int energyGenerated; // Energy we've built up
-    protected final int softEnergyCap = 60000;
+    protected static final int softEnergyCap = 12000;
     protected final ContainerData dataAccess = new ContainerData() {
         @Override
         public int get(int index) {
@@ -117,12 +118,16 @@ public abstract class ExtendableGeneratorBlockEntity extends BaseContainerBlockE
     }
 
     private static List<BlockPos> extensionDataHelper(String data) {
-        List<BlockPos> extensions = new ArrayList<>();
-        for (String extension : data.split(";")) {
-            List<Integer> coords = Arrays.stream(extension.split(",")).sequential().map(Integer::parseInt).toList();
-            extensions.add(new BlockPos(coords.get(0), coords.get(1), coords.get(2)));
+        if (data.equals("")) { // handle empty state to prevent errors
+            return new ArrayList<>();
+        } else {
+            List<BlockPos> extensions = new ArrayList<>();
+            for (String extension : data.split(";")) {
+                List<Integer> coords = Arrays.stream(extension.split(",")).sequential().map(Integer::parseInt).toList();
+                extensions.add(new BlockPos(coords.get(0), coords.get(1), coords.get(2)));
+            }
+            return extensions;
         }
-        return extensions;
     }
     private static String extensionDataHelper(List<BlockPos> extensionPositions) {
         StringBuilder data = new StringBuilder();
@@ -135,5 +140,9 @@ public abstract class ExtendableGeneratorBlockEntity extends BaseContainerBlockE
     public void noteExtension(boolean registerNew, BlockPos pos) {
         if (registerNew) extensionPositions.add(pos);
         else extensionPositions.remove(pos);
+    }
+
+    public static int getSoftEnergyCap() {
+        return softEnergyCap;
     }
 }

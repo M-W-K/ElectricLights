@@ -35,7 +35,15 @@ public class SolarScreen extends AbstractContainerScreen<SolarMenu> {
         int guiTop = this.topPos;
         this.blit(poseStack, guiLeft, guiTop, 0, 0, this.imageWidth, this.imageHeight);
 
-        this.blit(poseStack, guiLeft + 13, guiTop + 32, 176, 75, 48, 16);
+        int energyLevel = 74 - (int) (74 * this.menu.getEnergyScaled());
+        this.blit(poseStack, guiLeft + 150, guiTop + 6 + energyLevel, 176, 30 + energyLevel, 20, 74 - energyLevel);
+
+        int solarFactor = this.menu.getSolarFactor();
+        int sol = solarFactor < 10 ? (solarFactor - 1) / 2 + 1 : (solarFactor - 9) * 25 / 90 + 5;
+        this.blit(poseStack, guiLeft + 19, guiTop + 14, 0, 166, 122, sol);
+
+        int extensions = (int) (125 - 125 / Math.log1p(this.menu.getExtensionsCount() + Math.E));
+        this.blit(poseStack, guiLeft + 19, guiTop + 44, 0, 197, extensions, 29);
     }
 
     @Override

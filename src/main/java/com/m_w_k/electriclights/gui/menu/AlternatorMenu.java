@@ -62,7 +62,7 @@ public class AlternatorMenu extends AbstractContainerMenu {
                     if (!this.moveItemStackTo(itemStack1, 28, 37, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index >= 28 && index < 37 && !this.moveItemStackTo(itemStack1, 2, 29, false)) {
+                } else if (index >= 28 && index < 37 && !this.moveItemStackTo(itemStack1, 1, 28, false)) {
                     return ItemStack.EMPTY;
                 }
             } else if (!this.moveItemStackTo(itemStack1, 1, 37, false)) {

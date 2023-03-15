@@ -31,6 +31,7 @@
     "block.electriclights.alternator_generator": "Alternator Generator",
 
     "menu.electriclights.alternator": "Alternator Generator",
+    "menu.electriclights.solar": "Solar Generator",
 
     "advancement.electriclights.electriclights": "Electric Lights",
     "advancement.electriclights.electriclights.desc": "Welcome to Electric Lights!",

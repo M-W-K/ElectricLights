@@ -34,8 +34,8 @@ public class ELConfig {
             nodeConnectDist = builder.translation("nodeConnectDist").comment("The maximum connection distance for network components. Uses real distance.").defineInRange("nodeConnectDist", 16, 4, 64);
             minimumSwitchboardUpdateInterval = builder.translation("minimumSwitchboardUpdateInterval").comment("The minimum number of ticks between switchboard updates.").defineInRange("minimumSwitchboardUpdateInterval", 10, 5, 40);
             alternatorEnergyFactor = builder.translation("alternatorEnergyFactor").comment("The energy production factor of the Alternator generator.").defineInRange("alternatorEnergyFactor", 420, 60, 2040);
-            solarEnergyFactor = builder.translation("solarEnergyFactor").comment("The energy production factor of the Solar generator.").defineInRange("solarEnergyFactor", 240, 60, 2040);
-            geothermalEnergyFactor = builder.translation("geothermalEnergyFactor").comment("The energy production factor of the Geothermal generator.").defineInRange("geothermalEnergyFactor", 120, 60, 2040);
+            solarEnergyFactor = builder.translation("solarEnergyFactor").comment("The energy production factor of the Solar generator.").defineInRange("solarEnergyFactor", 24, 6, 204);
+            geothermalEnergyFactor = builder.translation("geothermalEnergyFactor").comment("The energy production factor of the Geothermal generator.").defineInRange("geothermalEnergyFactor", 12, 6, 204);
             builder.pop();
         }
 

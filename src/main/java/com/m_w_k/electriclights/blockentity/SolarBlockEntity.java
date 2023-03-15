@@ -29,15 +29,16 @@ public class SolarBlockEntity extends ExtendableGeneratorBlockEntity{
 
     public static void tick(Level level, BlockPos pos, BlockState state, SolarBlockEntity self) {
         if (!level.isClientSide()) {
-            // buff our capacity based on production
-            int trueEnergyCap = self.softEnergyCap * 1000 * (2 + self.extensionPositions.size());
+            // we only need enough capacity to get half of our production through a night's worth of ticks
+            int trueEnergyCap = softEnergyCap * (ELConfig.SERVER.solarEnergyFactor() / 2) * (2 + self.extensionPositions.size()) + MasterSwitchboardBlockEntity.getMaxEnergy();
             if (trueEnergyCap > self.energyGenerated && level.canSeeSky(pos.above())) {
                 self.misc = solarCoefficient(level);
                 int operable = 2;
                 for (BlockPos extension : self.extensionPositions) {
                     if (level.canSeeSky(extension.above())) operable += 1;
                 }
-                self.energyGenerated += (operable * ELConfig.SERVER.solarEnergyFactor() * self.misc) / 1000; // base production at 10 panels, or 8 extensions
+                self.energyGenerated += (operable * ELConfig.SERVER.solarEnergyFactor() * self.misc) / 100;
+                self.energyGenerated = Math.min(self.energyGenerated, trueEnergyCap);
             }
         }
     }
@@ -46,21 +47,21 @@ public class SolarBlockEntity extends ExtendableGeneratorBlockEntity{
      * Finds a solar coefficient from 0 to 100 based on the time of day.
      */
     private static int solarCoefficient(Level level) {
-        long time = level.getDayTime();
-        int darkBright = (int) Math.floor(level.getMoonBrightness() * 8 + 1); // max night brightness is 9, varies based on moon phase
+        long time = level.getDayTime() % 24000;
+        int darkBright = (int) (level.getMoonBrightness() * 8 + 1); // max night brightness is 9, varies based on moon phase
         double factor;
         if (time < 12000) { // day
             return 100;
         } else if (time < 13000) { // dusk
             // interpolate between day and night brightness
             factor = (time - 12000) / 1000f;
-            return (int) Math.floor(100 * (1 - factor) + darkBright * factor);
+            return (int) (100 * (1 - factor) + darkBright * factor);
         } else if (time < 23000) { // night
             return darkBright;
         } else { // sunrise
             // interpolate between night and day brightness
             factor = (time - 23000) / 1000f;
-            return (int) Math.floor(darkBright * (1 - factor) + 100 * factor);
+            return (int) (darkBright * (1 - factor) + 100 * factor);
         }
     }
 

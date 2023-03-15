@@ -27,7 +27,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
     private final List<GraphNode> generators;
     private int energy = 0;
     private int voltage = -1;
-    private final int maxEnergy = 120000;
+    private static final int maxEnergy = 120000;
     private int servicedLightCount = 0;
     private int ticksSinceLastUpdate = 0;
     private int ticksToNextUpdate = 1;
@@ -213,6 +213,9 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
 
     @Override
     public int getMaxEnergyStored() {
+        return maxEnergy;
+    }
+    public static int getMaxEnergy() {
         return maxEnergy;
     }
 
