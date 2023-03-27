@@ -22,6 +22,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.m_w_k.electriclights.block.MasterSwitchboardBlock.DISABLED;
+
 public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergyStorage {
     private Set<GraphNode> connectedNodes;
     private final List<GraphNode> generators;
@@ -37,6 +39,8 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
 
     private boolean badConnect = false;
     private int ticksWithoutGoodConnect = 0;
+
+    private boolean disabled = false;
 
     public MasterSwitchboardBlockEntity(BlockPos pos, BlockState state) {
         super(ELBlockEntityRegistry.MASTER_SWITCHBOARD.get(), pos, state);
@@ -121,15 +125,22 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
             if (self.servicedLightCount != 0 && !self.badConnect) {
                 if (self.voltage != -1) {
                     if (self.ticksToNextUpdate <= self.ticksSinceLastUpdate || self.forceUpdate) {
-                        self.energy -= (self.voltage + 2) * self.servicedLightCount * self.ticksSinceLastUpdate;
-                        if (!self.generators.isEmpty()) self.energy += self.retrieveEnergy(self.maxEnergy - self.energy);
-                        self.ticksToNextUpdate = Math.max(self.energy / ((self.voltage + 2) * self.servicedLightCount), ELConfig.SERVER.minimumSwitchboardUpdateInterval());
-                        if (self.energy <= 0) {
-                            self.energy = 0;
-                            self.updateServicedLights(1);
-                            // if we run out of power, don't bother updating for an extended interval
-                            self.ticksToNextUpdate = ELConfig.SERVER.minimumSwitchboardUpdateInterval() * 2;
-                        } else self.updateServicedLights(self.voltage);
+
+                        if (state.getValue(DISABLED) != self.disabled) {
+                            if (self.disabled) {
+                                self.ticksSinceLastUpdate = 0;
+                            } else {
+                                self.doEnergyCalculations();
+                            }
+                            self.disabled = state.getValue(DISABLED);
+                        }
+
+                        if (!self.disabled) {
+                            self.doEnergyCalculations();
+                        } else {
+                            self.updateServicedLights(0);
+                            self.ticksToNextUpdate = ELConfig.SERVER.minimumSwitchboardUpdateInterval();
+                        }
                         if (!self.hasCapacitor) self.hasCapacitor = true;
                         if (self.forceUpdate) self.forceUpdate = false;
                         self.ticksSinceLastUpdate = 1; // 1 tick to compensate for this calculation tick
@@ -144,6 +155,19 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                 self.ticksWithoutGoodConnect = 1; // 1 tick to compensate for this calculation tick
             } else self.ticksWithoutGoodConnect++;
         }
+    }
+
+    private void doEnergyCalculations() {
+        energy -= (voltage + 2) * servicedLightCount * ticksSinceLastUpdate;
+        if (!generators.isEmpty())
+            energy += retrieveEnergy(maxEnergy - energy);
+        ticksToNextUpdate = Math.max(energy / ((voltage + 2) * servicedLightCount), ELConfig.SERVER.minimumSwitchboardUpdateInterval());
+        if (energy <= 0) {
+            energy = 0;
+            updateServicedLights(1);
+            // if we run out of power, don't bother updating for an extended interval
+            ticksToNextUpdate = ELConfig.SERVER.minimumSwitchboardUpdateInterval() * 2;
+        } else updateServicedLights(voltage);
     }
 
     @Override
@@ -243,5 +267,9 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.putInt("Energy", this.energy);
+    }
+
+    public void forceUpdate() {
+        forceUpdate = true;
     }
 }
