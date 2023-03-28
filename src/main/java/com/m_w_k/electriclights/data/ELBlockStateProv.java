@@ -1,8 +1,8 @@
 package com.m_w_k.electriclights.data;
 
 import com.m_w_k.electriclights.ElectricLightsMod;
+import com.m_w_k.electriclights.block.AbstractRelayBlock;
 import com.m_w_k.electriclights.block.BurnOutAbleLightBlock;
-import com.m_w_k.electriclights.block.ElectricRelayBlock;
 import com.m_w_k.electriclights.registry.ELBlockRegistry;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
@@ -47,10 +47,10 @@ public class ELBlockStateProv extends BlockStateProvider {
                     .texture("particle",texturePath + i));
         }
         this.getVariantBuilder(block).forAllStatesExcept(state -> {
-            int lightstate = state.getValue(ElectricRelayBlock.LIGHTSTATE);
+            int lightstate = state.getValue(AbstractRelayBlock.LIGHTSTATE);
             boolean burntOut = false;
             if (state.getBlock() instanceof BurnOutAbleLightBlock) burntOut = state.getValue(BurnOutAbleLightBlock.AGE) == 7;
-            Direction facing = state.getValue(ElectricRelayBlock.FACING);
+            Direction facing = state.getValue(AbstractRelayBlock.FACING);
             return ConfiguredModel.builder()
                     .modelFile(switch (facing) {
                         case DOWN -> floor_models.get(burntOut ? 0 :lightstate);
@@ -63,7 +63,7 @@ public class ELBlockStateProv extends BlockStateProvider {
                         default -> 0;
                     })
                     .build();
-        }, ElectricRelayBlock.WATERLOGGED);
+        }, AbstractRelayBlock.WATERLOGGED);
 
     }
 }

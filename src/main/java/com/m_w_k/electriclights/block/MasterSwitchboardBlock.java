@@ -1,5 +1,6 @@
 package com.m_w_k.electriclights.block;
 
+import com.m_w_k.electriclights.util.ELBlockStateProperties;
 import com.m_w_k.electriclights.util.ELGraphHandler;
 import com.m_w_k.electriclights.ElectricLightsMod;
 import com.m_w_k.electriclights.util.GraphNode;
@@ -31,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MasterSwitchboardBlock extends BaseEntityBlock {
-    public static final BooleanProperty DISABLED = BooleanProperty.create("disabled");
+    public static final BooleanProperty DISABLED = ELBlockStateProperties.DISABLED;
 
     public MasterSwitchboardBlock(Properties properties) {
         super(properties);
@@ -109,9 +110,8 @@ public class MasterSwitchboardBlock extends BaseEntityBlock {
             return InteractionResult.SUCCESS;
         } else {
             BlockState blockstate = this.toggleState(state, level, pos);
-            float f = blockstate.getValue(DISABLED) ? 0.6F : 0.5F;
-            level.playSound(null, pos, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.3F, f);
-            level.gameEvent(player, blockstate.getValue(DISABLED) ? GameEvent.BLOCK_ACTIVATE : GameEvent.BLOCK_DEACTIVATE, pos);
+            level.playSound(null, pos, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.3F, blockstate.getValue(DISABLED) ? 0.5F : 0.6F);
+            level.gameEvent(player, blockstate.getValue(DISABLED) ? GameEvent.BLOCK_DEACTIVATE : GameEvent.BLOCK_ACTIVATE, pos);
             return InteractionResult.CONSUME;
         }
     }

@@ -1,11 +1,11 @@
 package com.m_w_k.electriclights.blockentity;
 
 import com.m_w_k.electriclights.ELConfig;
+import com.m_w_k.electriclights.block.AbstractRelayBlock;
 import com.m_w_k.electriclights.block.BurnOutAbleLightBlock;
 import com.m_w_k.electriclights.util.ELGraphHandler;
 import com.m_w_k.electriclights.ElectricLightsMod;
 import com.m_w_k.electriclights.util.GraphNode;
-import com.m_w_k.electriclights.block.ElectricRelayBlock;
 import com.m_w_k.electriclights.block.VoltageBlock;
 import com.m_w_k.electriclights.registry.ELBlockEntityRegistry;
 import com.m_w_k.electriclights.util.Generator;
@@ -185,8 +185,8 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
         else if (level.getServer() != null && !level.getServer().isCurrentlySaving() && nodes != null) {
             for (GraphNode node : nodes) {
                 BlockState nodeState = level.getBlockState(node.getPos());
-                if (nodeState.getBlock() instanceof ElectricRelayBlock) {
-                    int oldLight = nodeState.getValue(ElectricRelayBlock.LIGHTSTATE);
+                if (nodeState.getBlock() instanceof AbstractRelayBlock) {
+                    int oldLight = nodeState.getValue(AbstractRelayBlock.LIGHTSTATE);
                     int newLight = state;
                     if (oldLight != newLight) {
                         // do burn out math if the light can be burnt out
@@ -195,12 +195,12 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                             if (currentAge != 7) {
                                 // lasts on average 28 state changes, or only 14 if waterlogged.
                                 double rand = Math.random();
-                                if (rand < 0.25 || (rand < 0.5 && nodeState.getValue(ElectricRelayBlock.WATERLOGGED))) {
+                                if (rand < 0.25 || (rand < 0.5 && nodeState.getValue(AbstractRelayBlock.WATERLOGGED))) {
                                     nodeState = nodeState.setValue(BurnOutAbleLightBlock.AGE, currentAge + 1);
                                 }
                             }
                         }
-                        nodeState = nodeState.setValue(ElectricRelayBlock.LIGHTSTATE, newLight);
+                        nodeState = nodeState.setValue(AbstractRelayBlock.LIGHTSTATE, newLight);
                         level.setBlockAndUpdate(node.getPos(), nodeState);
                     }
                 }

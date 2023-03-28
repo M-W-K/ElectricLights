@@ -19,7 +19,7 @@ public class ELGraphHandler {
     }
     public static boolean addGraphNodeAndAutoConnect(GraphNode node, Level level) {
         ElectricLightsGraph graph = getGraphForLevel(level);
-        if (graph == null) return false;
+        if (graph == null || nodeExists(node, level)) return false;
         GraphNode[] graphNodes = graph.getNodes();
         graph.addNode(node);
         for (GraphNode graphNode : graphNodes) {
@@ -30,8 +30,9 @@ public class ELGraphHandler {
         return true;
     }
     public static boolean removeGraphNode(GraphNode node, Level level) {
+        if (!nodeExists(node, level)) return false;
         ElectricLightsGraph graph = getGraphForLevel(level);
-        if (graph == null) return false;
+        assert graph != null; // nodeExists() checked if graph is not null for us
         graph.removeNode(node);
         graph.refreshSwitchboards(level);
         graph.setDirty();

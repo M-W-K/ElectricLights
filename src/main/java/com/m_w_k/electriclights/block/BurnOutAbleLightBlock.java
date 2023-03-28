@@ -19,10 +19,10 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class BurnOutAbleLightBlock extends ElectricRelayBlock {
+public class BurnOutAbleLightBlock extends BaseLightBlock {
     public static final Property<Integer> AGE = BlockStateProperties.AGE_7;
     public BurnOutAbleLightBlock(Properties properties) {
-        super(properties, true);
+        super(properties);
     }
     @Override
     public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
@@ -53,9 +53,9 @@ public class BurnOutAbleLightBlock extends ElectricRelayBlock {
                 ItemStack bulbs = player.getItemInHand(hand);
                 if (player.isHolding(ELItemsRegistry.DRAGON_BULB.get())) {
                     level.setBlockAndUpdate(pos, ELBlockRegistry.DRAGON_LIGHT.get().defaultBlockState()
-                            .setValue(ElectricRelayBlock.LIGHTSTATE, state.getValue(ElectricRelayBlock.LIGHTSTATE))
-                            .setValue(ElectricRelayBlock.WATERLOGGED, state.getValue(ElectricRelayBlock.WATERLOGGED))
-                            .setValue(ElectricRelayBlock.FACING, state.getValue(ElectricRelayBlock.FACING)));
+                            .setValue(LIGHTSTATE, state.getValue(LIGHTSTATE))
+                            .setValue(WATERLOGGED, state.getValue(WATERLOGGED))
+                            .setValue(FACING, state.getValue(FACING)));
                 }
                 else level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
                 bulbs.setCount(bulbs.getCount() - 1);
