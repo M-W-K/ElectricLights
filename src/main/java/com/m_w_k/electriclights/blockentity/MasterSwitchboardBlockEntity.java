@@ -124,8 +124,13 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
         if (!level.isClientSide && !self.isRemoved()) {
             if (self.servicedLightCount != 0 && !self.badConnect) {
                 if (self.voltage != -1) {
-                    if (self.ticksToNextUpdate <= self.ticksSinceLastUpdate || self.forceUpdate) {
+                    // retrieve energy continuously, using a simulated energy limit
+                    if (!self.generators.isEmpty()){
+                        int interpolatedEnergy = self.disabled ? 0 : (self.voltage + 2) * self.servicedLightCount * self.ticksSinceLastUpdate;
+                        self.energy += self.retrieveEnergy(maxEnergy + interpolatedEnergy - self.energy);
+                    }
 
+                    if (self.ticksToNextUpdate <= self.ticksSinceLastUpdate || self.forceUpdate) {
                         if (state.getValue(DISABLED) != self.disabled) {
                             if (self.disabled) {
                                 self.ticksSinceLastUpdate = 0;
@@ -159,8 +164,6 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
 
     private void doEnergyCalculations() {
         energy -= (voltage + 2) * servicedLightCount * ticksSinceLastUpdate;
-        if (!generators.isEmpty())
-            energy += retrieveEnergy(maxEnergy - energy);
         ticksToNextUpdate = Math.max(energy / ((voltage + 2) * servicedLightCount), ELConfig.SERVER.minimumSwitchboardUpdateInterval());
         if (energy <= 0) {
             energy = 0;
