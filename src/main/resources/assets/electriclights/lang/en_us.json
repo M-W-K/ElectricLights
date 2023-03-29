@@ -29,9 +29,14 @@
 
     "block.electriclights.master_switchboard": "Master Switchboard",
     "block.electriclights.alternator_generator": "Alternator Generator",
+    "block.electriclights.solar_generator": "Solar Generator",
+    "block.electriclights.solar_extension": "Solar Generator Extension",
+    "block.electriclights.geothermal_generator": "Geothermal Generator",
+    "block.electriclights.geothermal_extension": "Geothermal Generator Extension",
 
     "menu.electriclights.alternator": "Alternator Generator",
     "menu.electriclights.solar": "Solar Generator",
+    "menu.electriclights.geothermal": "Geothermal Generator",
 
     "advancement.electriclights.electriclights": "Electric Lights",
     "advancement.electriclights.electriclights.desc": "Welcome to Electric Lights!",
