@@ -35,7 +35,7 @@ public class ELConfig {
             minimumSwitchboardUpdateInterval = builder.translation("minimumSwitchboardUpdateInterval").comment("The minimum number of ticks between switchboard updates.").defineInRange("minimumSwitchboardUpdateInterval", 10, 5, 40);
             alternatorEnergyFactor = builder.translation("alternatorEnergyFactor").comment("The energy production factor of the Alternator generator.").defineInRange("alternatorEnergyFactor", 420, 60, 2040);
             solarEnergyFactor = builder.translation("solarEnergyFactor").comment("The energy production factor of the Solar generator.").defineInRange("solarEnergyFactor", 24, 6, 204);
-            geothermalEnergyFactor = builder.translation("geothermalEnergyFactor").comment("The energy production factor of the Geothermal generator.").defineInRange("geothermalEnergyFactor", 12, 6, 204);
+            geothermalEnergyFactor = builder.translation("geothermalEnergyFactor").comment("The energy production factor of the Geothermal generator.").defineInRange("geothermalEnergyFactor", 18, 6, 204);
             builder.pop();
         }
 

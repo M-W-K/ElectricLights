@@ -10,6 +10,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static com.m_w_k.electriclights.registry.ELBlockRegistry.*;
 
 public class ELItemsRegistry {
@@ -34,30 +38,40 @@ public class ELItemsRegistry {
     public static final RegistryObject<Item> SWITCHBOARD_BLOCK_ITEM = BLOCK_ITEMS.register("master_switchboard", () -> new BlockItem(SWITCHBOARD_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<Item> ALTERNATOR_BLOCK_ITEM = BLOCK_ITEMS.register("alternator_generator", () -> new BlockItem(ALTERNATOR_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<Item> SOLAR_BLOCK_ITEM = BLOCK_ITEMS.register("solar_generator", () -> new BlockItem(SOLAR_BLOCK.get(), new Item.Properties()));
+    public static final RegistryObject<Item> GEOTHERMAL_BLOCK_ITEM = BLOCK_ITEMS.register("geothermal_generator", () -> new BlockItem(GEOTHERMAL_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<Item> SOLAR_EXTENSION_BLOCK_ITEM = BLOCK_ITEMS.register("solar_extension", () -> new BlockItem(SOLAR_EXTENSION_BLOCK.get(), new Item.Properties()));
+    public static final RegistryObject<Item> GEOTHERMAL_EXTENSION_BLOCK_ITEM = BLOCK_ITEMS.register("geothermal_extension", () -> new BlockItem(GEOTHERMAL_EXTENSION_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<Item> VOLTAGE_COIL_L_BLOCK_ITEM = BLOCK_ITEMS.register("voltage_coil_l", () -> new BlockItem(VOLTAGE_COIL_L_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<Item> VOLTAGE_COIL_M_BLOCK_ITEM = BLOCK_ITEMS.register("voltage_coil_m", () -> new BlockItem(VOLTAGE_COIL_M_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<Item> VOLTAGE_COIL_H_BLOCK_ITEM = BLOCK_ITEMS.register("voltage_coil_h", () -> new BlockItem(VOLTAGE_COIL_H_BLOCK.get(), new Item.Properties()));
 
+    static final List<RegistryObject<Item>> tabItems = new ArrayList<>(Arrays.asList(
+            REDSTONE_SILICATE,
+            REDSTONE_BULB,
+            REDSTONE_CHIP,
+            DRAGON_BULB,
+
+            ELECTRIC_LIGHT_0_BLOCK_ITEM,
+            DRAGON_LIGHT_BLOCK_ITEM,
+            ELECTRIC_RELAY_BLOCK_ITEM,
+            SWITCHBOARD_BLOCK_ITEM,
+            VOLTAGE_COIL_L_BLOCK_ITEM,
+            VOLTAGE_COIL_M_BLOCK_ITEM,
+            VOLTAGE_COIL_H_BLOCK_ITEM,
+            ALTERNATOR_BLOCK_ITEM,
+            SOLAR_BLOCK_ITEM,
+            GEOTHERMAL_BLOCK_ITEM,
+            SOLAR_EXTENSION_BLOCK_ITEM,
+            GEOTHERMAL_EXTENSION_BLOCK_ITEM
+    ));
 
     protected static void addCreative(CreativeModeTabEvent.BuildContents event)
     {
-        if (event.getTab() == CreativeModeTabs.REDSTONE_BLOCKS) {
-            event.accept(REDSTONE_SILICATE);
-            event.accept(REDSTONE_BULB);
-            event.accept(REDSTONE_CHIP);
-            event.accept(DRAGON_BULB);
 
-            event.accept(ELECTRIC_LIGHT_0_BLOCK_ITEM);
-            event.accept(DRAGON_LIGHT_BLOCK_ITEM);
-            event.accept(ELECTRIC_RELAY_BLOCK_ITEM);
-            event.accept(SWITCHBOARD_BLOCK_ITEM);
-            event.accept(VOLTAGE_COIL_L_BLOCK_ITEM);
-            event.accept(VOLTAGE_COIL_M_BLOCK_ITEM);
-            event.accept(VOLTAGE_COIL_H_BLOCK_ITEM);
-            event.accept(ALTERNATOR_BLOCK_ITEM);
-            event.accept(SOLAR_BLOCK_ITEM);
-            event.accept(SOLAR_EXTENSION_BLOCK_ITEM);
+        if (event.getTab() == CreativeModeTabs.REDSTONE_BLOCKS) {
+            for (RegistryObject<Item> item : tabItems) {
+                event.accept(item);
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.m_w_k.electriclights;
 
 import com.m_w_k.electriclights.gui.screen.AlternatorScreen;
+import com.m_w_k.electriclights.gui.screen.GeothermalScreen;
 import com.m_w_k.electriclights.gui.screen.SolarScreen;
 import com.m_w_k.electriclights.registry.ELRegistry;
 import com.m_w_k.electriclights.util.ELGraphHandler;
@@ -25,8 +26,7 @@ import org.slf4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.m_w_k.electriclights.registry.ELGUIRegistry.ALTERNATOR_MENU;
-import static com.m_w_k.electriclights.registry.ELGUIRegistry.SOLAR_MENU;
+import static com.m_w_k.electriclights.registry.ELGUIRegistry.*;
 
 
 @Mod(ElectricLightsMod.MODID)
@@ -74,6 +74,7 @@ public class ElectricLightsMod
     private void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> MenuScreens.register(ALTERNATOR_MENU.get(), AlternatorScreen::new));
         event.enqueueWork(() -> MenuScreens.register(SOLAR_MENU.get(), SolarScreen::new));
+        event.enqueueWork(() -> MenuScreens.register(GEOTHERMAL_MENU.get(), GeothermalScreen::new));
     }
     public static void logToConsole(String string) {
         LOGGER.info(string);

@@ -64,9 +64,4 @@ public class SolarBlockEntity extends ExtendableGeneratorBlockEntity{
             return (int) (darkBright * (1 - factor) + 100 * factor);
         }
     }
-
-    @Override
-    public void noteExtension(boolean registerNew, BlockPos pos) {
-        super.noteExtension(registerNew, pos);
-    }
 }

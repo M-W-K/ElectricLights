@@ -15,7 +15,7 @@ public class ELBlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ElectricLightsMod.MODID);
 
     private static final BlockBehaviour.Properties METALLIC = Block.Properties.copy(Blocks.LANTERN).lightLevel((a) -> 0);
-    private static final BlockBehaviour.Properties WOODEN = METALLIC.sound(SoundType.BAMBOO);
+    private static final BlockBehaviour.Properties WOODEN = Block.Properties.copy(Blocks.LANTERN).lightLevel((a) -> 0).sound(SoundType.BAMBOO);
     private static final BlockBehaviour.Properties HEAVY_COPPER = BlockBehaviour.Properties.of(Material.HEAVY_METAL).sound(SoundType.COPPER);
 
     public static final RegistryObject<Block> ELECTRIC_LIGHT = BLOCKS.register("electric_light", () -> new BurnOutAbleLightBlock(METALLIC));
@@ -24,7 +24,9 @@ public class ELBlockRegistry {
     public static final RegistryObject<Block> SWITCHBOARD_BLOCK = BLOCKS.register("master_switchboard", () -> new MasterSwitchboardBlock(HEAVY_COPPER));
     public static final RegistryObject<Block> ALTERNATOR_BLOCK = BLOCKS.register("alternator_generator", () -> new AlternatorBlock(Block.Properties.copy(Blocks.BLAST_FURNACE)));
     public static final RegistryObject<Block> SOLAR_BLOCK = BLOCKS.register("solar_generator", () -> new SolarBlock(Block.Properties.copy(Blocks.IRON_BLOCK)));
+    public static final RegistryObject<Block> GEOTHERMAL_BLOCK = BLOCKS.register("geothermal_generator", () -> new GeothermalBlock(Block.Properties.copy(Blocks.IRON_BLOCK)));
     public static final RegistryObject<Block> SOLAR_EXTENSION_BLOCK = BLOCKS.register("solar_extension", () -> new GeneratorExtensionBlock(Block.Properties.copy(Blocks.IRON_BLOCK), ExtendableGeneratorBlock.GeneratorType.SOLAR));
+    public static final RegistryObject<Block> GEOTHERMAL_EXTENSION_BLOCK = BLOCKS.register("geothermal_extension", () -> new GeneratorExtensionBlock(Block.Properties.copy(Blocks.IRON_BLOCK), ExtendableGeneratorBlock.GeneratorType.GEOTHERMAL));
     public static final RegistryObject<Block> VOLTAGE_COIL_L_BLOCK = BLOCKS.register("voltage_coil_l", () -> new VoltageBlock(HEAVY_COPPER, 2));
     public static final RegistryObject<Block> VOLTAGE_COIL_M_BLOCK = BLOCKS.register("voltage_coil_m", () -> new VoltageBlock(HEAVY_COPPER, 3));
     public static final RegistryObject<Block> VOLTAGE_COIL_H_BLOCK = BLOCKS.register("voltage_coil_h", () -> new VoltageBlock(HEAVY_COPPER, 4));
