@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "eie",
+    "ghg",
+    "ccc"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "electriclights:solar_extension"
+    },
+    "g":
+    {
+      "tag": "forge:ingots/gold"
+    },
+    "c":
+    {
+      "item": "minecraft:copper_block"
+    },
+    "i":
+    {
+      "tag": "forge:ingots/iron"
+    },
+    "h":
+    {
+      "item": "electriclights:redstone_chip"
+    }
+  },
+  "result":
+  {
+    "item": "electriclights:solar_generator"
+  }
+}

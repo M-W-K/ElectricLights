@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "electriclights:geothermal_generator",
+      "electriclights:geothermal_extension"
+    ]
+  },
+  "criteria": {
+    "has_chip": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["electriclights:redstone_chip"]
+          }
+        ]
+      }
+    },
+    "has_blaze": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["minecraft:blaze_rod"]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "electriclights:geothermal_generator"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_chip",
+      "has_the_recipe"
+    ],
+    [
+      "has_blaze",
+      "has_the_recipe"
+    ]
+  ]
+}

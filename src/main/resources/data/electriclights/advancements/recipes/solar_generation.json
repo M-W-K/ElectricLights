@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "electriclights:solar_generator",
+      "electriclights:solar_extension"
+    ]
+  },
+  "criteria": {
+    "has_chip": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["electriclights:redstone_chip"]
+          }
+        ]
+      }
+    },
+    "has_lapis": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:gems/lapis"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "electriclights:solar_generator"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_chip",
+      "has_the_recipe"
+    ],
+    [
+      "has_lapis",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "lll",
+    "gcg",
+    "   "
+  ],
+  "key":
+  {
+    "g":
+    {
+      "tag": "forge:ingots/gold"
+    },
+    "c":
+    {
+      "item": "minecraft:copper_block"
+    },
+    "l":
+    {
+      "item": "minecraft:lapis_block"
+    }
+  },
+  "result":
+  {
+    "item": "electriclights:solar_extension"
+  }
+}

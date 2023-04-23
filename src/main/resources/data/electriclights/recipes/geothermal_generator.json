@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "cbc",
+    "php",
+    "ebe"
+  ],
+  "key":
+  {
+    "e":
+    {
+      "item": "electriclights:geothermal_extension"
+    },
+    "h":
+    {
+      "item": "electriclights:redstone_chip"
+    },
+    "c":
+    {
+      "tag": "forge:ingots/copper"
+    },
+    "b":
+    {
+      "item": "minecraft:nether_brick"
+    },
+    "p":
+    {
+      "item": "minecraft:blaze_powder"
+    }
+  },
+  "result":
+  {
+    "item": "electriclights:geothermal_generator"
+  }
+}

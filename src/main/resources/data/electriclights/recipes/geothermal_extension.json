@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    " b ",
+    "prp",
+    "b b"
+  ],
+  "key":
+  {
+    "b":
+    {
+      "item": "minecraft:nether_brick"
+    },
+    "r":
+    {
+      "item": "minecraft:blaze_rod"
+    },
+    "p":
+    {
+      "item": "minecraft:blaze_powder"
+    }
+  },
+  "result":
+  {
+    "item": "electriclights:geothermal_extension"
+  }
+}
