@@ -1,30 +1,30 @@
 {
-  "parent": "electriclights:master_switchboard",
+  "parent": "electriclights:redstone_chip",
   "criteria": {
     "has_item": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": ["electriclights:voltage_coil_l"]
+            "items": ["electriclights:geothermal_generator"]
           }
         ]
       }
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
-      "translate": "advancement.electriclights.voltage_coil_l.desc"
+      "translate": "advancement.electriclights.geothermal_generator.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "electriclights:voltage_coil_l"
+      "item": "electriclights:geothermal_generator"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.electriclights.voltage_coil_l"
+      "translate": "advancement.electriclights.geothermal_generator"
     }
   },
   "requirements": [
@@ -34,7 +34,7 @@
   ],
   "rewards": {
     "loot": [
-      "electriclights:advancements/voltage_coil_l"
+      "electriclights:advancements/geothermal_generator"
     ]
   }
 }

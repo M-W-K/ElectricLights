@@ -13,7 +13,7 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.electriclights.redstone_chip.desc"
     },
@@ -22,7 +22,7 @@
     "icon": {
       "item": "electriclights:redstone_chip"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
       "translate": "advancement.electriclights.redstone_chip"
     }

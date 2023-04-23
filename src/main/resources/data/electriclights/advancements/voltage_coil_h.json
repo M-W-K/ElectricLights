@@ -13,7 +13,7 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.electriclights.voltage_coil_h.desc"
     },
@@ -22,7 +22,7 @@
     "icon": {
       "item": "electriclights:voltage_coil_h"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
       "translate": "advancement.electriclights.voltage_coil_h"
     }

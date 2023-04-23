@@ -22,7 +22,7 @@
     "icon": {
       "item": "electriclights:voltage_coil_m"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
       "translate": "advancement.electriclights.voltage_coil_m"
     }

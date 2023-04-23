@@ -22,7 +22,7 @@
     "icon": {
       "item": "electriclights:electric_relay"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
       "translate": "advancement.electriclights.electric_relay"
     }

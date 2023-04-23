@@ -13,7 +13,7 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "advancement.electriclights.electric_light.desc"
     },
@@ -22,7 +22,7 @@
     "icon": {
       "item": "electriclights:electric_light_0"
     },
-    "show_toast": false,
+    "show_toast": true,
     "title": {
       "translate": "advancement.electriclights.electric_light"
     }

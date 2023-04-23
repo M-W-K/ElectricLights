@@ -1,12 +1,12 @@
 {
-  "parent": "electriclights:master_switchboard",
+  "parent": "electriclights:burnt_light",
   "criteria": {
     "has_item": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": ["electriclights:voltage_coil_l"]
+            "items": ["minecraft:dragon_breath"]
           }
         ]
       }
@@ -15,16 +15,16 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "advancement.electriclights.voltage_coil_l.desc"
+      "translate": "advancement.electriclights.dragon_breath.desc"
     },
     "frame": "task",
-    "hidden": false,
+    "hidden": true,
     "icon": {
-      "item": "electriclights:voltage_coil_l"
+      "item": "minecraft:dragon_breath"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.electriclights.voltage_coil_l"
+      "translate": "advancement.electriclights.dragon_breath"
     }
   },
   "requirements": [
@@ -34,7 +34,7 @@
   ],
   "rewards": {
     "loot": [
-      "electriclights:advancements/voltage_coil_l"
+      "electriclights:advancements/dragon_breath"
     ]
   }
 }
