@@ -1,0 +1,6 @@
+{
+  "parent": "electriclights:item/light_display_blueprint",
+  "textures": {
+    "2": "electriclights:block/light_0"
+  }
+}

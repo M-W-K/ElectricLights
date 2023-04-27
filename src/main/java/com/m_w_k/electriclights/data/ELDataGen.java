@@ -19,5 +19,6 @@ public class ELDataGen {
 
         gen.addProvider(server, new ELLootProv(gen));
         gen.addProvider(server, new ELBlockStateProv(gen.getPackOutput(), fileHelper));
+        gen.addProvider(server, new ELItemModelProv(gen.getPackOutput(), fileHelper));
     }
 }
