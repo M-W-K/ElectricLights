@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "electriclights:block/voltage_coil_l"
+    }
+  }
+}

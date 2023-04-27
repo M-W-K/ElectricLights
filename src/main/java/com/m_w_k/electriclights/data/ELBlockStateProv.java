@@ -27,6 +27,7 @@ public class ELBlockStateProv extends BlockStateProvider {
         this.relay(ELBlockRegistry.DRAGON_LIGHT, "light");
         // commented out because textures / blueprint models are missing
         // this.relay(ELBlockRegistry.ELECTRIC_RELAY, "relay");
+        this.coil(ELBlockRegistry.VOLTAGE_COIL_L_BLOCK, "low");
     }
     public void relay(RegistryObject<Block> registryObject, String variant) {
         Block block = registryObject.get();
@@ -65,5 +66,14 @@ public class ELBlockStateProv extends BlockStateProvider {
                     .build();
         }, AbstractRelayBlock.WATERLOGGED);
 
+    }
+    public void coil(RegistryObject<Block> registryObject, String identifier) {
+        Block block = registryObject.get();
+        String path = registryObject.getId().getPath();
+        String texturePath = "electriclights:block/coil_" + identifier;
+        ModelFile model = this.models().withExistingParent(path, "electriclights:block/coil_base")
+                .texture("1", texturePath)
+                .texture("particle", texturePath);
+        this.getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(model).build());
     }
 }

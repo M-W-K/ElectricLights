@@ -1,0 +1,7 @@
+{
+  "parent": "electriclights:block/coil_base",
+  "textures": {
+    "1": "electriclights:block/coil_low",
+    "particle": "electriclights:block/coil_low"
+  }
+}

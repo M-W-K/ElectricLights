@@ -1,9 +1,13 @@
-// 1.19.3	2023-03-07T09:46:59.106107	Loot Tables
+// 1.19.3	2023-04-26T21:13:57.735315	Loot Tables
 64f68f0aa2ed2da373a8c0053d6374cc92c09009 data/electriclights/loot_tables/blocks/alternator_generator.json
 cb880bc1f0aae164b6495731fb9bd3a370ed8882 data/electriclights/loot_tables/blocks/dragon_light.json
 0ca72656837e3119ef7db68a6fef3d5ec71e3d7e data/electriclights/loot_tables/blocks/electric_light.json
 1adfc198ae305adec5ccb48449ea4ee1d2d6acd5 data/electriclights/loot_tables/blocks/electric_relay.json
+676b95f866dc4a3657c349c8cf30240a60ceeae5 data/electriclights/loot_tables/blocks/geothermal_extension.json
+f3a683e1d836218f7365d05c77ad3992db4ad80e data/electriclights/loot_tables/blocks/geothermal_generator.json
 cd428d0fa9f5ec7998fd821b98d1fccf4b152d0a data/electriclights/loot_tables/blocks/master_switchboard.json
+063041975bde8b4e71dca4f153a2ad648f454e18 data/electriclights/loot_tables/blocks/solar_extension.json
+4137981c831b39ea167af953d597c9835a473f46 data/electriclights/loot_tables/blocks/solar_generator.json
 b9c0f5f976661da22050ff4ba699a85c70f14021 data/electriclights/loot_tables/blocks/voltage_coil_h.json
 f392ce31ba041b7f26442f8ff2beb010b05f117e data/electriclights/loot_tables/blocks/voltage_coil_l.json
 680392d486a172761488ac2485b97cc2bae0222c data/electriclights/loot_tables/blocks/voltage_coil_m.json
