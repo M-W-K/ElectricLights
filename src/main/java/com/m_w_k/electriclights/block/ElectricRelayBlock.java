@@ -41,7 +41,7 @@ public class ElectricRelayBlock extends AbstractRelayBlock {
     @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockState state = getStateLogic(context, this.defaultBlockState());
+        BlockState state = super.getStateForPlacement(context);
         return state == null ? null : state.setValue(DISABLED,false);
     }
 

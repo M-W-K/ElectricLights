@@ -1,10 +1,11 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type": "cutout",
 	"texture_size": [8, 8],
 	"textures": {
 		"0": "Electric Lights Mod:silicate_board",
 		"3": "Electric Lights Mod:off_light",
-		"4": "Electric Lights Mod:other_button",
+		"4": "Electric Lights Mod:other_button_2",
 		"particle": "Electric Lights Mod:silicate_board"
 	},
 	"elements": [
@@ -14,12 +15,42 @@
 			"to": [6, 3, 6],
 			"rotation": {"angle": 0, "axis": "y", "origin": [5, 1.5, 5]},
 			"faces": {
-				"north": {"uv": [0.25, 0.25, 0.75, 0.75], "texture": "#3"},
-				"east": {"uv": [1.25, 0.25, 1.75, 0.75], "texture": "#3"},
-				"south": {"uv": [2.25, 0.25, 2.75, 0.75], "texture": "#3"},
-				"west": {"uv": [3.25, 0.25, 3.75, 0.75], "texture": "#3"},
-				"up": {"uv": [4.25, 0.25, 4.75, 0.75], "texture": "#3"},
-				"down": {"uv": [5.25, 0.25, 5.75, 0.75], "texture": "#3"}
+				"north": {"uv": [0.25, 0.25, 0.75, 0.75],
+					"texture": "#3",
+					"forge_data": {
+						"block_light": 15,
+						"sky_light": 15
+					}},
+				"east": {"uv": [1.25, 0.25, 1.75, 0.75],
+					"texture": "#3",
+					"forge_data": {
+						"block_light": 15,
+						"sky_light": 15
+					}},
+				"south": {"uv": [2.25, 0.25, 2.75, 0.75],
+					"texture": "#3",
+					"forge_data": {
+						"block_light": 15,
+						"sky_light": 15
+					}},
+				"west": {"uv": [3.25, 0.25, 3.75, 0.75],
+					"texture": "#3",
+					"forge_data": {
+						"block_light": 15,
+						"sky_light": 15
+					}},
+				"up": {"uv": [4.25, 0.25, 4.75, 0.75],
+					"texture": "#3",
+					"forge_data": {
+						"block_light": 15,
+						"sky_light": 15
+					}},
+				"down": {"uv": [5.25, 0.25, 5.75, 0.75],
+					"texture": "#3",
+					"forge_data": {
+						"block_light": 15,
+						"sky_light": 15
+					}}
 			}
 		},
 		{
@@ -40,7 +71,7 @@
 			"name": "lever",
 			"from": [1.01, 0.25, 5.5],
 			"to": [2.01, 5.25, 6.5],
-			"rotation": {"angle": -45, "axis": "x", "origin": [1.5, 1, 6]},
+			"rotation": {"angle": 45, "axis": "x", "origin": [1.5, 1, 6]},
 			"faces": {
 				"north": {"uv": [6.5, 11, 7.5, 16], "texture": "#0"},
 				"east": {"uv": [7.5, 11, 8.5, 16], "texture": "#0"},
@@ -75,15 +106,19 @@
 				"south": {"uv": [6, 8, 12, 9], "texture": "#0"},
 				"west": {"uv": [7, 7, 14, 8], "texture": "#0"},
 				"up": {"uv": [6, 7, 0, 0], "texture": "#0"},
-				"down": {"uv": [12, 0, 6, 7], "texture": "#0"}
+				"down": {"uv": [12, 0, 6, 7], "texture": "#0", "cullface": "down"}
 			}
 		}
 	],
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [75, 45, 0],
-			"translation": [0, 2.5, 0],
+			"translation": [0, 3.25, 2.5],
 			"scale": [0.375, 0.375, 0.375]
+		},
+		"ground": {
+			"translation": [0, 5, 0],
+			"scale": [0.8, 0.8, 0.8]
 		}
 	}
 }

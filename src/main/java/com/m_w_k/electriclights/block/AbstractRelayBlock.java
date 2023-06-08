@@ -12,22 +12,19 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FaceAttachedHorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class AbstractRelayBlock extends Block implements SimpleWaterloggedBlock {
+public abstract class AbstractRelayBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final Property<Direction> FACING = BlockStateProperties.FACING;
     public static final Property<Integer> LIGHTSTATE = ELBlockStateProperties.LIGHTSTATE;
 
     private final boolean isLight;
@@ -39,35 +36,14 @@ public abstract class AbstractRelayBlock extends Block implements SimpleWaterlog
                 this.stateDefinition.any()
                         .setValue(WATERLOGGED, false)
                         .setValue(FACING, Direction.NORTH)
+                        .setValue(FACE, AttachFace.WALL)
                         .setValue(LIGHTSTATE, 0)
         );
     }
 
     @Override
-    @Nullable
-    public BlockState getStateForPlacement(BlockPlaceContext context)
-    {
-        return getStateLogic(context, this.defaultBlockState());
-    }
-
-    @Nullable
-    protected BlockState getStateLogic(BlockPlaceContext context, BlockState state) {
-        BlockPos blockpos = context.getClickedPos();
-
-        FluidState fluidstate = context.getLevel().getFluidState(blockpos);
-        state = state.setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
-
-        for (Direction candidate : context.getNearestLookingDirections()) {
-            state = state.setValue(FACING, candidate);
-            if (state.canSurvive(context.getLevel(), blockpos)) {
-                return state;
-            }
-        }
-        return null;
-    }
-    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> blockStateBuilder) {
-        blockStateBuilder.add(WATERLOGGED, FACING, LIGHTSTATE);
+        blockStateBuilder.add(WATERLOGGED, FACING, FACE, LIGHTSTATE);
     }
 
     /**
@@ -79,17 +55,17 @@ public abstract class AbstractRelayBlock extends Block implements SimpleWaterlog
         if (state1.getValue(WATERLOGGED)) {
             levelAccessor.scheduleTick(pos1, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
-        return direction == state1.getValue(FACING) && !state1.canSurvive(levelAccessor, pos1) ? Blocks.AIR.defaultBlockState() : state1;
+        return super.updateShape(state1, direction, state2, levelAccessor, pos1, pos2);
     }
 
-    /**
-     * Warning for "deprecation" is suppressed because the method is fine to override.
-     */
-    @SuppressWarnings("deprecation")
-    @Override
-    public boolean canSurvive(BlockState state, LevelReader levelReader, BlockPos pos) {
-        return canSupportCenter(levelReader, pos.relative(state.getValue(FACING)), state.getValue(FACING).getOpposite());
-    }
+//    /**
+//     * Warning for "deprecation" is suppressed because the method is fine to override.
+//     */
+//    @SuppressWarnings("deprecation")
+//    @Override
+//    public boolean canSurvive(BlockState state, LevelReader levelReader, BlockPos pos) {
+//        return canSupportCenter(levelReader, pos.relative(state.getValue(FACING)), state.getValue(FACING).getOpposite());
+//    }
 
     /**
      * Warning for "deprecation" is suppressed because the method is fine to override.

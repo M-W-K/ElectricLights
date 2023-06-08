@@ -190,8 +190,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                 BlockState nodeState = level.getBlockState(node.getPos());
                 if (nodeState.getBlock() instanceof AbstractRelayBlock) {
                     int oldLight = nodeState.getValue(AbstractRelayBlock.LIGHTSTATE);
-                    int newLight = state;
-                    if (oldLight != newLight) {
+                    if (oldLight != state) {
                         // do burn out math if the light can be burnt out
                         if (nodeState.getBlock() instanceof BurnOutAbleLightBlock) {
                             int currentAge = nodeState.getValue(BurnOutAbleLightBlock.AGE);
@@ -203,7 +202,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                                 }
                             }
                         }
-                        nodeState = nodeState.setValue(AbstractRelayBlock.LIGHTSTATE, newLight);
+                        nodeState = nodeState.setValue(AbstractRelayBlock.LIGHTSTATE, state);
                         level.setBlockAndUpdate(node.getPos(), nodeState);
                     }
                 }

@@ -36,7 +36,7 @@ public class BurnOutAbleLightBlock extends BaseLightBlock {
     @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockState state = getStateLogic(context, this.defaultBlockState());
+        BlockState state = super.getStateForPlacement(context);
         if (state != null && context.getItemInHand().getItem() instanceof BurnOutAbleLightBlockItem item) {
             state = state.setValue(AGE,item.getInitialState());
         }
