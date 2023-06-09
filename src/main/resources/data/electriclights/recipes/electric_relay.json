@@ -3,14 +3,14 @@
   "pattern":
   [
     "   ",
-    "hsh",
-    "cwc"
+    "csc",
+    "bsb"
   ],
   "key":
   {
-    "w":
+    "b":
     {
-      "tag": "minecraft:wooden_slabs"
+      "item": "electriclights:silicate_board"
     },
     "h":
     {

@@ -4,13 +4,13 @@
   [
     "   ",
     "css",
-    "ihp"
+    "ihb"
   ],
   "key":
   {
-    "p":
+    "b":
     {
-      "item": "minecraft:paper"
+      "item": "electriclights:silicate_board"
     },
     "h":
     {

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "electriclights:silicate_board"
+    ]
+  },
+  "criteria": {
+    "has_redstone_silicate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["electriclights:redstone_silicate"]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "electriclights:silicate_board"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_redstone_silicate",
+      "has_the_recipe"
+    ]
+  ]
+}

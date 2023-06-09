@@ -29,6 +29,7 @@ public class ELItemModelProv extends ItemModelProvider {
         item(ELItemsRegistry.ELECTRIC_LIGHT_7_BLOCK_ITEM, "item/light_display_blueprint", "block/light_0", "2");
 
         simpleItem(ELItemsRegistry.REDSTONE_SILICATE, "item/redstone_silicate");
+        simpleItem(ELItemsRegistry.REDSTONE_CHIP, "item/redstone_chip");
     }
 
     public void simpleBlockItem(RegistryObject<Block> blockRegistryObject, RegistryObject<Item> itemRegistryObject, String texturePath, String textureNum) {

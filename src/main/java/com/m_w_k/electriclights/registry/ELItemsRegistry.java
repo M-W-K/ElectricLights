@@ -24,6 +24,7 @@ public class ELItemsRegistry {
     public static final RegistryObject<Item> REDSTONE_BULB = ITEMS.register("redstone_bulb", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> REDSTONE_CHIP = ITEMS.register("redstone_chip", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> DRAGON_BULB = ITEMS.register("dragon_bulb", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SILICATE_BOARD = ITEMS.register("silicate_board", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> ELECTRIC_LIGHT_0_BLOCK_ITEM = BLOCK_ITEMS.register("electric_light_0", () -> new BurnOutAbleLightBlockItem(ELECTRIC_LIGHT.get(), new Item.Properties(),0));
     public static final RegistryObject<Item> ELECTRIC_LIGHT_1_BLOCK_ITEM = BLOCK_ITEMS.register("electric_light_1", () -> new BurnOutAbleLightBlockItem(ELECTRIC_LIGHT.get(), new Item.Properties(),1));
@@ -47,8 +48,9 @@ public class ELItemsRegistry {
 
     static final List<RegistryObject<Item>> tabItems = new ArrayList<>(Arrays.asList(
             REDSTONE_SILICATE,
-            REDSTONE_BULB,
+            SILICATE_BOARD,
             REDSTONE_CHIP,
+            REDSTONE_BULB,
             DRAGON_BULB,
 
             ELECTRIC_LIGHT_0_BLOCK_ITEM,

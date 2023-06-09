@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "electriclights:redstone_silicate"
+  },
+  "result": "electriclights:silicate_board",
+  "experience": 1.0
+}
