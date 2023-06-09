@@ -1,4 +1,4 @@
-// 1.19.3	2023-06-08T23:56:54.864267	Item Models: electriclights
+// 1.19.3	2023-06-09T16:11:06.310264	Item Models: electriclights
 41a37c5e0c59eb8905ef9cab705c72557d0ca7b6 assets/electriclights/models/item/dragon_light.json
 41a37c5e0c59eb8905ef9cab705c72557d0ca7b6 assets/electriclights/models/item/electric_light_0.json
 6c96eaab8f9798fb88f234443606bdf9d4f726cf assets/electriclights/models/item/electric_light_1.json
@@ -10,4 +10,5 @@
 614403b6b8068612f3c2b5b4bdac037bebcaf07f assets/electriclights/models/item/electric_light_7.json
 e9d75620050883f98dea855a8420206337f64314 assets/electriclights/models/item/redstone_chip.json
 4d34331493c153154393b94b9f2d1e3644945510 assets/electriclights/models/item/redstone_silicate.json
+154445619e243860179040cad584d7de372907ca assets/electriclights/models/item/silicate_board.json
 de43b1d3e9d3c455fd26764e4ef8451827556d41 assets/electriclights/models/item/voltage_coil_l.json
