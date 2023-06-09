@@ -3,15 +3,20 @@ package com.m_w_k.electriclights;
 import com.m_w_k.electriclights.gui.screen.AlternatorScreen;
 import com.m_w_k.electriclights.gui.screen.GeothermalScreen;
 import com.m_w_k.electriclights.gui.screen.SolarScreen;
+import com.m_w_k.electriclights.registry.ELItemsRegistry;
 import com.m_w_k.electriclights.registry.ELRegistry;
 import com.m_w_k.electriclights.util.ELGraphHandler;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.storage.DimensionDataStorage;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.world.ForgeChunkManager;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -20,6 +25,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
@@ -47,6 +53,7 @@ public class ElectricLightsMod
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ELRegistry.registerThings(modEventBus);
         modEventBus.addListener(this::clientSetup);
+        modEventBus.addListener(this::commonSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
 
@@ -64,6 +71,10 @@ public class ElectricLightsMod
         }
     }
 
+    @SubscribeEvent
+    void commonSetup(final FMLCommonSetupEvent event) {
+        BrewingRecipeRegistry.addRecipe(Ingredient.of(new ItemStack(ELItemsRegistry.REDSTONE_BULB.get())), Ingredient.of(Items.DRAGON_BREATH), new ItemStack(ELItemsRegistry.DRAGON_BULB.get()));
+    }
 
 
     @SubscribeEvent
