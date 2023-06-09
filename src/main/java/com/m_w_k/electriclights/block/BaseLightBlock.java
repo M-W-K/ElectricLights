@@ -15,26 +15,26 @@ import java.util.Map;
 
 public class BaseLightBlock extends AbstractRelayBlock {
     protected static final VoxelShape LIGHT_FLOOR_AABB = Shapes.or(
-            Block.box(4.0D, 0.0D, 4.0D, 12.0D, 9.0D, 12.0D),
-            Block.box(3.0D, 9.0D, 3.0D, 13.0D, 11.0D, 13.0D),
-            Block.box(5.0D, 11.0D, 5.0D, 11.0D, 13.0D, 11.0D));
+            Block.box(4, 0, 4, 12, 9, 12),
+            Block.box(3, 9, 3, 13, 11, 13),
+            Block.box(5, 11, 5, 11, 13, 11));
     protected static final VoxelShape LIGHT_CEILING_AABB = Shapes.or(
-            Block.box(4.0D, 1.0D, 4.0D, 12.0D, 10.0D, 12.0D),
-            Block.box(3.0D, 10.0D, 3.0D, 13.0D, 12.0D, 13.0D),
-            Block.box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D));
+            Block.box(4, 1, 4, 12, 10, 12),
+            Block.box(3, 10, 3, 13, 12, 13),
+            Block.box(5, 12, 5, 11, 14, 11));
     protected static final Map<Direction, VoxelShape> LIGHT_WALL_AABBS = Maps.newEnumMap(ImmutableMap.of(
             Direction.SOUTH, Shapes.or(LIGHT_FLOOR_AABB,
-                    Block.box(7.5D, 13.5D, 0.5D, 8.5D, 14.5D, 10.5D),
-                    Block.box(6.0D, 12.0D, 0.0D, 10.0D, 15.0D, 1.0D)),
+                    Block.box(7.5, 13.5, 0.5, 8.5, 14.5, 10.5),
+                    Block.box(6, 12, 0, 10, 15, 1)),
             Direction.WEST, Shapes.or(LIGHT_FLOOR_AABB,
-                    Block.box(5.5D, 13.5D, 7.5D, 15.5D, 14.5D, 8.5D),
-                    Block.box(15.0D, 12.0D, 6.0D, 16.0D, 15.0D, 10.0D)),
+                    Block.box(5.5, 13.5, 7.5, 15.5, 14.5, 8.5),
+                    Block.box(15, 12, 6, 16, 15, 10)),
             Direction.NORTH, Shapes.or(LIGHT_FLOOR_AABB,
-                    Block.box(7.5D, 13.5D, 5.5D, 8.5D, 14.5D, 15.5D),
-                    Block.box(6.0D, 12.0D, 15.0D, 10.0D, 15.0D, 16.0D)),
+                    Block.box(7.5, 13.5, 5.5, 8.5, 14.5, 15.5),
+                    Block.box(6, 12, 15, 10, 15, 16)),
             Direction.EAST, Shapes.or(LIGHT_FLOOR_AABB,
-                    Block.box(0.5D, 13.5D, 7.5D, 10.5D, 14.5D, 8.5D),
-                    Block.box(0.0D, 12.0D, 6.0D, 1.0D, 15.0D, 10.0D))));
+                    Block.box(0.5, 13.5, 7.5, 10.5, 14.5, 8.5),
+                    Block.box(0, 12, 6, 1, 15, 10))));
 
     public BaseLightBlock(Properties properties) {
         super(properties, true);
