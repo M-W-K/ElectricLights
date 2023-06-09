@@ -20,7 +20,7 @@ public class ELBlockRegistry {
 
     public static final RegistryObject<Block> ELECTRIC_LIGHT = BLOCKS.register("electric_light", () -> new BurnOutAbleLightBlock(METALLIC));
     public static final RegistryObject<Block> DRAGON_LIGHT = BLOCKS.register("dragon_light", () -> new BaseLightBlock(METALLIC));
-    public static final RegistryObject<Block> ELECTRIC_RELAY = BLOCKS.register("electric_relay", () -> new ElectricRelayBlock(WOODEN));
+    public static final RegistryObject<Block> ELECTRIC_RELAY = BLOCKS.register("electric_relay", () -> new ElectricRelayBlock(METALLIC));
     public static final RegistryObject<Block> SWITCHBOARD_BLOCK = BLOCKS.register("master_switchboard", () -> new MasterSwitchboardBlock(HEAVY_COPPER));
     public static final RegistryObject<Block> ALTERNATOR_BLOCK = BLOCKS.register("alternator_generator", () -> new AlternatorBlock(Block.Properties.copy(Blocks.BLAST_FURNACE)));
     public static final RegistryObject<Block> SOLAR_BLOCK = BLOCKS.register("solar_generator", () -> new SolarBlock(Block.Properties.copy(Blocks.IRON_BLOCK)));
