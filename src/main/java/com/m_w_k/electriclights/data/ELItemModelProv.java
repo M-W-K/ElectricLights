@@ -27,6 +27,8 @@ public class ELItemModelProv extends ItemModelProvider {
         item(ELItemsRegistry.ELECTRIC_LIGHT_5_BLOCK_ITEM, "item/light_display_blueprint", "block/light_2", "2");
         item(ELItemsRegistry.ELECTRIC_LIGHT_6_BLOCK_ITEM, "item/light_display_blueprint", "block/light_2", "2");
         item(ELItemsRegistry.ELECTRIC_LIGHT_7_BLOCK_ITEM, "item/light_display_blueprint", "block/light_0", "2");
+
+        simpleItem(ELItemsRegistry.REDSTONE_SILICATE, "item/redstone_silicate");
     }
 
     public void simpleBlockItem(RegistryObject<Block> blockRegistryObject, RegistryObject<Item> itemRegistryObject, String texturePath, String textureNum) {
@@ -46,5 +48,11 @@ public class ELItemModelProv extends ItemModelProvider {
         texturePath = "electriclights:" + texturePath;
         this.withExistingParent(pathItem, "electriclights:".concat(parentModelPath))
                 .texture(textureNum, texturePath);
+    }
+    public void simpleItem(RegistryObject<Item> registryObject, String texturePath) {
+        String pathItem = registryObject.getId().getPath();
+        texturePath = "electriclights:" + texturePath;
+        this.withExistingParent(pathItem, "minecraft:item/generated")
+                .texture("layer0", texturePath);
     }
 }
