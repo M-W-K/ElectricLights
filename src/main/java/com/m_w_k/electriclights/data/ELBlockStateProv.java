@@ -28,8 +28,8 @@ public class ELBlockStateProv extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         this.light(ELBlockRegistry.ELECTRIC_LIGHT, "light");
+        this.light(ELBlockRegistry.DRAGON_LIGHT, "light");
         this.relay(ELBlockRegistry.ELECTRIC_RELAY, "relay");
-        this.relay(ELBlockRegistry.DRAGON_LIGHT, "light");
         this.coil(ELBlockRegistry.VOLTAGE_COIL_L_BLOCK, "low");
     }
     public void light(RegistryObject<Block> registryObject, String variant) {
@@ -41,15 +41,12 @@ public class ELBlockStateProv extends BlockStateProvider {
         List<ModelFile> ceiling_models = new ArrayList<>();
         for (int i = 0; i <= 4; i++) {
             floor_models.add(this.models().withExistingParent(path.concat("_floor_") + i, texturePath + "floor_blueprint")
-                    .texture("1", texturePath.concat("inner_bulb"))
                     .texture("2", texturePath + i)
                     .texture("particle", texturePath + i));
             wall_models.add(this.models().withExistingParent(path.concat("_wall_") + i, texturePath + "wall_blueprint")
-                    .texture("1", texturePath.concat("inner_bulb"))
                     .texture("2", texturePath + i)
                     .texture("particle", texturePath + i));
             ceiling_models.add(this.models().withExistingParent(path.concat("_ceiling_") + i, texturePath + "ceiling_blueprint")
-                    .texture("1", texturePath.concat("inner_bulb"))
                     .texture("2", texturePath + i)
                     .texture("particle", texturePath + i));
         }
@@ -82,39 +79,35 @@ public class ELBlockStateProv extends BlockStateProvider {
         List<ModelFile> active_models = new ArrayList<>();
         List<ModelFile> inactive_models = new ArrayList<>();
         for (int i = 0; i <= 2; i++) {
-            active_models.add(this.models().withExistingParent(path.concat("_floor_") + 1, texturePath + "floor_blueprint")
-                    .texture("3", texturePath + 1)
+            active_models.add(this.models().withExistingParent(path.concat("_active_") + i, texturePath + "active_blueprint")
+                    .texture("3", texturePath + i)
                     .texture("0", texturePath.concat("silicate_board"))
                     .texture("4", texturePath.concat("other_button"))
                     .texture("particle", texturePath.concat("silicate_board")));
-            //            wall_models.add(this.models().withExistingParent(path.concat("_wall_"), texturePath + "wall_blueprint")
-            //                    .texture("3", texturePath + 1));
-            //            ceiling_models.add(this.models().withExistingParent(path.concat("_ceiling_"), texturePath + "ceiling_blueprint")
-            //                    .texture("3", texturePath + 1));
-            inactive_models.add(this.models().withExistingParent(path.concat("_floor_") + 1, texturePath + "floor_blueprint")
-                    .texture("3", texturePath + 1)
+            inactive_models.add(this.models().withExistingParent(path.concat("_inactive_") + i, texturePath + "inactive_blueprint")
+                    .texture("3", texturePath + 0)
                     .texture("0", texturePath.concat("silicate_board"))
                     .texture("4", texturePath.concat("other_button"))
                     .texture("particle", texturePath.concat("silicate_board")));
         }
         this.getVariantBuilder(block).forAllStatesExcept(state -> {
             int lightstate = state.getValue(AbstractRelayBlock.LIGHTSTATE);
+            lightstate = Math.min(lightstate, 2);
             Direction facing = state.getValue(AbstractRelayBlock.FACING);
             AttachFace face = state.getValue(AbstractRelayBlock.FACE);
-            Boolean disabled = state.getValue(ElectricRelayBlock.DISABLED);
+            boolean wall = face == AttachFace.WALL;
+            boolean disabled = state.getValue(ElectricRelayBlock.DISABLED);
             return ConfiguredModel.builder()
-                    .modelFile(switch (disabled) {
-                        case true -> inactive_models.get(burntOut ? 0 :lightstate);
-                        case false -> active_models.get(burntOut ? 0 :lightstate);
-                    }).rotationY(switch (facing) {
-                        case EAST -> 270;
-                        case SOUTH -> 0;
-                        case WEST -> 90;
-                        default -> 180;
+                    .modelFile(disabled ? inactive_models.get(lightstate) : active_models.get(lightstate)
+                    ).rotationY(switch (facing) {
+                        case EAST -> wall ? 270 : 90;
+                        case SOUTH -> wall ? 0 : 180;
+                        case WEST -> wall? 90 : 270;
+                        default -> wall? 180 : 0;
                     }).rotationX(switch (face) {
                         case FLOOR -> 0;
                         case CEILING -> 180;
-                        case WALL -> 90;
+                        case WALL -> 270;
                     })
                     .build();
         }, AbstractRelayBlock.WATERLOGGED);

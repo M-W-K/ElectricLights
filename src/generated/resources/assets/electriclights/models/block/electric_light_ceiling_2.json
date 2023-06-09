@@ -1,7 +1,6 @@
 {
   "parent": "electriclights:block/light_ceiling_blueprint",
   "textures": {
-    "1": "electriclights:block/light_inner_bulb",
     "2": "electriclights:block/light_2",
     "particle": "electriclights:block/light_2"
   }

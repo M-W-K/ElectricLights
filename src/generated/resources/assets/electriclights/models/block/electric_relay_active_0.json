@@ -1,0 +1,9 @@
+{
+  "parent": "electriclights:block/relay_active_blueprint",
+  "textures": {
+    "0": "electriclights:block/relay_silicate_board",
+    "3": "electriclights:block/relay_0",
+    "4": "electriclights:block/relay_other_button",
+    "particle": "electriclights:block/relay_silicate_board"
+  }
+}

@@ -3,10 +3,10 @@
 	"render_type": "cutout",
 	"texture_size": [8, 8],
 	"textures": {
-		"0": "Electric Lights Mod:silicate_board",
-		"3": "Electric Lights Mod:off_light",
-		"4": "Electric Lights Mod:other_button_2",
-		"particle": "Electric Lights Mod:silicate_board"
+		"0": "silicate_board",
+		"3": "off_light",
+		"4": "other_button_2",
+		"particle": "silicate_board"
 	},
 	"elements": [
 		{
@@ -15,42 +15,12 @@
 			"to": [6, 3, 6],
 			"rotation": {"angle": 0, "axis": "y", "origin": [5, 1.5, 5]},
 			"faces": {
-				"north": {"uv": [0.25, 0.25, 0.75, 0.75],
-					"texture": "#3",
-					"forge_data": {
-						"block_light": 15,
-						"sky_light": 15
-					}},
-				"east": {"uv": [1.25, 0.25, 1.75, 0.75],
-					"texture": "#3",
-					"forge_data": {
-						"block_light": 15,
-						"sky_light": 15
-					}},
-				"south": {"uv": [2.25, 0.25, 2.75, 0.75],
-					"texture": "#3",
-					"forge_data": {
-						"block_light": 15,
-						"sky_light": 15
-					}},
-				"west": {"uv": [3.25, 0.25, 3.75, 0.75],
-					"texture": "#3",
-					"forge_data": {
-						"block_light": 15,
-						"sky_light": 15
-					}},
-				"up": {"uv": [4.25, 0.25, 4.75, 0.75],
-					"texture": "#3",
-					"forge_data": {
-						"block_light": 15,
-						"sky_light": 15
-					}},
-				"down": {"uv": [5.25, 0.25, 5.75, 0.75],
-					"texture": "#3",
-					"forge_data": {
-						"block_light": 15,
-						"sky_light": 15
-					}}
+				"north": {"uv": [0.25, 0.25, 0.75, 0.75], "texture": "#3"},
+				"east": {"uv": [1.25, 0.25, 1.75, 0.75], "texture": "#3"},
+				"south": {"uv": [2.25, 0.25, 2.75, 0.75], "texture": "#3"},
+				"west": {"uv": [3.25, 0.25, 3.75, 0.75], "texture": "#3"},
+				"up": {"uv": [4.25, 0.25, 4.75, 0.75], "texture": "#3"},
+				"down": {"uv": [5.25, 0.25, 5.75, 0.75], "texture": "#3"}
 			}
 		},
 		{
