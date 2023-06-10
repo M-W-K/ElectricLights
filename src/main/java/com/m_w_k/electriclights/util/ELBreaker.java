@@ -1,6 +1,10 @@
 package com.m_w_k.electriclights.util;
 
+import com.m_w_k.electriclights.block.ElectricRelayBlock;
+import com.m_w_k.electriclights.block.MasterSwitchboardBlock;
+import com.m_w_k.electriclights.registry.ELSoundsRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -14,6 +18,8 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
+
+import static com.m_w_k.electriclights.registry.ELSoundsRegistry.*;
 
 public interface ELBreaker {
     BooleanProperty DISABLED = ELBlockStateProperties.DISABLED;
@@ -51,8 +57,8 @@ public interface ELBreaker {
     default BlockState setDisabled(BlockState state, Level level, BlockPos pos, boolean disabled) {
         state = state.setValue(DISABLED, disabled);
         level.setBlock(pos, state, 2);
-        // TODO get a custom breaker sound
-        level.playSound(null, pos, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.3F, state.getValue(DISABLED) ? 0.5F : 0.6F);
+        SoundEvent sound = state.getBlock() instanceof MasterSwitchboardBlock ? (disabled ? SWITCHBOARD_OFF : SWITCHBOARD_ON) : (disabled ? BREAKER_ON : BREAKER_OFF);
+        level.playSound(null, pos, sound, SoundSource.BLOCKS);
         return state;
     }
 }

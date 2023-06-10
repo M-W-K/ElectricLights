@@ -9,6 +9,7 @@ public class ELRegistry {
         ELItemsRegistry.BLOCK_ITEMS.register(modEventBus);
         ELBlockEntityRegistry.BLOCK_ENTITIES.register(modEventBus);
         ELGUIRegistry.MENU_TYPES.register(modEventBus);
+        ELSoundsRegistry.SOUND_EVENTS.register(modEventBus);
 
         modEventBus.addListener(ELItemsRegistry::addCreative);
     }

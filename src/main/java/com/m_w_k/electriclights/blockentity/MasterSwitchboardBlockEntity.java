@@ -9,6 +9,10 @@ import com.m_w_k.electriclights.util.GraphNode;
 import com.m_w_k.electriclights.block.VoltageBlock;
 import com.m_w_k.electriclights.registry.ELBlockEntityRegistry;
 import com.m_w_k.electriclights.util.ELGenerator;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.resources.sounds.TickableSoundInstance;
+import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
@@ -17,10 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static com.m_w_k.electriclights.block.MasterSwitchboardBlock.DISABLED;
 
@@ -129,7 +130,6 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                         int interpolatedEnergy = self.disabled ? 0 : (self.voltage + 2) * self.servicedLightCount * self.ticksSinceLastUpdate;
                         self.energy += self.retrieveEnergy(maxEnergy + interpolatedEnergy - self.energy);
                     }
-
                     if (self.ticksToNextUpdate <= self.ticksSinceLastUpdate || self.forceUpdate) {
                         if (state.getValue(DISABLED) != self.disabled) {
                             if (self.disabled) {

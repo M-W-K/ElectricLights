@@ -1,0 +1,32 @@
+{
+  "block.breaker.on": {
+    "subtitle": "subtitles.block.electriclights.breaker.on",
+    "sounds": [
+      "electriclights:block/breaker-on"
+    ]
+  },
+  "block.breaker.off": {
+    "subtitle": "subtitles.block.electriclights.breaker.off",
+    "sounds": [
+      "electriclights:block/breaker-off"
+    ]
+  },
+  "block.switchboard.on": {
+    "subtitle": "subtitles.block.electriclights.switchboard.on",
+    "sounds": [
+      "electriclights:block/switchboard-on"
+    ]
+  },
+  "block.switchboard.off": {
+    "subtitle": "subtitles.block.electriclights.switchboard.off",
+    "sounds": [
+      "electriclights:block/switchboard-off"
+    ]
+  },
+  "block.switchboard.active": {
+    "subtitle": "subtitles.block.electriclights.switchboard.active",
+    "sounds": [
+      "electriclights:block/switchboard-active"
+    ]
+  }
+}

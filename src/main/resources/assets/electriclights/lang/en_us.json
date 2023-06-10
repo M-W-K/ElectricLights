@@ -70,5 +70,11 @@
     "advancement.electriclights.voltage_coil_m": "Subscription Torches",
     "advancement.electriclights.voltage_coil_m.desc": "Your lights take a bit more power to maintain, but are now as bright as torches.",
     "advancement.electriclights.voltage_coil_h": "Good Lighting",
-    "advancement.electriclights.voltage_coil_h.desc": "More power, more light."
+    "advancement.electriclights.voltage_coil_h.desc": "More power, more light.",
+
+    "subtitles.block.electriclights.breaker.on": "Relay connects",
+    "subtitles.block.electriclights.breaker.off": "Relay disconnects",
+    "subtitles.block.electriclights.switchboard.on": "Switchboard activates",
+    "subtitles.block.electriclights.switchboard.off": "Switchboard deactivates",
+    "subtitles.block.electriclights.switchboard.active": "Switchboard hums"
 }
