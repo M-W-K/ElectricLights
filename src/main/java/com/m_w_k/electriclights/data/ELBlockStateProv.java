@@ -31,6 +31,8 @@ public class ELBlockStateProv extends BlockStateProvider {
         this.light(ELBlockRegistry.DRAGON_LIGHT, "light");
         this.relay(ELBlockRegistry.ELECTRIC_RELAY, "relay");
         this.coil(ELBlockRegistry.VOLTAGE_COIL_L_BLOCK, "low");
+        this.coil(ELBlockRegistry.VOLTAGE_COIL_M_BLOCK, "med");
+        this.coil(ELBlockRegistry.VOLTAGE_COIL_H_BLOCK, "high");
     }
     public void light(RegistryObject<Block> registryObject, String variant) {
         Block block = registryObject.get();

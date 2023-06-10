@@ -1,8 +1,10 @@
-// 1.19.3	2023-06-08T18:08:29.691544	Block States: electriclights
+// 1.19.3	2023-06-09T18:20:25.737305	Block States: electriclights
 9480f550c05ed65ea138ce0f63d7655fbcfafd62 assets/electriclights/blockstates/dragon_light.json
 beadffba2fdcf891906c6b621ce3b449f9c569b1 assets/electriclights/blockstates/electric_light.json
 11a5ba6bc6534ca1ea0292c4955b14c33b85a166 assets/electriclights/blockstates/electric_relay.json
+0b84828f8c95d16b1ab7f22ecf160b6c6c51c281 assets/electriclights/blockstates/voltage_coil_h.json
 b6e799a11315fd3839b3a1130a2f0fed60520eb2 assets/electriclights/blockstates/voltage_coil_l.json
+01bdcd4e1335a4c27446b58622784a9b942858f5 assets/electriclights/blockstates/voltage_coil_m.json
 877bbdfcd409d85ac247223611e73c2203897df3 assets/electriclights/models/block/dragon_light_ceiling_0.json
 544908779cde4f9ca9067691a162410cb8dcbb6e assets/electriclights/models/block/dragon_light_ceiling_1.json
 8f82e02027a77973c0310e9fa2de8b13a412e5e9 assets/electriclights/models/block/dragon_light_ceiling_2.json
@@ -39,4 +41,6 @@ e36cd35a7c479b1eec87bc1376a5578a2b90961c assets/electriclights/models/block/elec
 c4dc648a4c5108ab14ccd95646031736dc6ee644 assets/electriclights/models/block/electric_relay_inactive_0.json
 c4dc648a4c5108ab14ccd95646031736dc6ee644 assets/electriclights/models/block/electric_relay_inactive_1.json
 c4dc648a4c5108ab14ccd95646031736dc6ee644 assets/electriclights/models/block/electric_relay_inactive_2.json
+be6833e20c12df0fc3639360e87cbf156da9680d assets/electriclights/models/block/voltage_coil_h.json
 b2eb8059baca319a48d1a652166d280aa943a581 assets/electriclights/models/block/voltage_coil_l.json
+41188874991cecce2c0814ebc8cfb7377134a806 assets/electriclights/models/block/voltage_coil_m.json
