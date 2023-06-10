@@ -46,10 +46,6 @@ public abstract class AbstractRelayBlock extends FaceAttachedHorizontalDirection
         blockStateBuilder.add(WATERLOGGED, FACING, FACE, LIGHTSTATE);
     }
 
-    /**
-     * Warning for "deprecation" is suppressed because the method is fine to override.
-     */
-    @SuppressWarnings("deprecation")
     @Override
     public BlockState updateShape(BlockState state1, Direction direction, BlockState state2, LevelAccessor levelAccessor, BlockPos pos1, BlockPos pos2) {
         if (state1.getValue(WATERLOGGED)) {
@@ -58,14 +54,12 @@ public abstract class AbstractRelayBlock extends FaceAttachedHorizontalDirection
         return super.updateShape(state1, direction, state2, levelAccessor, pos1, pos2);
     }
 
-//    /**
-//     * Warning for "deprecation" is suppressed because the method is fine to override.
-//     */
-//    @SuppressWarnings("deprecation")
-//    @Override
-//    public boolean canSurvive(BlockState state, LevelReader levelReader, BlockPos pos) {
-//        return canSupportCenter(levelReader, pos.relative(state.getValue(FACING)), state.getValue(FACING).getOpposite());
-//    }
+    @Override
+    @Nullable
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState state = super.getStateForPlacement(context);
+        return state == null ? null : state.setValue(WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER);
+    }
 
     /**
      * Warning for "deprecation" is suppressed because the method is fine to override.
@@ -75,7 +69,9 @@ public abstract class AbstractRelayBlock extends FaceAttachedHorizontalDirection
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.is(newState.getBlock())) {
             if (!level.isClientSide()) {
-                handleSelfGraphNode(level, pos, true);
+                if (!state.hasProperty(ELBlockStateProperties.DISABLED) || !state.getValue(ELBlockStateProperties.DISABLED)) {
+                    handleSelfGraphNode(level, pos, true);
+                }
             }
             super.onPlace(state, level, pos, newState, isMoving);
         }

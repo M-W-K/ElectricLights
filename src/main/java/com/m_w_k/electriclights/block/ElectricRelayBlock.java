@@ -2,11 +2,9 @@ package com.m_w_k.electriclights.block;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.m_w_k.electriclights.util.ELBlockStateProperties;
+import com.m_w_k.electriclights.util.ELBreaker;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -16,7 +14,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -26,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class ElectricRelayBlock extends AbstractRelayBlock {
+public class ElectricRelayBlock extends AbstractRelayBlock implements ELBreaker {
     protected static final Map<Direction, VoxelShape> RELAY_FLOOR_AABBS = Maps.newEnumMap(ImmutableMap.of(
             Direction.SOUTH, Shapes.or(
                     Block.box(2, 0, 1, 14, 2, 15),
@@ -91,8 +88,6 @@ public class ElectricRelayBlock extends AbstractRelayBlock {
                     Block.box(10, 13, 6, 12, 14, 10),
                     Block.box(5, 14, 1, 8, 16, 2))));
 
-    public static final BooleanProperty DISABLED = ELBlockStateProperties.DISABLED;
-
     @Override
     public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
         int light = state.getValue(LIGHTSTATE);
@@ -107,6 +102,7 @@ public class ElectricRelayBlock extends AbstractRelayBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> blockStateBuilder) {
         blockStateBuilder.add(DISABLED);
+        blockStateBuilder.add(POWERED);
         super.createBlockStateDefinition(blockStateBuilder);
     }
 
@@ -114,7 +110,13 @@ public class ElectricRelayBlock extends AbstractRelayBlock {
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState state = super.getStateForPlacement(context);
-        return state == null ? null : state.setValue(DISABLED,false);
+        if (state != null) {
+            BlockPos clickedPos = context.getClickedPos();
+            if (context.getLevel().hasNeighborSignal(clickedPos)) {
+                return state.setValue(DISABLED, true).setValue(POWERED, true).setValue(LIGHTSTATE, 0);
+            }
+            return state.setValue(DISABLED, false).setValue(POWERED, false);
+        } else return null;
     }
 
     /**
@@ -123,10 +125,7 @@ public class ElectricRelayBlock extends AbstractRelayBlock {
     @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block p_55669_, BlockPos p_55670_, boolean p_55671_) {
-        if (!level.isClientSide) {
-            boolean flag = state.getValue(DISABLED);
-            if (flag != level.hasNeighborSignal(pos)) toggleState(state, level, pos);
-        }
+        neighborChange(state, level, pos, p_55669_, p_55670_, p_55671_);
     }
 
     /**
@@ -135,24 +134,14 @@ public class ElectricRelayBlock extends AbstractRelayBlock {
     @SuppressWarnings("deprecation")
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand p_54644_, BlockHitResult p_54645_) {
-        if (level.isClientSide) {
-            return InteractionResult.SUCCESS;
-        } else {
-            BlockState blockstate = this.toggleState(state, level, pos);
-            level.playSound(null, pos, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.3F, blockstate.getValue(DISABLED) ? 0.5F : 0.6F);
-            level.gameEvent(player, blockstate.getValue(DISABLED) ? GameEvent.BLOCK_DEACTIVATE : GameEvent.BLOCK_ACTIVATE, pos);
-            return InteractionResult.CONSUME;
-        }
+        return used(state, level, pos, player, p_54644_, p_54645_);
     }
 
-    private BlockState toggleState(BlockState state, Level level, BlockPos pos) {
-        state = state.cycle(DISABLED);
-        boolean disabled = state.getValue(DISABLED);
+    public BlockState setDisabled(BlockState state, Level level, BlockPos pos, boolean disabled) {
+        if (disabled) state = state.setValue(LIGHTSTATE, 0);
         // disconnect ourselves from the network if disabled, or reconnect if we've been enabled
         handleSelfGraphNode(level, pos, !disabled);
-        if (disabled) state = state.setValue(LIGHTSTATE, 0);
-        level.setBlock(pos, state, 2);
-        return state;
+        return ELBreaker.super.setDisabled(state, level, pos, disabled);
     }
 
     /**

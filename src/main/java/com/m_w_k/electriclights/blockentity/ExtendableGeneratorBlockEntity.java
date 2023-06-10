@@ -1,7 +1,6 @@
 package com.m_w_k.electriclights.blockentity;
 
-import com.m_w_k.electriclights.util.Generator;
-import com.m_w_k.electriclights.util.GraphNode;
+import com.m_w_k.electriclights.util.ELGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
@@ -14,9 +13,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public abstract class ExtendableGeneratorBlockEntity extends BaseContainerBlockEntity implements Generator {
+public abstract class ExtendableGeneratorBlockEntity extends BaseContainerBlockEntity implements ELGenerator {
     protected List<BlockPos> extensionPositions = new ArrayList<>();
     protected int misc; // Miscellaneous value
     protected int energyGenerated; // Energy we've built up

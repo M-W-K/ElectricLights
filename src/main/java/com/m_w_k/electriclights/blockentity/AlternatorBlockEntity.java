@@ -4,7 +4,7 @@ import com.m_w_k.electriclights.ELConfig;
 import com.m_w_k.electriclights.gui.menu.AlternatorMenu;
 import com.m_w_k.electriclights.ElectricLightsMod;
 import com.m_w_k.electriclights.registry.ELBlockEntityRegistry;
-import com.m_w_k.electriclights.util.Generator;
+import com.m_w_k.electriclights.util.ELGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static com.m_w_k.electriclights.block.AlternatorBlock.LIT;
 
-public class AlternatorBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, StackedContentsCompatible, Generator {
+public class AlternatorBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, StackedContentsCompatible, ELGenerator {
     private static final int[] SLOTS_FUEL = {0};
     protected NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
     private int litTime; // The current fuel burning progress time.

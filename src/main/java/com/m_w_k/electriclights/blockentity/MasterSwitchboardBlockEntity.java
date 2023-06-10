@@ -8,7 +8,7 @@ import com.m_w_k.electriclights.ElectricLightsMod;
 import com.m_w_k.electriclights.util.GraphNode;
 import com.m_w_k.electriclights.block.VoltageBlock;
 import com.m_w_k.electriclights.registry.ELBlockEntityRegistry;
-import com.m_w_k.electriclights.util.Generator;
+import com.m_w_k.electriclights.util.ELGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
@@ -217,7 +217,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                 int fulfilled = maximum;
                 for (GraphNode node : generators) {
                     BlockEntity entity = level.getBlockEntity(node.getPos());
-                    if (entity instanceof Generator generator) fulfilled -= generator.fetchEnergy(fulfilled);
+                    if (entity instanceof ELGenerator generator) fulfilled -= generator.fetchEnergy(fulfilled);
                 }
                 return maximum - fulfilled;
             }
