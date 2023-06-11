@@ -1,4 +1,4 @@
-// 1.19.3	2023-06-09T18:28:29.203501	Item Models: electriclights
+// 1.19.3	2023-06-10T21:32:09.948424	Item Models: electriclights
 2af39f359ca48fdfe318f25a085d1be145bab762 assets/electriclights/models/item/dragon_bulb.json
 41a37c5e0c59eb8905ef9cab705c72557d0ca7b6 assets/electriclights/models/item/dragon_light.json
 41a37c5e0c59eb8905ef9cab705c72557d0ca7b6 assets/electriclights/models/item/electric_light_0.json
@@ -9,6 +9,8 @@
 9f61e9d3b4f21852d9a4162aa6b492755f515ebe assets/electriclights/models/item/electric_light_5.json
 9f61e9d3b4f21852d9a4162aa6b492755f515ebe assets/electriclights/models/item/electric_light_6.json
 614403b6b8068612f3c2b5b4bdac037bebcaf07f assets/electriclights/models/item/electric_light_7.json
+f9b1a617f14b3687a3f14887c5f30bbbeaa6cbb0 assets/electriclights/models/item/electric_relay.json
+408d158699ee566b3db2425bcdf0ca4a18991962 assets/electriclights/models/item/master_switchboard.json
 9545eda8aada8acb3efcdd50fac72c1f8633a7e3 assets/electriclights/models/item/redstone_bulb.json
 e9d75620050883f98dea855a8420206337f64314 assets/electriclights/models/item/redstone_chip.json
 4d34331493c153154393b94b9f2d1e3644945510 assets/electriclights/models/item/redstone_silicate.json

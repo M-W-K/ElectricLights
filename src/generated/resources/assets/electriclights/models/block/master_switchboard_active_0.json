@@ -1,0 +1,8 @@
+{
+  "parent": "electriclights:block/switchboard_active_blueprint",
+  "textures": {
+    "0": "electriclights:block/switchboard_base",
+    "1": "electriclights:block/switchboard_0",
+    "particle": "electriclights:block/switchboard_base"
+  }
+}

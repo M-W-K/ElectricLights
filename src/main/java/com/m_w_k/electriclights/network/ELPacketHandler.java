@@ -28,11 +28,10 @@ public class ELPacketHandler {
     );
 
     public static void register() {
-        //register(packet.class, packet.encoder, packet.decoder, packet.handler
+        register(SwitchboardHumPacket.class, SwitchboardHumPacket::encoder, SwitchboardHumPacket::decoder, PacketBase::handler);
     }
 
-    private static <MSG> void register(Class<MSG> packet, BiConsumer<MSG, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, MSG> decoder, BiConsumer<MSG, Supplier<NetworkEvent.Context>> messageConsumer)
-    {
+    private static <MSG> void register(Class<MSG> packet, BiConsumer<MSG, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, MSG> decoder, BiConsumer<MSG, Supplier<NetworkEvent.Context>> messageConsumer) {
         INSTANCE.registerMessage(id, packet, encoder, decoder, messageConsumer);
         id++;
     }
@@ -41,8 +40,7 @@ public class ELPacketHandler {
     /**
      * Server -> Client
      */
-    public static void sendToClient(Object packet, ServerPlayer serverPlayer)
-    {
+    public static void sendToClient(Object packet, ServerPlayer serverPlayer) {
         if (!(serverPlayer instanceof FakePlayer))
             INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverPlayer), packet);
     }
@@ -50,16 +48,14 @@ public class ELPacketHandler {
     /**
      * Server -> Clients within a radius of a point
      */
-    public static void sendToAllClients(Object packet, BlockPos pos, int r, Level level)
-    {
-        INSTANCE.send((PacketDistributor.PacketTarget) PacketDistributor.TargetPoint.p(pos.getX(), pos.getY(), pos.getZ(), r, level.dimension()), packet);
+    public static void sendToNearClients(Object packet, BlockPos pos, int r, Level level) {
+        INSTANCE.send(PacketDistributor.NEAR.with(PacketDistributor.TargetPoint.p(pos.getX(), pos.getY(), pos.getZ(), r, level.dimension())), packet);
     }
 
     /**
      * Client -> Server
      */
-    public static void sendToServer(Object packet)
-    {
+    public static void sendToServer(Object packet) {
         INSTANCE.sendToServer(packet);
     }
 

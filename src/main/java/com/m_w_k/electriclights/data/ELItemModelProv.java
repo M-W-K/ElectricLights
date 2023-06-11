@@ -20,6 +20,11 @@ public class ELItemModelProv extends ItemModelProvider {
         simpleBlockItem(ELBlockRegistry.VOLTAGE_COIL_L_BLOCK, ELItemsRegistry.VOLTAGE_COIL_L_BLOCK_ITEM);
         simpleBlockItem(ELBlockRegistry.VOLTAGE_COIL_M_BLOCK, ELItemsRegistry.VOLTAGE_COIL_M_BLOCK_ITEM);
         simpleBlockItem(ELBlockRegistry.VOLTAGE_COIL_H_BLOCK, ELItemsRegistry.VOLTAGE_COIL_H_BLOCK_ITEM);
+
+        item(ELItemsRegistry.ELECTRIC_RELAY_BLOCK_ITEM, "block/relay_active_blueprint");
+        item(ELItemsRegistry.SWITCHBOARD_BLOCK_ITEM, "block/switchboard_active_blueprint");
+
+
         item(ELItemsRegistry.DRAGON_LIGHT_BLOCK_ITEM, "item/light_display_blueprint", "block/light_4", "2");
         item(ELItemsRegistry.ELECTRIC_LIGHT_0_BLOCK_ITEM, "item/light_display_blueprint", "block/light_4", "2");
         item(ELItemsRegistry.ELECTRIC_LIGHT_1_BLOCK_ITEM, "item/light_display_blueprint", "block/light_3", "2");
@@ -44,17 +49,25 @@ public class ELItemModelProv extends ItemModelProvider {
         this.withExistingParent(pathItem, "electriclights:block/".concat(pathBlock))
                 .texture(textureNum, texturePath);
     }
+
     public void simpleBlockItem(RegistryObject<Block> blockRegistryObject, RegistryObject<Item> itemRegistryObject) {
         String pathBlock = blockRegistryObject.getId().getPath();
         String pathItem = itemRegistryObject.getId().getPath();
         this.withExistingParent(pathItem, "electriclights:block/".concat(pathBlock));
     }
+
     public void item(RegistryObject<Item> registryObject, String parentModelPath, String texturePath, String textureNum) {
         String pathItem = registryObject.getId().getPath();
         texturePath = "electriclights:" + texturePath;
         this.withExistingParent(pathItem, "electriclights:".concat(parentModelPath))
                 .texture(textureNum, texturePath);
     }
+
+    public void item(RegistryObject<Item> registryObject, String parentModelPath) {
+        String pathItem = registryObject.getId().getPath();
+        this.withExistingParent(pathItem, "electriclights:".concat(parentModelPath));
+    }
+
     public void simpleItem(RegistryObject<Item> registryObject, String texturePath) {
         String pathItem = registryObject.getId().getPath();
         texturePath = "electriclights:" + texturePath;

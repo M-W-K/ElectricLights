@@ -89,6 +89,9 @@ public class AlternatorMenu extends AbstractContainerMenu {
         return this.data.get(0) > 0;
     }
     public int getLitTimeRemainingScaled() {
+        // prevent / by zero crash in edge cases
+        if (this.data.get(1) == 0) return 0;
+
         return getLitTimeRemaining() * 10 / this.data.get(1);
     }
     public int getLitTimeRemaining() {

@@ -4,7 +4,7 @@
   [
     "gbg",
     "scs",
-    "www"
+    "iii"
   ],
   "key":
   {
@@ -20,9 +20,9 @@
     {
       "item": "electriclights:redstone_bulb"
     },
-    "w":
+    "i":
     {
-      "tag": "minecraft:planks"
+      "item": "electriclights:silicate_board"
     },
     "g":
     {

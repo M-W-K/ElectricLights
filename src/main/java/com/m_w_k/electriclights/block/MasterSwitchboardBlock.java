@@ -1,5 +1,7 @@
 package com.m_w_k.electriclights.block;
 
+import com.m_w_k.electriclights.network.ELPacketHandler;
+import com.m_w_k.electriclights.network.SwitchboardHumPacket;
 import com.m_w_k.electriclights.util.ELBreaker;
 import com.m_w_k.electriclights.util.ELBlockStateProperties;
 import com.m_w_k.electriclights.util.ELGraphHandler;
@@ -8,6 +10,7 @@ import com.m_w_k.electriclights.util.GraphNode;
 import com.m_w_k.electriclights.blockentity.MasterSwitchboardBlockEntity;
 import com.m_w_k.electriclights.registry.ELBlockEntityRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -16,9 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -26,6 +27,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
@@ -33,7 +36,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MasterSwitchboardBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, ELBreaker {
+    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final Property<Integer> LIGHTSTATE = ELBlockStateProperties.LIGHTSTATE;
     public static final BooleanProperty DISABLED = ELBlockStateProperties.DISABLED;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
@@ -41,7 +46,9 @@ public class MasterSwitchboardBlock extends BaseEntityBlock implements SimpleWat
         super(properties);
         this.registerDefaultState(
                 this.stateDefinition.any()
+                        .setValue(FACING, Direction.NORTH)
                         .setValue(WATERLOGGED, false)
+                        .setValue(LIGHTSTATE, 0)
                         .setValue(DISABLED, false)
                         .setValue(POWERED, false)
         );
@@ -49,7 +56,7 @@ public class MasterSwitchboardBlock extends BaseEntityBlock implements SimpleWat
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> blockStateBuilder) {
-        blockStateBuilder.add(WATERLOGGED, DISABLED, POWERED);
+        blockStateBuilder.add(FACING, WATERLOGGED, LIGHTSTATE, DISABLED, POWERED);
         super.createBlockStateDefinition(blockStateBuilder);
     }
 
@@ -58,6 +65,8 @@ public class MasterSwitchboardBlock extends BaseEntityBlock implements SimpleWat
         BlockState state = super.getStateForPlacement(context);
         if (state != null) {
             BlockPos clickedPos = context.getClickedPos();
+
+            state = state.setValue(FACING, context.getHorizontalDirection());
             state = state.setValue(WATERLOGGED, context.getLevel().getFluidState(clickedPos).getType() == Fluids.WATER);
             if (context.getLevel().hasNeighborSignal(clickedPos)) {
                 return state.setValue(DISABLED, true).setValue(POWERED, true);
@@ -97,6 +106,7 @@ public class MasterSwitchboardBlock extends BaseEntityBlock implements SimpleWat
             if (!level.isClientSide()) {
                 ELGraphHandler.removeGraphNode(new GraphNode(pos, GraphNode.NodeType.SWITCHBOARD), level);
                 ElectricLightsMod.manageLoadedChunks((ServerLevel) level, pos, false);
+                ELPacketHandler.sendToNearClients(new SwitchboardHumPacket(pos, false), pos, 16, level);
             }
             super.onRemove(state, level, pos, newState, isMoving);
         }
@@ -130,7 +140,16 @@ public class MasterSwitchboardBlock extends BaseEntityBlock implements SimpleWat
     }
 
     public BlockState setDisabled(BlockState state, Level level, BlockPos pos, boolean disabled) {
-        if (level.getBlockEntity(pos) instanceof MasterSwitchboardBlockEntity switchboard) switchboard.forceUpdate();
+        if (level.getBlockEntity(pos) instanceof MasterSwitchboardBlockEntity switchboard) {
+            switchboard.forceUpdate();
+            switchboard.setTicksToSoundUpdate(8);
+        }
         return ELBreaker.super.setDisabled(state, level, pos, disabled);
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState p_49232_) {
+        // TODO use a BER instead of a basic model
+        return RenderShape.MODEL;
     }
 }

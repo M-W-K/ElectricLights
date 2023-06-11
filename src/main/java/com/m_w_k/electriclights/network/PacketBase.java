@@ -1,6 +1,5 @@
 package com.m_w_k.electriclights.network;
 
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.network.NetworkEvent;
@@ -14,10 +13,10 @@ public interface PacketBase {
 
     }
 
-    // static void encoder(...) takes in a FriendlyByteBuf and some other things, then writes those other things to the FriendlyByteBuf
+    // static void encoder(packet, buffer) takes in a FriendlyByteBuf and a packet, then writes the packet to the FriendlyByteBuf
 
-    // static PacketBase decoder(FriendlyByteBuf buff) pulls the things out of the FriendlyByteBuf and returns a new packet based on the data
+    // static PacketBase decoder(buffer) generates a packet out of the FriendlyByteBuf and returns it
 
-    void handleSelf(); // takes the decoded packet and updates things
+    void handleSelf(); // static void handler() does things based on the packet's data
 
 }

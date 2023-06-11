@@ -1,0 +1,154 @@
+{
+  "variants": {
+    "disabled=false,facing=east,light_state=0": {
+      "model": "electriclights:block/master_switchboard_active_0",
+      "y": 90
+    },
+    "disabled=false,facing=east,light_state=1": {
+      "model": "electriclights:block/master_switchboard_active_1",
+      "y": 90
+    },
+    "disabled=false,facing=east,light_state=2": {
+      "model": "electriclights:block/master_switchboard_active_2",
+      "y": 90
+    },
+    "disabled=false,facing=east,light_state=3": {
+      "model": "electriclights:block/master_switchboard_active_2",
+      "y": 90
+    },
+    "disabled=false,facing=east,light_state=4": {
+      "model": "electriclights:block/master_switchboard_active_2",
+      "y": 90
+    },
+    "disabled=false,facing=north,light_state=0": {
+      "model": "electriclights:block/master_switchboard_active_0"
+    },
+    "disabled=false,facing=north,light_state=1": {
+      "model": "electriclights:block/master_switchboard_active_1"
+    },
+    "disabled=false,facing=north,light_state=2": {
+      "model": "electriclights:block/master_switchboard_active_2"
+    },
+    "disabled=false,facing=north,light_state=3": {
+      "model": "electriclights:block/master_switchboard_active_2"
+    },
+    "disabled=false,facing=north,light_state=4": {
+      "model": "electriclights:block/master_switchboard_active_2"
+    },
+    "disabled=false,facing=south,light_state=0": {
+      "model": "electriclights:block/master_switchboard_active_0",
+      "y": 180
+    },
+    "disabled=false,facing=south,light_state=1": {
+      "model": "electriclights:block/master_switchboard_active_1",
+      "y": 180
+    },
+    "disabled=false,facing=south,light_state=2": {
+      "model": "electriclights:block/master_switchboard_active_2",
+      "y": 180
+    },
+    "disabled=false,facing=south,light_state=3": {
+      "model": "electriclights:block/master_switchboard_active_2",
+      "y": 180
+    },
+    "disabled=false,facing=south,light_state=4": {
+      "model": "electriclights:block/master_switchboard_active_2",
+      "y": 180
+    },
+    "disabled=false,facing=west,light_state=0": {
+      "model": "electriclights:block/master_switchboard_active_0",
+      "y": 270
+    },
+    "disabled=false,facing=west,light_state=1": {
+      "model": "electriclights:block/master_switchboard_active_1",
+      "y": 270
+    },
+    "disabled=false,facing=west,light_state=2": {
+      "model": "electriclights:block/master_switchboard_active_2",
+      "y": 270
+    },
+    "disabled=false,facing=west,light_state=3": {
+      "model": "electriclights:block/master_switchboard_active_2",
+      "y": 270
+    },
+    "disabled=false,facing=west,light_state=4": {
+      "model": "electriclights:block/master_switchboard_active_2",
+      "y": 270
+    },
+    "disabled=true,facing=east,light_state=0": {
+      "model": "electriclights:block/master_switchboard_inactive_0",
+      "y": 90
+    },
+    "disabled=true,facing=east,light_state=1": {
+      "model": "electriclights:block/master_switchboard_inactive_1",
+      "y": 90
+    },
+    "disabled=true,facing=east,light_state=2": {
+      "model": "electriclights:block/master_switchboard_inactive_2",
+      "y": 90
+    },
+    "disabled=true,facing=east,light_state=3": {
+      "model": "electriclights:block/master_switchboard_inactive_2",
+      "y": 90
+    },
+    "disabled=true,facing=east,light_state=4": {
+      "model": "electriclights:block/master_switchboard_inactive_2",
+      "y": 90
+    },
+    "disabled=true,facing=north,light_state=0": {
+      "model": "electriclights:block/master_switchboard_inactive_0"
+    },
+    "disabled=true,facing=north,light_state=1": {
+      "model": "electriclights:block/master_switchboard_inactive_1"
+    },
+    "disabled=true,facing=north,light_state=2": {
+      "model": "electriclights:block/master_switchboard_inactive_2"
+    },
+    "disabled=true,facing=north,light_state=3": {
+      "model": "electriclights:block/master_switchboard_inactive_2"
+    },
+    "disabled=true,facing=north,light_state=4": {
+      "model": "electriclights:block/master_switchboard_inactive_2"
+    },
+    "disabled=true,facing=south,light_state=0": {
+      "model": "electriclights:block/master_switchboard_inactive_0",
+      "y": 180
+    },
+    "disabled=true,facing=south,light_state=1": {
+      "model": "electriclights:block/master_switchboard_inactive_1",
+      "y": 180
+    },
+    "disabled=true,facing=south,light_state=2": {
+      "model": "electriclights:block/master_switchboard_inactive_2",
+      "y": 180
+    },
+    "disabled=true,facing=south,light_state=3": {
+      "model": "electriclights:block/master_switchboard_inactive_2",
+      "y": 180
+    },
+    "disabled=true,facing=south,light_state=4": {
+      "model": "electriclights:block/master_switchboard_inactive_2",
+      "y": 180
+    },
+    "disabled=true,facing=west,light_state=0": {
+      "model": "electriclights:block/master_switchboard_inactive_0",
+      "y": 270
+    },
+    "disabled=true,facing=west,light_state=1": {
+      "model": "electriclights:block/master_switchboard_inactive_1",
+      "y": 270
+    },
+    "disabled=true,facing=west,light_state=2": {
+      "model": "electriclights:block/master_switchboard_inactive_2",
+      "y": 270
+    },
+    "disabled=true,facing=west,light_state=3": {
+      "model": "electriclights:block/master_switchboard_inactive_2",
+      "y": 270
+    },
+    "disabled=true,facing=west,light_state=4": {
+      "model": "electriclights:block/master_switchboard_inactive_2",
+      "y": 270
+    }
+  }
+}

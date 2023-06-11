@@ -3,16 +3,15 @@ package com.m_w_k.electriclights.blockentity;
 import com.m_w_k.electriclights.ELConfig;
 import com.m_w_k.electriclights.block.AbstractRelayBlock;
 import com.m_w_k.electriclights.block.BurnOutAbleLightBlock;
+import com.m_w_k.electriclights.block.MasterSwitchboardBlock;
+import com.m_w_k.electriclights.network.ELPacketHandler;
+import com.m_w_k.electriclights.network.SwitchboardHumPacket;
 import com.m_w_k.electriclights.util.ELGraphHandler;
 import com.m_w_k.electriclights.ElectricLightsMod;
 import com.m_w_k.electriclights.util.GraphNode;
 import com.m_w_k.electriclights.block.VoltageBlock;
 import com.m_w_k.electriclights.registry.ELBlockEntityRegistry;
 import com.m_w_k.electriclights.util.ELGenerator;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.resources.sounds.TickableSoundInstance;
-import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
@@ -42,6 +41,10 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
     private int ticksWithoutGoodConnect = 0;
 
     private boolean disabled = false;
+
+    private int ticksToSoundUpdate = 0;
+    private boolean finalSoundUpdate = false;
+    private boolean outOfPower = false;
 
     public MasterSwitchboardBlockEntity(BlockPos pos, BlockState state) {
         super(ELBlockEntityRegistry.MASTER_SWITCHBOARD.get(), pos, state);
@@ -126,10 +129,11 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
             if (self.servicedLightCount != 0 && !self.badConnect) {
                 if (self.voltage != -1) {
                     // retrieve energy continuously, using a simulated energy limit
-                    if (!self.generators.isEmpty()){
+                    if (!self.generators.isEmpty()) {
                         int interpolatedEnergy = self.disabled ? 0 : (self.voltage + 2) * self.servicedLightCount * self.ticksSinceLastUpdate;
                         self.energy += self.retrieveEnergy(maxEnergy + interpolatedEnergy - self.energy);
                     }
+
                     if (self.ticksToNextUpdate <= self.ticksSinceLastUpdate || self.forceUpdate) {
                         if (state.getValue(DISABLED) != self.disabled) {
                             if (self.disabled) {
@@ -151,6 +155,20 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                         self.ticksSinceLastUpdate = 1; // 1 tick to compensate for this calculation tick
 
                     } else self.ticksSinceLastUpdate++;
+
+                    if (!self.disabled && !self.outOfPower) {
+                        // do sound updates every 10 ticks while active
+                        if (self.ticksToSoundUpdate <= 10) {
+                            self.ticksToSoundUpdate++;
+                        } else {
+                            ELPacketHandler.sendToNearClients(new SwitchboardHumPacket(pos, true), pos, 16, level);
+                            self.ticksToSoundUpdate = 0;
+                        }
+                    } else if (!self.finalSoundUpdate) {
+                        ELPacketHandler.sendToNearClients(new SwitchboardHumPacket(pos, false), pos, 16, level);
+                        self.finalSoundUpdate = true;
+                    }
+
                 } else if (self.hasCapacitor) {
                     self.updateServicedLights(1);
                     self.hasCapacitor = false;
@@ -163,11 +181,16 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
     }
 
     private void doEnergyCalculations() {
+        if (outOfPower) {
+            ticksToSoundUpdate = 20;
+            outOfPower = false;
+        }
         energy -= (voltage + 2) * servicedLightCount * ticksSinceLastUpdate;
         ticksToNextUpdate = Math.max(energy / ((voltage + 2) * servicedLightCount), ELConfig.SERVER.minimumSwitchboardUpdateInterval());
         if (energy <= 0) {
             energy = 0;
-            updateServicedLights(1);
+            updateServicedLights(0);
+            outOfPower = true;
             // if we run out of power, don't bother updating for an extended interval
             ticksToNextUpdate = ELConfig.SERVER.minimumSwitchboardUpdateInterval() * 2;
         } else updateServicedLights(voltage);
@@ -186,6 +209,14 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
     private void updateLights(int state, Set<GraphNode> nodes) {
         if (level == null) ElectricLightsMod.logToConsole("Warning! A Master Switchboard doesn't know its level and can't update lights because of it!");
         else if (level.getServer() != null && !level.getServer().isCurrentlySaving() && nodes != null) {
+            // Update the attached block to the new state
+            BlockPos pos = this.getBlockPos();
+            if (!isRemoved()) {
+                level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(MasterSwitchboardBlock.LIGHTSTATE, state));
+            }
+            // Kill the sound if we get shut down, we won't actually go through the main update loop anymore
+            if (state <= 1) ELPacketHandler.sendToNearClients(new SwitchboardHumPacket(pos, false), pos, 16, level);
+
             for (GraphNode node : nodes) {
                 BlockState nodeState = level.getBlockState(node.getPos());
                 if (nodeState.getBlock() instanceof AbstractRelayBlock) {
@@ -273,5 +304,10 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
 
     public void forceUpdate() {
         forceUpdate = true;
+    }
+
+    public void setTicksToSoundUpdate(int ticksToSoundUpdate) {
+        this.ticksToSoundUpdate = ticksToSoundUpdate;
+        this.finalSoundUpdate = false;
     }
 }

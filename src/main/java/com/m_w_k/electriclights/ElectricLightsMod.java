@@ -1,8 +1,10 @@
 package com.m_w_k.electriclights;
 
+import com.m_w_k.electriclights.client.SwitchboardHumHandler;
 import com.m_w_k.electriclights.gui.screen.AlternatorScreen;
 import com.m_w_k.electriclights.gui.screen.GeothermalScreen;
 import com.m_w_k.electriclights.gui.screen.SolarScreen;
+import com.m_w_k.electriclights.network.ELPacketHandler;
 import com.m_w_k.electriclights.registry.ELItemsRegistry;
 import com.m_w_k.electriclights.registry.ELRegistry;
 import com.m_w_k.electriclights.util.ELGraphHandler;
@@ -41,9 +43,6 @@ public class ElectricLightsMod
     public static final String MODID = "electriclights";
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    static DimensionDataStorage overworldDataStorage;
-
-    static final ForgeChunkManager FORGE_CHUNK_MANAGER = null; // I think just having this somewhere is necessary for chunk loading, IDK if that's true, and I can't be bothered to find out
     static final List<ChunkPos> loadedChunks = new ArrayList<>();
 
     public ElectricLightsMod()
@@ -73,6 +72,8 @@ public class ElectricLightsMod
 
     @SubscribeEvent
     void commonSetup(final FMLCommonSetupEvent event) {
+        ELPacketHandler.register();
+
         BrewingRecipeRegistry.addRecipe(Ingredient.of(new ItemStack(ELItemsRegistry.REDSTONE_BULB.get())), Ingredient.of(Items.DRAGON_BREATH), new ItemStack(ELItemsRegistry.DRAGON_BULB.get()));
     }
 
