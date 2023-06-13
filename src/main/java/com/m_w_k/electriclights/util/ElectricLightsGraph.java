@@ -155,8 +155,11 @@ public class ElectricLightsGraph extends SavedData {
         return generateNode(data);
     }
 
-    GraphNode[] getNodes() {
+    GraphNode[] getNodesArray() {
         return g.vertexSet().toArray(new GraphNode[0]);
+    }
+    Set<GraphNode> getNodesSet() {
+        return g.vertexSet();
     }
 
     GraphNode[][] getEdges() {

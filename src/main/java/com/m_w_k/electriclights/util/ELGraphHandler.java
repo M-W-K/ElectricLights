@@ -1,7 +1,6 @@
 package com.m_w_k.electriclights.util;
 
 import com.m_w_k.electriclights.ELConfig;
-import com.m_w_k.electriclights.ElectricLightsMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -20,7 +19,7 @@ public class ELGraphHandler {
     public static boolean addGraphNodeAndAutoConnect(GraphNode node, Level level) {
         ElectricLightsGraph graph = getGraphForLevel(level);
         if (graph == null || nodeExists(node, level)) return false;
-        GraphNode[] graphNodes = graph.getNodes();
+        GraphNode[] graphNodes = graph.getNodesArray();
         graph.addNode(node);
         for (GraphNode graphNode : graphNodes) {
             if (areConnected(node, graphNode)) graph.addConnection(node, graphNode);
@@ -52,6 +51,11 @@ public class ELGraphHandler {
         ElectricLightsGraph graph = getGraphForLevel(level);
         if (graph == null) return new HashSet<>();
         return graph.getConnectedNodes(node);
+    }
+    public static Set<GraphNode> getAllNodes(Level level) {
+        ElectricLightsGraph graph = getGraphForLevel(level);
+        if (graph == null) return new HashSet<>();
+        return graph.getNodesSet();
     }
     public static boolean nodeExists(GraphNode node, Level level) {
         ElectricLightsGraph graph = getGraphForLevel(level);

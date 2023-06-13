@@ -93,12 +93,15 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                         updateServicedLights(1);
                     }
                 }
+                // break statement must be outside the switch block
                 if (badConnect) break;
 
             }
             // make sure to turn off any recently disconnected lights
             if (oldConnected != null) {
                 oldConnected.removeAll(connectedNodes);
+                // run an intersection with all known lights to make sure we don't attempt to update a removed light
+                oldConnected.retainAll(ELGraphHandler.getAllNodes(level));
                 updateLights(0, oldConnected);
             }
         } else selfNode = findSelfNode();
@@ -229,14 +232,16 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                             // lasts on average 28 state changes, or only 14 if waterlogged.
                             double rand = Math.random();
                             if (rand < 0.25 || (rand < 0.5 && currentAge > 8)) {
+                                // Only pass the more complex lambda if an age increment is okayed
                                 lambda = (a) -> {
-                                    // Only do age updating if the lightstate changed
+                                    // Only do age increment if the lightstate changed
                                     if (a.getValue(ELBlockStateProperties.LIGHTSTATE) == state)
                                         return a;
                                     node.setMisc(currentAge + 1);
                                     ELGraphHandler.markGraphAsDirty(level);
                                     return a.setValue(AbstractRelayBlock.LIGHTSTATE, state)
-                                            .setValue(BurnOutAbleLightBlock.AGE, currentAge);
+                                            // waterlogged blocks should still get a value between 1 and 7
+                                            .setValue(BurnOutAbleLightBlock.AGE, (currentAge) % 8);
                                 };
                             }
                         }
