@@ -42,7 +42,8 @@ public class GraphNode {
     }
 
     public @NotNull String toStringMisc() {
-        // misc must be stored on graph save, but should not affect identity operations that use .toString()
+        // non-zero misc must be stored on graph save, but should not affect identity operations that use .toString()
+        if (misc == 0) return String.valueOf(pos.getX()).concat(" " + pos.getY()).concat(" " + pos.getZ()).concat(" " + type);
         return String.valueOf(pos.getX()).concat(" " + pos.getY()).concat(" " + pos.getZ()).concat(" " + type).concat(" " + misc);
     }
 

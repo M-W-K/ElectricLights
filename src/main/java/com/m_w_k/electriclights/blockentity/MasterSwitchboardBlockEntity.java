@@ -6,13 +6,10 @@ import com.m_w_k.electriclights.block.BurnOutAbleLightBlock;
 import com.m_w_k.electriclights.block.MasterSwitchboardBlock;
 import com.m_w_k.electriclights.network.ELPacketHandler;
 import com.m_w_k.electriclights.network.SwitchboardHumPacket;
-import com.m_w_k.electriclights.util.ELGraphHandler;
+import com.m_w_k.electriclights.util.*;
 import com.m_w_k.electriclights.ElectricLightsMod;
-import com.m_w_k.electriclights.util.GraphNode;
 import com.m_w_k.electriclights.block.VoltageBlock;
 import com.m_w_k.electriclights.registry.ELBlockEntityRegistry;
-import com.m_w_k.electriclights.util.ELGenerator;
-import com.m_w_k.electriclights.util.SafeBlockSetter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
@@ -24,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 import static com.m_w_k.electriclights.block.MasterSwitchboardBlock.DISABLED;
+import static com.m_w_k.electriclights.block.MasterSwitchboardBlock.LIGHTSTATE;
 
 public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergyStorage {
     private Set<GraphNode> connectedNodes;
@@ -231,11 +229,17 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                             // lasts on average 28 state changes, or only 14 if waterlogged.
                             double rand = Math.random();
                             if (rand < 0.25 || (rand < 0.5 && currentAge > 8)) {
-                                node.setMisc(currentAge + 1);
-                                lambda = (a) -> a.setValue(AbstractRelayBlock.LIGHTSTATE, state)
-                                        .setValue(BurnOutAbleLightBlock.AGE, currentAge + 1);
+                                lambda = (a) -> {
+                                    // Only do age updating if the lightstate changed
+                                    if (a.getValue(ELBlockStateProperties.LIGHTSTATE) == state)
+                                        return a;
+                                    node.setMisc(currentAge + 1);
+                                    ELGraphHandler.markGraphAsDirty(level);
+                                    return a.setValue(AbstractRelayBlock.LIGHTSTATE, state)
+                                            .setValue(BurnOutAbleLightBlock.AGE, currentAge);
+                                };
                             }
-                        } else lambda = (a) -> a.setValue(AbstractRelayBlock.LIGHTSTATE, 0);
+                        }
                     }
                     SafeBlockSetter.safeChangeBlockAndUpdate(node.getPos(), lambda, level);
                 }

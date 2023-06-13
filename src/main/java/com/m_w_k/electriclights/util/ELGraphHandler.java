@@ -72,4 +72,9 @@ public class ELGraphHandler {
     public static boolean areConnected(BlockPos pos1, BlockPos pos2) {
         return !pos1.equals(pos2) && (pos1.distSqr(pos2) <= ELConfig.SERVER.nodeConnectDistSqr());
     }
+
+    public static void markGraphAsDirty(Level level) {
+        ElectricLightsGraph graph = getGraphForLevel(level);
+        if (graph != null) graph.setDirty();
+    }
 }

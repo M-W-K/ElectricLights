@@ -92,7 +92,7 @@ public class ElectricLightsGraph extends SavedData {
         GraphNode[] graphNodes = deparseNodes(data[0]);
         nodes.putInt("Count", graphNodes.length);
         for (int i = 0; i < graphNodes.length; i++) {
-            nodes.putString(String.valueOf(i), graphNodes[i].toString());
+            nodes.putString(String.valueOf(i), graphNodes[i].toStringMisc());
         }
         CompoundTag edges = new CompoundTag();
         GraphNode[][] graphEdges = deparseEdges(data[1]);
@@ -158,6 +158,7 @@ public class ElectricLightsGraph extends SavedData {
     GraphNode[] getNodes() {
         return g.vertexSet().toArray(new GraphNode[0]);
     }
+
     GraphNode[][] getEdges() {
         DefaultEdge[] edges = g.edgeSet().toArray(new DefaultEdge[0]);
         List<GraphNode[]> edgesParsed = new ArrayList<>();
@@ -173,9 +174,11 @@ public class ElectricLightsGraph extends SavedData {
 
         Set<GraphNode> vertices = g.vertexSet();
         Set<DefaultEdge> edges = g.edgeSet();
-        graph[0] = vertices.toString()
-                .replace("[","")
-                .replace("]","");
+        // we only need to save misc in the node list. The edge list doesn't need it, as misc is not part of a node's identity.
+        for (GraphNode vertex : vertices) {
+            graph[0] += ", " + vertex.toStringMisc();
+        }
+        graph[0] = graph[0].replaceFirst(", ", "");
         graph[1] = edges.toString()
                 .replace("[(", "")
                 .replace(")]", "")
