@@ -3,6 +3,9 @@ package com.m_w_k.electriclights.block;
 import com.m_w_k.electriclights.item.BurnOutAbleLightBlockItem;
 import com.m_w_k.electriclights.registry.ELBlockRegistry;
 import com.m_w_k.electriclights.registry.ELItemsRegistry;
+import com.m_w_k.electriclights.util.ELGraphHandler;
+import com.m_w_k.electriclights.util.GraphNode;
+import com.m_w_k.electriclights.util.SafeBlockSetter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -28,6 +31,19 @@ public class BurnOutAbleLightBlock extends BaseLightBlock {
     public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
         return state.getValue(AGE) == 7 ? 0 : super.getLightEmission(state, level, pos);
     }
+
+    @Override
+    protected void handleSelfGraphNode(Level level, BlockPos pos, BlockState state, boolean addNode) {
+        if (addNode) {
+            // Misc is light age + 1, or + 9 for waterlogged lights
+            ELGraphHandler.addGraphNodeAndAutoConnect(new GraphNode(pos, GraphNode.NodeType.LIGHT, state.getValue(AGE) + (state.getValue(WATERLOGGED) ? 9 : 1)), level);
+
+        } else {
+            ELGraphHandler.removeGraphNode(new GraphNode(pos, GraphNode.NodeType.LIGHT), level);
+
+        }
+    }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> blockStateBuilder) {
         blockStateBuilder.add(AGE);
@@ -52,12 +68,12 @@ public class BurnOutAbleLightBlock extends BaseLightBlock {
             if (!level.isClientSide()) {
                 ItemStack bulbs = player.getItemInHand(hand);
                 if (player.isHolding(ELItemsRegistry.DRAGON_BULB.get())) {
-                    level.setBlockAndUpdate(pos, ELBlockRegistry.DRAGON_LIGHT.get().defaultBlockState()
+                    SafeBlockSetter.safeSetBlockAndUpdate(pos, ELBlockRegistry.DRAGON_LIGHT.get().defaultBlockState()
                             .setValue(LIGHTSTATE, state.getValue(LIGHTSTATE))
                             .setValue(WATERLOGGED, state.getValue(WATERLOGGED))
-                            .setValue(FACING, state.getValue(FACING)));
+                            .setValue(FACING, state.getValue(FACING)), level);
                 }
-                else level.setBlockAndUpdate(pos, state.setValue(AGE, 0));
+                else SafeBlockSetter.safeSetBlockAndUpdate(pos, state.setValue(AGE, 0), level);
                 bulbs.setCount(bulbs.getCount() - 1);
                 return InteractionResult.CONSUME;
             } else return InteractionResult.SUCCESS;

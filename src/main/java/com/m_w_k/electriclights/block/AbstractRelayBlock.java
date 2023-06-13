@@ -70,7 +70,7 @@ public abstract class AbstractRelayBlock extends FaceAttachedHorizontalDirection
         if (!state.is(newState.getBlock())) {
             if (!level.isClientSide()) {
                 if (!state.hasProperty(ELBlockStateProperties.DISABLED) || !state.getValue(ELBlockStateProperties.DISABLED)) {
-                    handleSelfGraphNode(level, pos, true);
+                    handleSelfGraphNode(level, pos, state, true);
                 }
             }
             super.onPlace(state, level, pos, newState, isMoving);
@@ -99,6 +99,10 @@ public abstract class AbstractRelayBlock extends FaceAttachedHorizontalDirection
             ELGraphHandler.removeGraphNode(new GraphNode(pos, isLight ? GraphNode.NodeType.LIGHT : GraphNode.NodeType.RELAY), level);
 
         }
+    }
+
+    protected void handleSelfGraphNode(Level level, BlockPos pos, BlockState state, boolean addNode) {
+        handleSelfGraphNode(level, pos, addNode);
     }
 
     /**

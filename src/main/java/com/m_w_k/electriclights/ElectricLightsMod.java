@@ -1,6 +1,5 @@
 package com.m_w_k.electriclights;
 
-import com.m_w_k.electriclights.client.SwitchboardHumHandler;
 import com.m_w_k.electriclights.gui.screen.AlternatorScreen;
 import com.m_w_k.electriclights.gui.screen.GeothermalScreen;
 import com.m_w_k.electriclights.gui.screen.SolarScreen;
@@ -16,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.storage.DimensionDataStorage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.world.ForgeChunkManager;

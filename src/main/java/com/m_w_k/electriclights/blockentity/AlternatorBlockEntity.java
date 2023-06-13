@@ -5,6 +5,7 @@ import com.m_w_k.electriclights.gui.menu.AlternatorMenu;
 import com.m_w_k.electriclights.ElectricLightsMod;
 import com.m_w_k.electriclights.registry.ELBlockEntityRegistry;
 import com.m_w_k.electriclights.util.ELGenerator;
+import com.m_w_k.electriclights.util.SafeBlockSetter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -119,7 +120,7 @@ public class AlternatorBlockEntity extends BaseContainerBlockEntity implements W
                 self.litTime++;
                 self.energyGenerated += ELConfig.SERVER.alternatorEnergyFactor();
             }
-            if (state.getValue(LIT) != self.isLit()) level.setBlockAndUpdate(pos, state.setValue(LIT, self.isLit()));
+            if (state.getValue(LIT) != self.isLit()) SafeBlockSetter.safeSetBlockAndUpdate(pos, state.setValue(LIT, self.isLit()), level);
         }
     }
 

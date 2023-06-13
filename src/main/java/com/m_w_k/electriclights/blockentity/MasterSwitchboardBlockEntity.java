@@ -12,6 +12,7 @@ import com.m_w_k.electriclights.util.GraphNode;
 import com.m_w_k.electriclights.block.VoltageBlock;
 import com.m_w_k.electriclights.registry.ELBlockEntityRegistry;
 import com.m_w_k.electriclights.util.ELGenerator;
+import com.m_w_k.electriclights.util.SafeBlockSetter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
@@ -212,30 +213,31 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
             // Update the attached block to the new state
             BlockPos pos = this.getBlockPos();
             if (!isRemoved()) {
+                // No need to safe set because we act as a chunkloader
                 level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(MasterSwitchboardBlock.LIGHTSTATE, state));
             }
             // Kill the sound if we get shut down, we won't actually go through the main update loop anymore
             if (state <= 1) ELPacketHandler.sendToNearClients(new SwitchboardHumPacket(pos, false), pos, 16, level);
 
             for (GraphNode node : nodes) {
-                BlockState nodeState = level.getBlockState(node.getPos());
-                if (nodeState.getBlock() instanceof AbstractRelayBlock) {
-                    int oldLight = nodeState.getValue(AbstractRelayBlock.LIGHTSTATE);
-                    if (oldLight != state) {
-                        // do burn out math if the light can be burnt out
-                        if (nodeState.getBlock() instanceof BurnOutAbleLightBlock) {
-                            int currentAge = nodeState.getValue(BurnOutAbleLightBlock.AGE);
-                            if (currentAge != 7) {
-                                // lasts on average 28 state changes, or only 14 if waterlogged.
-                                double rand = Math.random();
-                                if (rand < 0.25 || (rand < 0.5 && nodeState.getValue(AbstractRelayBlock.WATERLOGGED))) {
-                                    nodeState = nodeState.setValue(BurnOutAbleLightBlock.AGE, currentAge + 1);
-                                }
+                GraphNode.NodeType nodeType = node.getType();
+                if (!nodeType.isSpecial()) {
+                    SafeBlockSetter.ChangeBlockStateInterface lambda = (a) -> a.setValue(AbstractRelayBlock.LIGHTSTATE, state);
+                    // do burn out math if the light can be burnt out (misc > 0)
+                    if (node.getMisc() > 0) {
+                        // Misc is light age + 1, or + 9 for waterlogged lights
+                        int currentAge = node.getMisc();
+                        if (currentAge != 8 && currentAge != 16) {
+                            // lasts on average 28 state changes, or only 14 if waterlogged.
+                            double rand = Math.random();
+                            if (rand < 0.25 || (rand < 0.5 && currentAge > 8)) {
+                                node.setMisc(currentAge + 1);
+                                lambda = (a) -> a.setValue(AbstractRelayBlock.LIGHTSTATE, state)
+                                        .setValue(BurnOutAbleLightBlock.AGE, currentAge + 1);
                             }
-                        }
-                        nodeState = nodeState.setValue(AbstractRelayBlock.LIGHTSTATE, state);
-                        level.setBlockAndUpdate(node.getPos(), nodeState);
+                        } else lambda = (a) -> a.setValue(AbstractRelayBlock.LIGHTSTATE, 0);
                     }
+                    SafeBlockSetter.safeChangeBlockAndUpdate(node.getPos(), lambda, level);
                 }
             }
         }

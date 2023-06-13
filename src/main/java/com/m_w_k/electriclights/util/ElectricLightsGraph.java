@@ -145,7 +145,9 @@ public class ElectricLightsGraph extends SavedData {
 
     @Contract("_ -> new")
     private static @NotNull GraphNode generateNode(String[] data) {
-        return new GraphNode(new BlockPos(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])), GraphNode.NodeType.valueOf(data[3]));
+        // don't bother with misc unless it is present
+        if (data.length == 4) return new GraphNode(new BlockPos(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])), GraphNode.NodeType.valueOf(data[3]));
+        else return new GraphNode(new BlockPos(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])), GraphNode.NodeType.valueOf(data[3]), Integer.parseInt(data[4]));
     }
     @Contract("_ -> new")
     private static @NotNull GraphNode generateNode(String unsplitData) {
@@ -167,16 +169,20 @@ public class ElectricLightsGraph extends SavedData {
     }
 
     protected String[] parsed() {
-        // toString() produces string of format "([v1, v2, v3, v4], [{v1,v2}, {v2,v3}, {v3,v4}, {v4,v1}])"
+        String[] graph = {"",""};
 
-        // "(v1, v2, v3, v4" and "{v1,v2}, {v2,v3}, {v3,v4}, {v4,v1}])"
-        String[] graph = g.toString().replaceAll("\\[","").split("], ");
+        Set<GraphNode> vertices = g.vertexSet();
+        Set<DefaultEdge> edges = g.edgeSet();
+        graph[0] = vertices.toString()
+                .replace("[","")
+                .replace("]","");
+        graph[1] = edges.toString()
+                .replace("[(", "")
+                .replace(")]", "")
+                .replaceAll("\\), \\(", ", ")
+                .replaceAll(" : ", ",");
 
-        // "v1, v2, v3, v4"
-        graph[0] = graph[0].replaceFirst("\\(","");
-
-        // "v1,v2, v2,v3, v3,v4, v4,v1"
-        graph[1] = graph[1].replaceFirst("]\\)", "").replaceAll("\\{","").replaceAll("}","");
+        // return should be of type ["v1, v2, v3, v4", "v1,v2, v2,v3, v3,v4, v4,v1"]
         return graph;
     }
 
@@ -187,7 +193,7 @@ public class ElectricLightsGraph extends SavedData {
             List<GraphNode> nodes = new ArrayList<>();
             String[] splitNodes = parsedNodes.split(", "); // Split nodes apart
             for (String node : splitNodes) { // Add split nodes to array
-                nodes.add(generateNode(node.split(" ")));
+                nodes.add(generateNode(node));
             }
             return nodes.toArray(new GraphNode[0]);
         }
