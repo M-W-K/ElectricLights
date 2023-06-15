@@ -21,7 +21,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 import static com.m_w_k.electriclights.block.MasterSwitchboardBlock.DISABLED;
-import static com.m_w_k.electriclights.block.MasterSwitchboardBlock.LIGHTSTATE;
 
 public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergyStorage {
     private Set<GraphNode> connectedNodes;
@@ -68,7 +67,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
      * Safe overload that refreshes based on the switchboard's own level
      */
     public void refresh() {
-        voltage = refreshVoltage();
+        voltage = findVoltage();
         refreshConnectedList();
         forceUpdate = true;
         this.setChanged();
@@ -102,7 +101,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
                 oldConnected.removeAll(connectedNodes);
                 // run an intersection with all known lights to make sure we don't attempt to update a removed light
                 oldConnected.retainAll(ELGraphHandler.getAllNodes(level));
-                updateLights(0, oldConnected);
+                updateLights(0, oldConnected, false);
             }
         } else selfNode = findSelfNode();
     }
@@ -117,7 +116,7 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
         return null;
     }
 
-    private int refreshVoltage() {
+    private int findVoltage() {
         if (getLevel()!=null) {
             BlockState blockBelow = getLevel().getBlockState(worldPosition.below());
             if (blockBelow.getBlock() instanceof VoltageBlock capacitor) {
@@ -205,20 +204,22 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
     }
 
     private void updateServicedLights(int state) {
-        updateLights(state, connectedNodes);
+        updateLights(state, connectedNodes, true);
     }
 
-    private void updateLights(int state, Set<GraphNode> nodes) {
+    private void updateLights(int state, Set<GraphNode> nodes, boolean updateSelf) {
         if (level == null) ElectricLightsMod.logToConsole("Warning! A Master Switchboard doesn't know its level and can't update lights because of it!");
         else if (level.getServer() != null && !level.getServer().isCurrentlySaving() && nodes != null) {
-            // Update the attached block to the new state
-            BlockPos pos = this.getBlockPos();
-            if (!isRemoved()) {
-                // No need to safe set because we act as a chunkloader
-                level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(MasterSwitchboardBlock.LIGHTSTATE, state));
+            if (updateSelf) {
+                // Update the attached block to the new state
+                BlockPos pos = this.getBlockPos();
+                if (!isRemoved()) {
+                    // No need to safe set because we act as a chunkloader
+                    level.setBlockAndUpdate(pos, level.getBlockState(pos).setValue(MasterSwitchboardBlock.LIGHTSTATE, state));
+                }
+                // Kill the sound if we get shut down, we won't actually go through the main update loop anymore
+                if (state <= 1) ELPacketHandler.sendToNearClients(new SwitchboardHumPacket(pos, false), pos, 16, level);
             }
-            // Kill the sound if we get shut down, we won't actually go through the main update loop anymore
-            if (state <= 1) ELPacketHandler.sendToNearClients(new SwitchboardHumPacket(pos, false), pos, 16, level);
 
             for (GraphNode node : nodes) {
                 GraphNode.NodeType nodeType = node.getType();
