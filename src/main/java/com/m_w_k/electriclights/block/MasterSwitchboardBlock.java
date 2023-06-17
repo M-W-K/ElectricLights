@@ -34,6 +34,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -182,5 +183,14 @@ public class MasterSwitchboardBlock extends BaseEntityBlock implements SimpleWat
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter p_153475_, BlockPos p_153476_, CollisionContext p_153477_) {
         return SWITCHBOARD_AABBS.get(state.getValue(FACING));
+    }
+
+    /**
+     * Warning for "deprecation" is suppressed because the method is fine to override.
+     */
+    @SuppressWarnings("deprecation")
+    @Override
+    public PushReaction getPistonPushReaction(BlockState p_153494_) {
+        return PushReaction.IGNORE;
     }
 }

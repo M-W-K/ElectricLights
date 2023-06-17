@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -88,5 +89,14 @@ public class AlternatorBlock extends BaseEntityBlock {
             }
             super.onRemove(state, level, pos, newState, isMoving);
         }
+    }
+
+    /**
+     * Warning for "deprecation" is suppressed because the method is fine to override.
+     */
+    @SuppressWarnings("deprecation")
+    @Override
+    public PushReaction getPistonPushReaction(BlockState p_153494_) {
+        return PushReaction.IGNORE;
     }
 }

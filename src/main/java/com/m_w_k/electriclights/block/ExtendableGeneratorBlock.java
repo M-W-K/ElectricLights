@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -66,6 +67,16 @@ public abstract class ExtendableGeneratorBlock extends BaseEntityBlock {
             }
             super.onRemove(state, level, pos, newState, isMoving);
         }
+    }
+
+
+    /**
+     * Warning for "deprecation" is suppressed because the method is fine to override.
+     */
+    @SuppressWarnings("deprecation")
+    @Override
+    public PushReaction getPistonPushReaction(BlockState p_153494_) {
+        return PushReaction.IGNORE;
     }
 
     /**
