@@ -25,23 +25,11 @@ import org.jetbrains.annotations.Nullable;
 public class BurnOutAbleLightBlock extends BaseLightBlock {
     public static final Property<Integer> AGE = BlockStateProperties.AGE_7;
     public BurnOutAbleLightBlock(Properties properties) {
-        super(properties);
+        super(properties, GraphNode.NodeType.BURNABLELIGHT);
     }
     @Override
     public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
         return state.getValue(AGE) == 7 ? 0 : super.getLightEmission(state, level, pos);
-    }
-
-    @Override
-    protected void handleSelfGraphNode(Level level, BlockPos pos, BlockState state, boolean addNode) {
-        if (addNode) {
-            // Misc is light age + 1, or + 9 for waterlogged lights
-            ELGraphHandler.addGraphNodeAndAutoConnect(new GraphNode(pos, GraphNode.NodeType.LIGHT, state.getValue(AGE) + (state.getValue(WATERLOGGED) ? 9 : 1)), level);
-
-        } else {
-            ELGraphHandler.removeGraphNode(new GraphNode(pos, GraphNode.NodeType.LIGHT), level);
-
-        }
     }
 
     @Override

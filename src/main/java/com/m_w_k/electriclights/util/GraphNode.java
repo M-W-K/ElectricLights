@@ -6,18 +6,15 @@ import org.jetbrains.annotations.NotNull;
 public class GraphNode {
     private final BlockPos pos;
     private final NodeType type;
-    private int misc;
 
     public GraphNode(BlockPos pos, NodeType type) {
         this.pos = pos;
         this.type = type;
-        this.misc = 0;
     }
 
     public GraphNode(BlockPos pos, NodeType type, int misc) {
         this.pos = pos;
         this.type = type;
-        this.misc = misc;
     }
 
     public BlockPos getPos() {
@@ -29,22 +26,10 @@ public class GraphNode {
     public NodeType getType() {
         return type;
     }
-    public int getMisc() {
-        return misc;
-    }
-    public void setMisc(int misc) {
-        this.misc = misc;
-    }
 
     @Override
     public @NotNull String toString() {
         return String.valueOf(pos.getX()).concat(" " + pos.getY()).concat(" " + pos.getZ()).concat(" " + type);
-    }
-
-    public @NotNull String toStringMisc() {
-        // non-zero misc must be stored on graph save, but should not affect identity operations that use .toString()
-        if (misc == 0) return String.valueOf(pos.getX()).concat(" " + pos.getY()).concat(" " + pos.getZ()).concat(" " + type);
-        return String.valueOf(pos.getX()).concat(" " + pos.getY()).concat(" " + pos.getZ()).concat(" " + type).concat(" " + misc);
     }
 
     @Override
@@ -57,12 +42,18 @@ public class GraphNode {
     }
 
     public enum NodeType {
-        RELAY, LIGHT, SWITCHBOARD, GENERATOR;
+        RELAY, LIGHT, BURNABLELIGHT, SWITCHBOARD, GENERATOR;
         public boolean isSpecial() {
             return this == SWITCHBOARD || this == GENERATOR;
         }
         public boolean isLight() {
-            return this == LIGHT;
+            return this == LIGHT || this == BURNABLELIGHT;
+        }
+        public boolean isRelay() {
+            return this == RELAY;
+        }
+        public boolean isBurnable() {
+            return this == BURNABLELIGHT;
         }
         public boolean isSwitchboard() {
             return this == SWITCHBOARD;

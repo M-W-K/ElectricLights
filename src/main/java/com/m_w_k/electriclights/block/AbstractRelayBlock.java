@@ -27,11 +27,11 @@ public abstract class AbstractRelayBlock extends FaceAttachedHorizontalDirection
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final Property<Integer> LIGHTSTATE = ELBlockStateProperties.LIGHTSTATE;
 
-    private final boolean isLight;
+    private final GraphNode.NodeType type;
 
-    public AbstractRelayBlock(Properties properties, boolean isLight) {
+    public AbstractRelayBlock(Properties properties, GraphNode.NodeType type) {
         super(properties);
-        this.isLight = isLight;
+        this.type = type;
         this.registerDefaultState(
                 this.stateDefinition.any()
                         .setValue(WATERLOGGED, false)
@@ -70,7 +70,7 @@ public abstract class AbstractRelayBlock extends FaceAttachedHorizontalDirection
         if (!state.is(newState.getBlock())) {
             if (!level.isClientSide()) {
                 if (!state.hasProperty(ELBlockStateProperties.DISABLED) || !state.getValue(ELBlockStateProperties.DISABLED)) {
-                    handleSelfGraphNode(level, pos, state, true);
+                    handleSelfGraphNode(level, pos, true);
                 }
             }
             super.onPlace(state, level, pos, newState, isMoving);
@@ -93,16 +93,12 @@ public abstract class AbstractRelayBlock extends FaceAttachedHorizontalDirection
 
     protected void handleSelfGraphNode(Level level, BlockPos pos, boolean addNode) {
         if (addNode) {
-            ELGraphHandler.addGraphNodeAndAutoConnect(new GraphNode(pos, isLight ? GraphNode.NodeType.LIGHT : GraphNode.NodeType.RELAY), level);
+            ELGraphHandler.addGraphNodeAndAutoConnect(new GraphNode(pos, type), level);
 
         } else {
-            ELGraphHandler.removeGraphNode(new GraphNode(pos, isLight ? GraphNode.NodeType.LIGHT : GraphNode.NodeType.RELAY), level);
+            ELGraphHandler.removeGraphNode(new GraphNode(pos, type), level);
 
         }
-    }
-
-    protected void handleSelfGraphNode(Level level, BlockPos pos, BlockState state, boolean addNode) {
-        handleSelfGraphNode(level, pos, addNode);
     }
 
     /**

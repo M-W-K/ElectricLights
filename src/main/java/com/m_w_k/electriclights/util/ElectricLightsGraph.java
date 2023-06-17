@@ -92,7 +92,7 @@ public class ElectricLightsGraph extends SavedData {
         GraphNode[] graphNodes = deparseNodes(data[0]);
         nodes.putInt("Count", graphNodes.length);
         for (int i = 0; i < graphNodes.length; i++) {
-            nodes.putString(String.valueOf(i), graphNodes[i].toStringMisc());
+            nodes.putString(String.valueOf(i), graphNodes[i].toString());
         }
         CompoundTag edges = new CompoundTag();
         GraphNode[][] graphEdges = deparseEdges(data[1]);
@@ -146,8 +146,7 @@ public class ElectricLightsGraph extends SavedData {
     @Contract("_ -> new")
     private static @NotNull GraphNode generateNode(String[] data) {
         // don't bother with misc unless it is present
-        if (data.length == 4) return new GraphNode(new BlockPos(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])), GraphNode.NodeType.valueOf(data[3]));
-        else return new GraphNode(new BlockPos(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])), GraphNode.NodeType.valueOf(data[3]), Integer.parseInt(data[4]));
+        return new GraphNode(new BlockPos(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])), GraphNode.NodeType.valueOf(data[3]));
     }
     @Contract("_ -> new")
     private static @NotNull GraphNode generateNode(String unsplitData) {
@@ -173,20 +172,16 @@ public class ElectricLightsGraph extends SavedData {
     }
 
     protected String[] parsed() {
-        String[] graph = {"",""};
+        // toString() produces string of format "([v1, v2, v3, v4], [{v1,v2}, {v2,v3}, {v3,v4}, {v4,v1}])"
 
-        Set<GraphNode> vertices = g.vertexSet();
-        Set<DefaultEdge> edges = g.edgeSet();
-        // we only need to save misc in the node list. The edge list doesn't need it, as misc is not part of a node's identity.
-        for (GraphNode vertex : vertices) {
-            graph[0] += ", " + vertex.toStringMisc();
-        }
-        graph[0] = graph[0].replaceFirst(", ", "");
-        graph[1] = edges.toString()
-                .replace("[(", "")
-                .replace(")]", "")
-                .replaceAll("\\), \\(", ", ")
-                .replaceAll(" : ", ",");
+        // "(v1, v2, v3, v4" and "{v1,v2}, {v2,v3}, {v3,v4}, {v4,v1}])"
+        String[] graph = g.toString().replaceAll("\\[","").split("], ");
+
+        // "v1, v2, v3, v4"
+        graph[0] = graph[0].replaceFirst("\\(","");
+
+        // "v1,v2, v2,v3, v3,v4, v4,v1"
+        graph[1] = graph[1].replaceFirst("]\\)", "").replaceAll("\\{","").replaceAll("}","");
 
         // return should be of type ["v1, v2, v3, v4", "v1,v2, v2,v3, v3,v4, v4,v1"]
         return graph;

@@ -2,6 +2,7 @@ package com.m_w_k.electriclights.block;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.m_w_k.electriclights.util.GraphNode;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -37,7 +38,10 @@ public class BaseLightBlock extends AbstractRelayBlock {
                     Block.box(0, 12, 6, 1, 15, 10))));
 
     public BaseLightBlock(Properties properties) {
-        super(properties, true);
+        super(properties, GraphNode.NodeType.LIGHT);
+    }
+    public BaseLightBlock(Properties properties, GraphNode.NodeType type) {
+        super(properties, type);
     }
 
     @Override

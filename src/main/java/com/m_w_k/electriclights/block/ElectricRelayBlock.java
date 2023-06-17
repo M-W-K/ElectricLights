@@ -3,6 +3,7 @@ package com.m_w_k.electriclights.block;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.m_w_k.electriclights.util.ELBreaker;
+import com.m_w_k.electriclights.util.GraphNode;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -96,7 +97,7 @@ public class ElectricRelayBlock extends AbstractRelayBlock implements ELBreaker 
     }
 
     public ElectricRelayBlock(Properties properties) {
-        super(properties, false);
+        super(properties, GraphNode.NodeType.RELAY);
     }
 
     @Override

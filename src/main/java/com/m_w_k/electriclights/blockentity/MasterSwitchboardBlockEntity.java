@@ -21,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 import static com.m_w_k.electriclights.block.MasterSwitchboardBlock.DISABLED;
+import static com.m_w_k.electriclights.block.MasterSwitchboardBlock.WATERLOGGED;
 
 public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergyStorage {
     private Set<GraphNode> connectedNodes;
@@ -224,28 +225,22 @@ public class MasterSwitchboardBlockEntity extends BlockEntity implements IEnergy
             for (GraphNode node : nodes) {
                 GraphNode.NodeType nodeType = node.getType();
                 if (!nodeType.isSpecial()) {
-                    SafeBlockSetter.ChangeBlockStateInterface lambda = (a) -> a.setValue(AbstractRelayBlock.LIGHTSTATE, state);
-                    // do burn out math if the light can be burnt out (misc > 0)
-                    if (node.getMisc() > 0) {
-                        // Misc is light age + 1, or + 9 for waterlogged lights
-                        int currentAge = node.getMisc();
-                        if (currentAge != 8 && currentAge != 16) {
-                            // lasts on average 28 state changes, or only 14 if waterlogged.
-                            double rand = Math.random();
-                            if (rand < 0.25 || (rand < 0.5 && currentAge > 8)) {
-                                // Only pass the more complex lambda if an age increment is okayed
+                    SafeBlockSetter.ChangeBlockStateInterface lambda;
+                    if (node.getType().isBurnable()) {
+                                // Only pass the more complex lambda if we're burnable
                                 lambda = (a) -> {
-                                    // Only do age increment if the lightstate changed
+                                    // Only do age increment calculations if the lightstate changed
                                     if (a.getValue(ELBlockStateProperties.LIGHTSTATE) == state)
                                         return a;
-                                    node.setMisc(currentAge + 1);
-                                    ELGraphHandler.markGraphAsDirty(level);
-                                    return a.setValue(AbstractRelayBlock.LIGHTSTATE, state)
-                                            // waterlogged blocks should still get a value between 1 and 7
-                                            .setValue(BurnOutAbleLightBlock.AGE, (currentAge) % 8);
+                                    // lasts on average 28 state changes, or only 14 if waterlogged.
+                                    double rand = Math.random();
+                                    if (rand < 0.25 || (rand < 0.5 && a.getValue(BurnOutAbleLightBlock.WATERLOGGED))) {
+                                        a = a.setValue(BurnOutAbleLightBlock.AGE, a.getValue(BurnOutAbleLightBlock.AGE) + 1);
+                                    }
+                                    return a.setValue(AbstractRelayBlock.LIGHTSTATE, state);
                                 };
-                            }
-                        }
+                    } else {
+                        lambda = (a) -> a.setValue(AbstractRelayBlock.LIGHTSTATE, state);
                     }
                     SafeBlockSetter.safeChangeBlockAndUpdate(node.getPos(), lambda, level);
                 }
