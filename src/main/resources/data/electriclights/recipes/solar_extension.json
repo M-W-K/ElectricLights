@@ -4,7 +4,7 @@
   [
     "lll",
     "gcg",
-    "   "
+    "bbb"
   ],
   "key":
   {
@@ -14,7 +14,11 @@
     },
     "c":
     {
-      "item": "minecraft:copper_block"
+      "tag": "forge:storage_blocks/gold"
+    },
+    "b":
+    {
+      "item": "electriclights:silicate_board"
     },
     "l":
     {

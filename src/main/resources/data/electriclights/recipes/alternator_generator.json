@@ -2,15 +2,19 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    "iii",
-    "cfw",
-    "bbb"
+    "cii",
+    "rfw",
+    "bbi"
   ],
   "key":
   {
-    "c":
+    "r":
     {
       "item": "electriclights:redstone_chip"
+    },
+    "c":
+    {
+      "tag": "forge:ingots/copper"
     },
     "w":
     {
@@ -18,7 +22,7 @@
     },
     "b":
     {
-      "item": "minecraft:brick"
+      "item": "electriclights:silicate_board"
     },
     "i":
     {

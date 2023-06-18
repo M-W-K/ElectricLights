@@ -2,9 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    " b ",
+    "sbs",
     "prp",
-    "b b"
+    "brb"
   ],
   "key":
   {
@@ -15,6 +15,10 @@
     "r":
     {
       "item": "minecraft:blaze_rod"
+    },
+    "s":
+    {
+      "item": "electriclights:silicate_board"
     },
     "p":
     {

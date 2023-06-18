@@ -14,7 +14,7 @@
     },
     "h":
     {
-      "item": "electriclights:redstone_chip"
+      "item": "electriclights:alternator_generator"
     },
     "c":
     {
@@ -22,7 +22,7 @@
     },
     "b":
     {
-      "item": "minecraft:nether_brick"
+      "item": "electriclights:silicate_board"
     },
     "p":
     {
