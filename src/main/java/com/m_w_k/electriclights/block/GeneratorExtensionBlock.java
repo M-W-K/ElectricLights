@@ -17,10 +17,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,6 +30,8 @@ import java.util.List;
 
 public class GeneratorExtensionBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final Property<Direction.Axis> HORIZONTAL_AXIS = BlockStateProperties.HORIZONTAL_AXIS;
+
     protected static final VoxelShape AABB = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D);
     private final GeneratorType generatorType;
 
@@ -37,11 +41,12 @@ public class GeneratorExtensionBlock extends Block implements SimpleWaterloggedB
         this.registerDefaultState(
                 this.stateDefinition.any()
                         .setValue(WATERLOGGED, false)
+                        .setValue(HORIZONTAL_AXIS, Direction.Axis.X)
         );
     }
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> blockStateBuilder) {
-        blockStateBuilder.add(WATERLOGGED);
+        blockStateBuilder.add(WATERLOGGED, HORIZONTAL_AXIS);
     }
 
     @Override
@@ -52,11 +57,22 @@ public class GeneratorExtensionBlock extends Block implements SimpleWaterloggedB
         return super.updateShape(state1, direction, state2, levelAccessor, pos1, pos2);
     }
 
+    /**
+     * Warning for "deprecation" is suppressed because the method is fine to override.
+     */
+    @SuppressWarnings("deprecation")
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter p_153475_, BlockPos p_153476_, CollisionContext p_153477_) {
+        return AABB;
+    }
+
     @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState state = super.getStateForPlacement(context);
-        return state == null ? null : state.setValue(WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER);
+        return state == null ? null : state
+                .setValue(WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER)
+                .setValue(HORIZONTAL_AXIS, context.getHorizontalDirection().getAxis());
     }
 
     /**

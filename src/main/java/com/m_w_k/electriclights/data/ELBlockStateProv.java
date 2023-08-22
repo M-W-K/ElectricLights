@@ -1,13 +1,11 @@
 package com.m_w_k.electriclights.data;
 
 import com.m_w_k.electriclights.ElectricLightsMod;
-import com.m_w_k.electriclights.block.AbstractRelayBlock;
-import com.m_w_k.electriclights.block.BurnOutAbleLightBlock;
-import com.m_w_k.electriclights.block.ElectricRelayBlock;
-import com.m_w_k.electriclights.block.MasterSwitchboardBlock;
+import com.m_w_k.electriclights.block.*;
 import com.m_w_k.electriclights.registry.ELBlockRegistry;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -34,6 +32,7 @@ public class ELBlockStateProv extends BlockStateProvider {
         this.coil(ELBlockRegistry.VOLTAGE_COIL_L_BLOCK, "low");
         this.coil(ELBlockRegistry.VOLTAGE_COIL_M_BLOCK, "med");
         this.coil(ELBlockRegistry.VOLTAGE_COIL_H_BLOCK, "high");
+        this.extendableGeneratorAndExtension(ELBlockRegistry.SOLAR_BLOCK, ELBlockRegistry.SOLAR_EXTENSION_BLOCK, "solar");
         this.switchboard();
     }
 
@@ -128,6 +127,25 @@ public class ELBlockStateProv extends BlockStateProvider {
                 .texture("1", texturePath)
                 .texture("particle", texturePath);
         this.getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(model).build());
+    }
+
+    public void extendableGeneratorAndExtension(RegistryObject<Block> genRegistryObject, RegistryObject<Block> extensionRegistryObject, String identifier) {
+        Block block = genRegistryObject.get();
+        String texturePath = identifier.concat("_generator");
+        ModelFile model = this.models().getExistingFile(modLoc(texturePath));
+        this.getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(model)
+                .rotationY(state.getValue(ExtendableGeneratorBlock.HORIZONTAL_AXIS) == Direction.Axis.X ? 0 : 90)
+                .build());
+        this.generatorExtension(extensionRegistryObject, identifier);
+    }
+
+    private void generatorExtension(RegistryObject<Block> registryObject, String identifier) {
+        Block block = registryObject.get();
+        String texturePath = identifier.concat("_extension");
+        ModelFile model = this.models().getExistingFile(modLoc(texturePath));
+        this.getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(model)
+                .rotationY(state.getValue(ExtendableGeneratorBlock.HORIZONTAL_AXIS) == Direction.Axis.X ? 0 : 90)
+                .build());
     }
 
     public void switchboard() {

@@ -1,8 +1,10 @@
-// 1.19.3	2023-06-10T21:49:28.404249	Block States: electriclights
+// 1.19.3	2023-08-22T12:14:18.565623	Block States: electriclights
 9480f550c05ed65ea138ce0f63d7655fbcfafd62 assets/electriclights/blockstates/dragon_light.json
 beadffba2fdcf891906c6b621ce3b449f9c569b1 assets/electriclights/blockstates/electric_light.json
 11a5ba6bc6534ca1ea0292c4955b14c33b85a166 assets/electriclights/blockstates/electric_relay.json
 b08edd9e9e22936c6b0b6c4831d7e2f2284c9000 assets/electriclights/blockstates/master_switchboard.json
+ca4a31e9080158c9126c88a6df8729020fd36f38 assets/electriclights/blockstates/solar_extension.json
+b85ac111e4108eae93e26ad47432f29852e86749 assets/electriclights/blockstates/solar_generator.json
 0b84828f8c95d16b1ab7f22ecf160b6c6c51c281 assets/electriclights/blockstates/voltage_coil_h.json
 b6e799a11315fd3839b3a1130a2f0fed60520eb2 assets/electriclights/blockstates/voltage_coil_l.json
 01bdcd4e1335a4c27446b58622784a9b942858f5 assets/electriclights/blockstates/voltage_coil_m.json

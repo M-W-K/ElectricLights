@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "electriclights:block/solar_generator"
+    },
+    "axis=z": {
+      "model": "electriclights:block/solar_generator",
+      "y": 90
+    }
+  }
+}

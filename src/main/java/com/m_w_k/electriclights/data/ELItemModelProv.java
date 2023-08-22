@@ -21,6 +21,9 @@ public class ELItemModelProv extends ItemModelProvider {
         simpleBlockItem(ELBlockRegistry.VOLTAGE_COIL_M_BLOCK, ELItemsRegistry.VOLTAGE_COIL_M_BLOCK_ITEM);
         simpleBlockItem(ELBlockRegistry.VOLTAGE_COIL_H_BLOCK, ELItemsRegistry.VOLTAGE_COIL_H_BLOCK_ITEM);
 
+        simpleBlockItem(ELBlockRegistry.SOLAR_BLOCK, ELItemsRegistry.SOLAR_BLOCK_ITEM);
+        simpleBlockItem(ELBlockRegistry.SOLAR_EXTENSION_BLOCK, ELItemsRegistry.SOLAR_EXTENSION_BLOCK_ITEM);
+
         item(ELItemsRegistry.ELECTRIC_RELAY_BLOCK_ITEM, "block/relay_active_blueprint");
         item(ELItemsRegistry.SWITCHBOARD_BLOCK_ITEM, "block/switchboard_active_blueprint");
 
